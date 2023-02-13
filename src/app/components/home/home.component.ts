@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { ContactComponent } from '../../components/contact/contact.component';
 
+const routes: Routes = [
+  { path: 'contact', component: ContactComponent },
+];
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -8,3 +14,8 @@ import { Component } from '@angular/core';
 export class HomeComponent {
 
 }
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
