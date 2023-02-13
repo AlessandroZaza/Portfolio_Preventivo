@@ -1,10 +1,90 @@
+<style>
+    body {
+        background: #0b1d2a;
+    }
+
+    .arrows {
+        width: 60px;
+        height: 72px;
+        position: absolute;
+        left: 50%;
+        margin-left: -30px;
+        bottom: 20px;
+    }
+
+    .arrows path {
+        stroke: #2994D1;
+        fill: transparent;
+        stroke-width: 1px;
+        animation: arrow 2s infinite;
+        -webkit-animation: arrow 2s infinite;
+    }
+
+    @keyframes arrow {
+        0% {
+            opacity: 0
+        }
+
+        40% {
+            opacity: 1
+        }
+
+        80% {
+            opacity: 0
+        }
+
+        100% {
+            opacity: 0
+        }
+    }
+
+    @-webkit-keyframes arrow
+
+    /*Safari and Chrome*/
+        {
+        0% {
+            opacity: 0
+        }
+
+        40% {
+            opacity: 1
+        }
+
+        80% {
+            opacity: 0
+        }
+
+        100% {
+            opacity: 0
+        }
+    }
+
+    .arrows path.a1 {
+        animation-delay: -1s;
+        -webkit-animation-delay: -1s;
+        /* Safari 和 Chrome */
+    }
+
+    .arrows path.a2 {
+        animation-delay: -0.5s;
+        -webkit-animation-delay: -0.5s;
+        /* Safari 和 Chrome */
+    }
+
+    .arrows path.a3 {
+        animation-delay: 0s;
+        -webkit-animation-delay: 0s;
+        /* Safari 和 Chrome */
+    }
+</style>
+
 <section class="d-flex flex-column"
     style="height: 100vh; background-image: url('../../../assets/background/background.png'); background-size: cover; background-repeat: no-repeat;">
     <h1 class="display-1 mx-5 mt-5 p-1 pt-5 text-light">
         Make your business grow with us!
     </h1>
     <button type="button" class="btn btn-outline-light btn-rounded w-50 ms-5 mt-3"> Contact Us </button>
-<!--
+    <!--
     <figure class="text-end mx-4 mt-5 pt-5">
         <blockquote class="blockquote text-light fs-6">
             <p>Anche l'occhio ha bisogno della sua parte</p>
@@ -13,9 +93,13 @@
             <small> Alessandro & Paolo <cite title="Source Title">13, Feb 2023</cite></small>
         </figcaption>
     </figure> -->
+    <svg class="arrows">
+        <path class="a1" d="M0 0 L30 32 L60 0"></path>
+        <path class="a2" d="M0 20 L30 52 L60 20"></path>
+        <path class="a3" d="M0 40 L30 72 L60 40"></path>
+    </svg>
 </section>
 
-<section class="d-flex flex-column"
-    style="height: 30vh; background-color: rgb(8, 0, 33);">
+<section class="d-flex flex-column" style="height: 30vh; background-color: rgb(10, 1, 39);">
 
 </section>
