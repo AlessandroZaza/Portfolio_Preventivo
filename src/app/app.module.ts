@@ -18,12 +18,8 @@ import { PreventivoComponent } from './components/preventivo/preventivo.componen
     PortfolioComponent,
     PreventivoComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
