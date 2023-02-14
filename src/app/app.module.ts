@@ -9,6 +9,8 @@ import { ContactComponent } from './components/contact/contact.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { PreventivoComponent } from './components/preventivo/preventivo.component';
+import { PortfolioPaoloComponent } from './components/portfolio-paolo/portfolio-paolo.component';
+import { PortfolioAlessandroComponent } from './components/portfolio-alessandro/portfolio-alessandro.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,6 +19,8 @@ import { PreventivoComponent } from './components/preventivo/preventivo.componen
     ContactComponent,
     PortfolioComponent,
     PreventivoComponent,
+    PortfolioPaoloComponent,
+    PortfolioAlessandroComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],
