@@ -1,0 +1,12 @@
+* {
+  box-sizing: border-box;
+}
+
+section {
+  width: 100%;
+  background: linear-gradient(45deg, #d2001a, #7462ff);
+}
+
+/*russian violet: 3a015c*/
+/*palatinate: 4f0147*/
+/*darkpurple: 35012c*/
