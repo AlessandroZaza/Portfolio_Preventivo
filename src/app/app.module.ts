@@ -11,6 +11,7 @@ import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { PreventivoComponent } from './components/preventivo/preventivo.component';
 import { PortfolioPaoloComponent } from './components/portfolio-paolo/portfolio-paolo.component';
 import { PortfolioAlessandroComponent } from './components/portfolio-alessandro/portfolio-alessandro.component';
+import { PortfolioProvaPaoloComponent } from './components/portfolio-prova-paolo/portfolio-prova-paolo.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +22,7 @@ import { PortfolioAlessandroComponent } from './components/portfolio-alessandro/
     PreventivoComponent,
     PortfolioPaoloComponent,
     PortfolioAlessandroComponent,
+    PortfolioProvaPaoloComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],
