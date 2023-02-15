@@ -4,9 +4,11 @@
 
 section {
   width: 100%;
-  background: linear-gradient(45deg, #d2001a, #7462ff);
+  background: linear-gradient(45deg, #3f84e5, #f0e2e7, #b20d30);
 }
 
 /*russian violet: 3a015c*/
 /*palatinate: 4f0147*/
 /*darkpurple: 35012c*/
+
+/*Palette1: 45deg, #3f84e5, #f0e2e7, #b20d30*/
