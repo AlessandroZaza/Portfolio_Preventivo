@@ -12,6 +12,7 @@ const routes: Routes = [
     path: '../portfolio-alessandro/portfolio-alessandro.component.html',
     component: PortfolioAlessandroComponent,
   },
+  
 ];
 
 @Component({
