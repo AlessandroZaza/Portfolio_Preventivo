@@ -3,7 +3,7 @@
   <div class="d-flex flex-column w-50 align-items-start pt-5 ps-4 mt-5">
     <p class="display-2 ms-5">I'm Alessandro Zaza</p>
     <hr class="w-50 ms-5" />
-    <p class="ms-5 text-start w-50">
+    <p class="ms-5 text-start w-75">
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
       veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
@@ -15,16 +15,18 @@
   </div>
 
   <div
-    class="col-md-6 col-lg-5 col-xl-5 col-xxl-5 mt-5 w-25"
+    class="d-none d-lg-block col-md-6 col-lg-5 col-xl-5 col-xxl-5 mt-5"
     style="height: 35vh"
   >
     <div class="img2 position-relative mx-auto">
       
-  <div class="backgroundElement position-absolute z-0 end-0"></div>
+  <div class="d-none d-xl-block backgroundElement position-absolute z-0 end-0"></div>
       <img
+      class="d-none d-lg-block"
         style="
           position: absolute;
           top: 0%;
+          left: 20%;
           display: block;
           z-index: 1;
           width: 35vh;
@@ -39,11 +41,12 @@
       />
 
       <div
+      class="d-none d-xxl-block"
         style="
           position: absolute;
           z-index: 0;
           top: 0%;
-          left: 60.5%;
+          left: 55%;
           width: 25vh;
           height: 25vh;
           border-radius: 50%;
@@ -85,8 +88,8 @@
 
 
 <section>
-  <div class="card-group mx-md-5">
-      <div class="card mx-5">
+  <div class="card-group mx-4">
+      <div class="card col-sm-6 col-xl-4 mb-3 mb-sm-0 mt-3 me-md-4">
         <img src="..." class="card-img-top" alt="...">
         <div class="card-body">
           <h2 class="card-title">TvMaze-App</h2>
@@ -96,7 +99,7 @@
           <small class="text-muted">Last updated 2 months ago</small>
         </div>
       </div>
-      <div class="card mx-5">
+      <div class="card col-sm-6 col-xl-4 mb-3 mb-sm-0 mt-3 me-md-4">
         <img src="..." class="card-img-top" alt="...">
         <div class="card-body">
           <h2 class="card-title">Portfolio</h2>
@@ -106,7 +109,7 @@
           <small class="text-muted">Last updated 1 week ago</small>
         </div>
       </div>
-      <div class="card mx-5">
+      <div class="card col-sm-6 col-xl-4 mb-3 mb-sm-0 mt-3 ">
         <img src="..." class="card-img-top" alt="...">
         <div class="card-body">
           <h2 class="card-title">AppDrinks</h2>

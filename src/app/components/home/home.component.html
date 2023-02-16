@@ -1,99 +1,20 @@
-<style>
-    body {
-        background: #0b1d2a;
-    }
-
-    .arrows {
-        width: 60px;
-        height: 72px;
-        position: absolute;
-        left: 50%;
-        margin-left: -30px;
-        bottom: 20px;
-    }
-
-    .arrows path {
-        stroke: #2994D1;
-        fill: transparent;
-        stroke-width: 1px;
-        animation: arrow 2s infinite;
-        -webkit-animation: arrow 2s infinite;
-    }
-
-    @keyframes arrow {
-        0% {
-            opacity: 0
-        }
-
-        40% {
-            opacity: 1
-        }
-
-        80% {
-            opacity: 0
-        }
-
-        100% {
-            opacity: 0
-        }
-    }
-
-    @-webkit-keyframes arrow
-
-    /*Safari and Chrome*/
-        {
-        0% {
-            opacity: 0
-        }
-
-        40% {
-            opacity: 1
-        }
-
-        80% {
-            opacity: 0
-        }
-
-        100% {
-            opacity: 0
-        }
-    }
-
-    .arrows path.a1 {
-        animation-delay: -1s;
-        -webkit-animation-delay: -1s;
-        /* Safari 和 Chrome */
-    }
-
-    .arrows path.a2 {
-        animation-delay: -0.5s;
-        -webkit-animation-delay: -0.5s;
-        /* Safari 和 Chrome */
-    }
-    
-    .arrows path.a3 {
-        animation-delay: 0s;
-        -webkit-animation-delay: 0s;
-        /* Safari 和 Chrome */
-    }
-</style>
-
+<link rel="stylesheet" href="./home.component.css" />
 <section
     style="height: 100vh; background-image: url('../../../assets/background/background.png'); background-size: cover; background-repeat: no-repeat;">
 
-    <div class="mx-5 flex-column text-center" style="padding-top: 10vh;" >
+    <div class=" mx-5 flex-column text-center pb-5" style="padding-top: 10vh;" >
         <h1 class="text-light lh-1" style="font-size: 3rem"> Web Agency </h1>
         <hr class="hr hr-blurry">
         <h1 class="text-light lh-1 " style="font-size: 2rem"> PAle - Web </h1>
     </div>
 
-    <div class="position-relative mx-5 ps-1 text-light" style="height: 20vh; margin-top: 20vh;">
+    <div class="col-12 position-relative mx-5 ps-1 text-light mt-5" style="height: 20vh; ">
         <h3 class="position-absolute" style="font-size: 1.8rem; top: 0%">
             make your
         </h3>
         <p class="display-1 position-absolute" style="font-size: 3rem; top: 15%;">business </p>
         <h3 class="position-absolute" style="top: 45%" ><em class="" >grow</em> with us!</h3>
-        <button type="button" routerLink="../contact" class="btn btn-outline-light btn-rounded w-50 position-absolute" style="bottom: 10%;">
+        <button type="button" routerLink="../contact" class="btn btn-outline-light btn-rounded position-absolute" style="bottom: 10%;">
             Contact Us
         </button>
     </div>
@@ -105,12 +26,12 @@
     </svg>
 </section>
 
-<section class="d-flex flex-column" style="height: 190vh; background-color: rgb(10, 1, 39);">
+<section class="d-flex flex-column pb-5" style="background-color: rgb(10, 1, 39);">
 
-    <p class="display-3 w-75 ms-4 text-light text-start"> what we are offering: </p>
+    <p class="display-3 w-75 ms-4 mt-md-5 mx-md-5 text-light text-start"> what we are offering: </p>
 
     <div class="row mx-4">
-        <div class="col-sm-6 mb-3 mb-sm-0 mt-3">
+        <div class="col-sm-6 col-xl-4 mb-3 mb-sm-0 mt-3">
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title">Sito web statico</h2>
@@ -120,7 +41,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 mb-3 mb-sm-0 mt-3">
+        <div class="col-sm-6 col-xl-4 mb-3 mb-sm-0 mt-3">
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title">Sito web tramite CMS</h2>
@@ -130,7 +51,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 mb-3 mb-sm-0 mt-3">
+        <div class="col-sm-6 col-xl-4 mb-3 mb-sm-0 mt-3">
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title">E-Commerce</h2>
@@ -140,7 +61,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 mb-3 mb-sm-0 mt-3">
+        <div class="col-sm-6 col-xl-4 mb-3 mb-sm-0 mt-3">
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title">Servizio gestionale</h2>
@@ -150,7 +71,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 mb-3 mb-sm-0 mt-3">
+        <div class="col-sm-6 col-xl-4 mb-3 mb-sm-0 mt-3">
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title">Servizio IoT</h2>
@@ -160,7 +81,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6 mb-3 mb-sm-0 mt-3">
+        <div class="col-sm-6 col-xl-4 mb-3 mb-sm-0 mt-3">
             <div class="card">
                 <div class="card-body">
                     <h2 class="card-title">Servizio AI</h2>
