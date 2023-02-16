@@ -1,4 +1,5 @@
 /*Style for background*/
+/*Palette: 45deg, #3f84e5, #f0e2e7, #b20d30*/
 
 section {
   width: 100%;
@@ -18,6 +19,3 @@ section {
     background-position: 0 50%;
   }
 }
-/*Palette1: 45deg, #3f84e5, #f0e2e7, #b20d30*/
-/*Palette2: 45deg, #c33c54, #254e70, #37718e*/
-/*Palette3: 45deg, #e8b423, #00229c, #c3cceb*/
