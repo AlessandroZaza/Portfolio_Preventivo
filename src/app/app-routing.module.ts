@@ -7,7 +7,7 @@ import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { PreventivoComponent } from './components/preventivo/preventivo.component';
 import { PortfolioPaoloComponent } from './components/portfolio-paolo/portfolio-paolo.component';
 import { PortfolioAlessandroComponent } from './components/portfolio-alessandro/portfolio-alessandro.component';
-import { PortfolioProvaPaoloComponent } from './components/portfolio-prova-paolo/portfolio-prova-paolo.component';
+
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: '', component: HomeComponent },
@@ -15,7 +15,6 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'portfolio', component: PortfolioComponent },
   { path: 'portfolio-paolo', component: PortfolioPaoloComponent },
-  { path: 'portfolioProva-paolo', component: PortfolioProvaPaoloComponent },
   { path: 'portfolio-alessandro', component: PortfolioAlessandroComponent },
   { path: 'preventivo', component: PreventivoComponent },
 ];
