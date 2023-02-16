@@ -1,34 +1,44 @@
 <link rel="stylesheet" href="./home.component.css" />
-<section
+<section class="d-flex align-items-center"
     style="height: 100vh; background-image: url('../../../assets/background/background.png'); background-size: cover; background-repeat: no-repeat;">
 
-    <div class="mx-5 flex-column text-center pb-5" style="padding-top: 10vh;" >
-        <h1 class="text-light lh-1" style="font-size: 3rem"> Web Agency </h1>
-        <hr class="hr hr-blurry">
-        <h1 class="text-light lh-1 " style="font-size: 2rem"> PAle - Web </h1>
-    </div>
+    <section class="d-flex flex-row px-5 ms-5 me-5 justify-content-around card pt-5 pb-5" style="border-radius: 2vh;">
+        <div class="text-dark ms-4 pe-5 col-6">
+            <p class="display-1 fw-semibold ">PAW-Agency</p>
+            <h1 class="fst-italic fw-normal">Make your business <span class="text-success">grow</span> with us</h1>
+            <hr class="">
+            <p class="" >
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+                do eiusmod tempor incididunt
+                ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                ex
+                ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit
+                anim id est laborum."
+            </p>
+            <hr class="w-75">
+            <p class="lh-1 fw-semibold text-start">
+                composed by:
+            </p>
+            <p class="lh-1 fw-light text-start"> Alessandro Zaza </p>
+            <p class="lh-1 fw-light text-start"> Paolo Gippa </p>
+            <button type="button" routerLink="../contact" class="btn btn-outline-dark btn-rounded mt-4">
+                Contact Us
+            </button>
+        </div>
 
-    <div class="d-block d-md-none col-12 position-relative ps-5 ps-1 text-light mt-5 border border-dark" style="height: 20vh; ">
-        <h3 class="position-absolute mt-5" style="font-size: 1.8rem; top: 0%">
-            make your
-        </h3>
-        <p class="display-1 position-absolute mt-5" style="font-size: 3rem; top: 10%;">business </p>
-        <h3 class="position-absolute mt-5" style="top: 33%" ><em class="" >grow</em> with us!</h3>
-        <button type="button" routerLink="../contact" class="btn btn-outline-light btn-rounded position-absolute" style="bottom: 10%;">
-            Contact Us
-        </button>
-    </div>
+        <div class="card ms-5" style="overflow: hidden; border-radius: 2vh;">
+            <div>
+                <div class="" style="border-top-right-radius: 2vh; border-top-left-radius: 2vh;">
+                    <img src="../../../assets/background/home-bg-card.png" alt="">
+                </div>
+            </div>
+        </div>
 
-    <div class="d-none d-md-block col-12 ps-5 ps-1 text-light mt-5" style="height: 20vh; ">
-        <h3 class="" style="font-size: 3.8vh">
-            make your
-        </h3>
-        <p class="display-1" style="font-size: 8vh;">business </p>
-        <h3 class="" style=" font-size: 3.8vh;" ><em>grow</em> with us!</h3>
-        <button type="button" routerLink="../contact" class="btn btn-outline-light btn-rounded ">
-            Contact Us
-        </button>
-    </div>
+    </section>
 
     <svg class="arrows">
         <path class="a1" d="M0 0 L30 32 L60 0"></path>
