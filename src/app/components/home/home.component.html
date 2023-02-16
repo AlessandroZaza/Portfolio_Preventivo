@@ -1,13 +1,14 @@
 <link rel="stylesheet" href="./home.component.css" />
 <section class="d-flex justify-content-center align-items-center"
-    style="height: 100vh; background-image: url('../../../assets/background/background.png'); background-size: cover; background-repeat: no-repeat;">
+    style=" background-image: url('../../../assets/background/background.png'); background-size: cover; background-repeat: no-repeat;">
 
-    <section class="d-flex col-12 col-md-10 flex-row px-3 px-md-5  justify-content-center card pt-5 pb-5" style="border-radius: 2vh;">
-        <div class="text-dark ms-4 pe-5 col-12 col-xl-6">
-            <p class="display-1 fw-semibold ">PAW-Agency</p>
-            <h1 class="fst-italic fw-normal">Make your business <span class="text-success">grow</span> with us</h1>
+    <section class="d-flex col-12 col-md-10 flex-row px-3 px-md-5 my-5 justify-content-center card pt-5 pb-5"
+        style="border-radius: 2vh;">
+        <div class="text-dark justify-content-center align-items-center d-flex flex-column ms-md-4 pe-md-5 col-12 col-xl-6">
+            <p class="display-1 fw-semibold text-center ">PAW-Agency</p>
+            <h1 class="fst-italic fw-normal text-center">Make your business <span class="text-success">grow</span> with us</h1>
             <hr class="">
-            <p class="fs-6" >
+            <p class="fs-6 text-center">
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
                 do eiusmod tempor incididunt
                 ut labore et
@@ -25,26 +26,29 @@
             </p>
             <p class="lh-1 fw-light text-start"> - Alessandro Zaza </p>
             <p class="lh-1 fw-light text-start"> - Paolo Gippa </p>
-            <button type="button" routerLink="../contact" class="btn btn-outline-dark btn-rounded mt-4">
-                Contact Us
-            </button>
+
+           
+                <button type="button" routerLink="../contact" class="btn btn-outline-dark btn-rounded mt-4 col-8">
+                    Contact Us
+                </button>
+                <svg class="arrows mt-5">
+                    <path class="a1" d="M0 0 L30 32 L60 0"></path>
+                    <path class="a2" d="M0 20 L30 52 L60 20"></path>
+                    <path class="a3" d="M0 40 L30 72 L60 40"></path>
+                </svg>
+
+
         </div>
 
         <div class="card ms-5 d-none d-xl-block" style="overflow: hidden; border-radius: 2vh;">
             <div>
-                <div class="" style="border-top-right-radius: 2vh; border-top-left-radius: 2vh;">
+                <div style="border-top-right-radius: 2vh; border-top-left-radius: 2vh;">
                     <img src="../../../assets/background/home-bg-card.png" alt="">
                 </div>
             </div>
         </div>
 
     </section>
-
-    <svg class="arrows">
-        <path class="a1" d="M0 0 L30 32 L60 0"></path>
-        <path class="a2" d="M0 20 L30 52 L60 20"></path>
-        <path class="a3" d="M0 40 L30 72 L60 40"></path>
-    </svg>
 </section>
 
 <section class="d-flex flex-column pb-5" style="background-color: rgb(10, 1, 39);">
