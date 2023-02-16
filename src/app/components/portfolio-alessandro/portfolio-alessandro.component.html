@@ -1,9 +1,24 @@
 <link rel="stylesheet" href="./portfolio-alessandro.component.css" />
 <section class="d-flex justify-content-center">
-  <div class="d-flex flex-column w-50 align-items-start pt-5 ps-4 mt-5">
-    <p class="display-2 ms-5">I'm Alessandro Zaza</p>
-    <hr class="w-50 ms-5" />
-    <p class="ms-5 text-start w-75">
+  <div class="d-flex flex-column align-items-center align-items-lg-start pt-md-5 ps-lg-4 mt-5">
+    <div>
+      <p class="d-none d-lg-block display-2 text-center text-lg-start ms-lg-5">I'm Alessandro Zaza</p>
+      <div class="d-block d-lg-none d-flex flex-md-row flex-column align-items-center">
+        <img
+        class="border border-3 border-dark mb-md-0 mb-3"
+        src="../../../assets/portraits/ale-portrait.jpeg"
+        style="
+        width: 10vh;
+        height: 10vh;
+        border-radius: 50%;
+        border: 4px solid;
+        " alt="">
+        <p class="ms-3 d-lg-block display-2 text-center text-lg-start ms-lg-5">I'm Alessandro Zaza</p>
+      </div>
+    </div>
+
+    <hr class="w-75 ms-lg-5" />
+    <p class="ms-lg-5 text-center text-lg-start mx-4 mx-md-5 px-sm-5 ps-lg-0 pe-lg-5">
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
       veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
@@ -14,16 +29,11 @@
     </p>
   </div>
 
-  <div
-    class="d-none d-lg-block col-md-6 col-lg-5 col-xl-5 col-xxl-5 mt-5"
-    style="height: 35vh"
-  >
+  <div class="d-none d-lg-block me-5 col-md-6 col-lg-5 col-xl-5 col-xxl-5 mt-5" style="height: 35vh">
     <div class="img2 position-relative mx-auto">
-      
-  <div class="d-none d-xl-block backgroundElement position-absolute z-0 end-0"></div>
-      <img
-      class="d-none d-lg-block"
-        style="
+
+      <div class="d-none d-xl-block backgroundElement position-absolute z-0 end-0"></div>
+      <img class="d-none d-lg-block" style="
           position: absolute;
           top: 0%;
           left: 20%;
@@ -34,15 +44,9 @@
           border-radius: 50%;
           background-color: rgb(221, 197, 178);
           margin-top: 0px;
-        "
-        src="../../../assets/portraits/portrait-ale-nobg.png"
-        routerLink="../portfolio-alessandro"
-        alt=""
-      />
+        " src="../../../assets/portraits/portrait-ale-nobg.png" routerLink="../portfolio-alessandro" alt="" />
 
-      <div
-      class="d-none d-xxl-block"
-        style="
+      <div class="d-none d-xxl-block" style="
           position: absolute;
           z-index: 0;
           top: 0%;
@@ -52,10 +56,8 @@
           border-radius: 50%;
           border: 7px solid rgb(99, 148, 223);
           background-color: rgb(99, 148, 223);
-        "
-      >
-        <img
-          style="
+        ">
+        <img style="
             position: absolute;
             top: -3%;
             left: -3%;
@@ -64,11 +66,7 @@
             width: 25vh;
             height: 25vh;
             border-radius: 50%;
-          "
-          src="../../../assets/portraits/paolo-portrait.jpg"
-          routerLink="../portfolio-paolo"
-          alt=""
-        />
+          " src="../../../assets/portraits/paolo-portrait(flipped).jpg" routerLink="../portfolio-paolo" alt="" />
       </div>
     </div>
   </div>
@@ -76,48 +74,58 @@
 
 
 
-<div class="d-flex mt-5">
-  <button
-    type="button"
-    routerLink="../portfolio-paolo"
-    class="btn btn-primary mb-5 mx-auto"
-  >
+<div class="mb-5 d-flex mt-5 justify-content-center align-items-center">
+  <button type="button" routerLink="../portfolio-paolo" class="btn btn-primary me-5">
     Go to Paolo
   </button>
+  <div class="d-block d-lg-none">
+    <img
+    class="border border-3 border-primary"
+    src="../../../assets/portraits/paolo-portrait(flipped).jpg"
+    style="
+    width: 9vh;
+    height: 9vh;
+    border-radius: 50%;
+    border: 4px solid;
+    " alt="">
+  </div>
 </div>
 
 
-<section>
-  <div class="card-group mx-4">
-      <div class="card col-sm-6 col-xl-4 mb-3 mb-sm-0 mt-3 me-md-4">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h2 class="card-title">TvMaze-App</h2>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 2 months ago</small>
-        </div>
+
+
+<section class="container text-center">
+  <div class="row justify-content-md-center gap-5">
+    <div class="card col-xl-3">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h2 class="card-title">TvMaze-App</h2>
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
       </div>
-      <div class="card col-sm-6 col-xl-4 mb-3 mb-sm-0 mt-3 me-md-4">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h2 class="card-title">Portfolio</h2>
-          <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 1 week ago</small>
-        </div>
-      </div>
-      <div class="card col-sm-6 col-xl-4 mb-3 mb-sm-0 mt-3 ">
-        <img src="..." class="card-img-top" alt="...">
-        <div class="card-body">
-          <h2 class="card-title">AppDrinks</h2>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 months ago</small>
-        </div>
+      <div class="card-footer">
+        <small class="text-muted">Last updated 2 months ago</small>
       </div>
     </div>
+    <div class="card col-xl-3 mx-md-5">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h2 class="card-title">Portfolio</h2>
+        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">Last updated 1 week ago</small>
+      </div>
+    </div>
+    <div class="card col-xl-3">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h2 class="card-title">AppDrinks</h2>
+        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content.
+          This card has even longer content than the first to show that equal height action.</p>
+      </div>
+      <div class="card-footer">
+        <small class="text-muted">Last updated 3 months ago</small>
+      </div>
+    </div>
+  </div>
 </section>
