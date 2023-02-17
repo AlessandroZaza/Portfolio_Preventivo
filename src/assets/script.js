@@ -16,14 +16,13 @@ function calcola() {
   var NameRequired = document.getElementById("NameRequired");
   var LastNameRequired = document.getElementById("LastNameRequired");
 
-
   if (NameRequired.value === "" || LastNameRequired.value === "") {
     // il campo è vuoto
-    if( NameRequired.value === "" ){
-        result.innerText = "Name required";
+    if (NameRequired.value === "") {
+      result.innerText = "Name required";
     }
-    if( LastNameRequired.value === "" ){
-        result.innerText = "Last name required";
+    if (LastNameRequired.value === "") {
+      result.innerText = "Last name required";
     }
   } else {
     // il campo contiene un valore
@@ -36,14 +35,23 @@ function calcola() {
       case "cms":
         valore += 100;
         break;
+      case "ecom":
+        valore += 150;
+        break;
+      case "management":
+        valore += 200;
+        break;
       case "iot":
+        valore += 250;
+        break;
+      case "ia":
         valore += 200;
         break;
       default:
         result.innerText = "chose a service";
         return;
     }
-  
+
     if (extra.value === "yes" && extra.checked) {
       valore += 50;
     }
