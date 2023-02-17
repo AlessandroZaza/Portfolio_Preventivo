@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,9 @@ import { PreventivoComponent } from './components/preventivo/preventivo.componen
 import { PortfolioPaoloComponent } from './components/portfolio-paolo/portfolio-paolo.component';
 import { PortfolioAlessandroComponent } from './components/portfolio-alessandro/portfolio-alessandro.component';
 import { PortfolioprovapaoloComponent } from './components/portfolioprovapaolo/portfolioprovapaolo.component';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,8 +28,9 @@ import { PortfolioprovapaoloComponent } from './components/portfolioprovapaolo/p
     PortfolioAlessandroComponent,
     PortfolioprovapaoloComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
+  
 })
 export class AppModule {}

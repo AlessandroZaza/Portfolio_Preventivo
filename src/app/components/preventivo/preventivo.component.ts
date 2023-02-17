@@ -1,11 +1,16 @@
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
-var arrayDomain = ["www.google.com", "www.facebook.com", "www.microsoft.com", "www.sony.com", "www.nttdata.com"];
+
 @Component({
   selector: 'app-preventivo',
   templateUrl: './preventivo.component.html',
   styleUrls: ['./preventivo.component.css']
 })
-export class PreventivoComponent {
 
+export class PreventivoComponent {
+  calcola() {
+    new calcola();
+  }
 }
+
