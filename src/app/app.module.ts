@@ -11,6 +11,7 @@ import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { PreventivoComponent } from './components/preventivo/preventivo.component';
 import { PortfolioPaoloComponent } from './components/portfolio-paolo/portfolio-paolo.component';
 import { PortfolioAlessandroComponent } from './components/portfolio-alessandro/portfolio-alessandro.component';
+
 @NgModule({
   declarations: [
     AppComponent,
