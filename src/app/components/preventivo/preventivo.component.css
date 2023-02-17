@@ -1,0 +1,23 @@
+/*Style for background*/
+/*Palette: 45deg, #3f84e5, #f0e2e7, #b20d30*/
+
+.backgroundElement {
+    /*background: linear-gradient(45deg, #3f84e5, #f0e2e7, #b20d30);*/
+    background: linear-gradient(45deg, #3f84e5, #f0e2e7, #a5742f);
+    background-size: 300% 300%;
+    animation: color 12s ease-in-out infinite;
+  }
+  
+  @keyframes color {
+    0% {
+      background-position: 0 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0 50%;
+    }
+  }
+  
+  

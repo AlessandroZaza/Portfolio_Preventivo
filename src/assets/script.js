@@ -17,7 +17,7 @@ function calcola() {
   var LastNameRequired = document.getElementById("LastNameRequired");
   var DateRequired = document.getElementById("DateRequired");
 
-  if (NameRequired.value === "" || LastNameRequired.value === "" || DataRequired === "") {
+  if (NameRequired.value === "" || LastNameRequired.value === "" ) {
     // il campo è vuoto
     if (NameRequired.value === "") {
       result.innerText = "Name required";
@@ -25,9 +25,7 @@ function calcola() {
     if (LastNameRequired.value === "") {
       result.innerText = "Last name required";
     }
-    if (DataRequired.value === "") {
-        result.innerText = "Data required";
-    }
+
   } else {
     // il campo contiene un valore
 
