@@ -15,14 +15,18 @@ function calcola() {
   var result = document.getElementById("result");
   var NameRequired = document.getElementById("NameRequired");
   var LastNameRequired = document.getElementById("LastNameRequired");
+  var DateRequired = document.getElementById("DateRequired");
 
-  if (NameRequired.value === "" || LastNameRequired.value === "") {
+  if (NameRequired.value === "" || LastNameRequired.value === "" || DataRequired === "") {
     // il campo è vuoto
     if (NameRequired.value === "") {
       result.innerText = "Name required";
     }
     if (LastNameRequired.value === "") {
       result.innerText = "Last name required";
+    }
+    if (DataRequired.value === "") {
+        result.innerText = "Data required";
     }
   } else {
     // il campo contiene un valore
