@@ -106,49 +106,9 @@
 </section> 
 -->
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f7f7f7;
-    }
-
-    .container {
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 40px;
-    }
-
-    h1 {
-        font-size: 36px;
-        font-weight: bold;
-        text-align: center;
-        margin-bottom: 40px;
-    }
-
-    form {
-        background-color: #fff;
-        border-radius: 8px;
-        padding: 40px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        margin-bottom: 40px;
-    }
-
-    input[type="text"],
-    textarea {
-        width: 100%;
-        padding: 10px;
-        border: none;
-        border-radius: 4px;
-        margin-bottom: 20px;
-    }
 
     input[type="submit"] {
         background-color: #000;
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
         cursor: pointer;
     }
 
@@ -156,50 +116,26 @@
         background-color: #333;
     }
 
-    .contact-info {
-        background-color: #fff;
-        border-radius: 8px;
-        padding: 40px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    }
-
-    .contact-info h2 {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 20px;
-    }
-
-    .contact-info p {
-        margin-bottom: 10px;
-        font-size: 16px;
-        color: #555;
-    }
-
-    .contact-info a {
-        color: #000;
-        text-decoration: none;
-        font-size: 16px;
-        display: block;
-        margin-bottom: 10px;
-    }
 </style>
 
-<body>
-    <div class="container">
-        <h1>Contattaci</h1>
-        <form>
-            <input type="text" name="name" placeholder="Nome" required>
-            <input type="text" name="email" placeholder="Indirizzo email" required>
-            <textarea name="message" placeholder="Messaggio" required></textarea>
-            <input type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal" value="Invia">
-        </form>
-        <div class="contact-info">
-            <h2>Informazioni di contatto</h2>
-            <p><strong>Indirizzo:</strong> C.so Francesco Ferrucci, 112, 10138 Torino TO</p>
-            <p><strong>Telefono:</strong> +39 393 161 0473</p>
-            <p><strong>Email:</strong> support@paw.agency.com</p>
+<body style="font-family: Arial, sans-serif; background-color: #f7f7f7;">
+    <div class="container p-5 position-relative rounded-5 w-auto">
+        <div class="mt-5 card d-flex py-3 col-6 m-auto position-absolute top-10 start-50 translate-middle">
+            <h1 class="m-0 text-center fs-2 fw-bold text-uppercase">Contattaci</h1>
         </div>
-        
+        <form class="my-5 p-5 bg-white rounded-5" (ngSubmit)="onSubmit()" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);" >
+            <input class="w-100 p-3 my-4 rounded-2" style="border: none" type="text" name="name" [(ngModel)]="inputName" placeholder="Nome" required>
+            <input class="w-100 p-3 mb-4 rounded-2" style="border: none" type="text" name="email" [(ngModel)]="inputEmail" placeholder="Indirizzo email" required>
+            <textarea class="w-100 p-3 mb-4 rounded-2" style="border: none" name="message" [(ngModel)]="inputText" placeholder="Messaggio" required></textarea>
+            <input type="submit" class="text-light px-4 py-2 rounded-2" data-bs-toggle="modal" data-bs-target="#exampleModal" value="Invia">
+        </form>
+        <div class="p-5 bg-white rounded-5" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+            <h2 class="mb-4 fs-4 fw-bold">Informazioni di contatto</h2>
+            <p class="fs-6" style="color: #555"><strong>Indirizzo:</strong> C.so Francesco Ferrucci, 112, 10138 Torino TO</p>
+            <p class="fs-6" style="color: #555"><strong>Telefono:</strong> +39 393 161 0473</p>
+            <p class="fs-6" style="color: #555"><strong>Email:</strong> support@paw.agency.com</p>
+        </div>
+
     </div>
 
     <!-- Modal -->
@@ -212,9 +148,15 @@
                 </div>
                 <div class="modal-body">
                     <h2 class="fs-5">I dati che hai inserito sono:</h2>
-                    <small><p>Nome:</p></small>
-                    <small><p>Indirizzo e-mail:</p></small>
-                    <small><p>Messaggio:</p></small>
+                    <small>
+                        <p><strong>Nome:</strong> {{inputName}} </p>
+                    </small>
+                    <small>
+                        <p><strong>Indirizzo e-mail:</strong> {{inputEmail}} </p>
+                    </small>
+                    <small>
+                        <p><strong>Messaggio:</strong> {{inputText}} </p>
+                    </small>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
