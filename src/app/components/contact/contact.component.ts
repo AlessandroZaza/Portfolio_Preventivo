@@ -16,7 +16,6 @@ export class ContactComponent {
     console.log('Indirizzo e-mail: ' + this.inputEmail);
     console.log('Messaggio: ' + this.inputText);
 
-    
     return false; // impedisce il comportamento predefinito del form di aggiornare la pagina
   }
 }

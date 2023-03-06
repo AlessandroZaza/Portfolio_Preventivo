@@ -108,12 +108,12 @@
 <style>
 
     input[type="submit"] {
-        background-color: #000;
+        background-color:  rgb(15, 76, 129);
         cursor: pointer;
     }
 
     input[type="submit"]:hover {
-        background-color: #333;
+        background-color:  rgb(28, 98, 160);
     }
 
 </style>
@@ -127,7 +127,7 @@
             <input class="w-100 p-3 my-4 rounded-2" style="border: none" type="text" name="name" [(ngModel)]="inputName" placeholder="Nome" required>
             <input class="w-100 p-3 mb-4 rounded-2" style="border: none" type="text" name="email" [(ngModel)]="inputEmail" placeholder="Indirizzo email" required>
             <textarea class="w-100 p-3 mb-4 rounded-2" style="border: none" name="message" [(ngModel)]="inputText" placeholder="Messaggio" required></textarea>
-            <input type="submit" class="text-light px-4 py-2 rounded-2" data-bs-toggle="modal" data-bs-target="#exampleModal" value="Invia">
+            <input type="submit" class="text-light border border-none px-4 py-2 rounded-2" data-bs-toggle="modal" data-bs-target="#exampleModal" value="Invia">
         </form>
         <div class="p-5 bg-white rounded-5" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
             <h2 class="mb-4 fs-4 fw-bold">Informazioni di contatto</h2>
@@ -159,7 +159,7 @@
                     </small>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-dark" style="background-color:  rgb(15, 76, 129);" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
