@@ -86,34 +86,35 @@
     <div class="position-relative container card d-flex col-12 col-md-10 flex-row px-3
     px-md-5 my-5 justify-content-center card py-5" style="border-radius: 2vh;">
 
-        <div class=" card position-absolute p-5"
-            style="top: -3%; right: -2%;
+        <div class="card position-absolute p-5 d-none d-lg-block" style="top: -3%; right: -2%;
             background-color:  rgb(15, 76, 129);;
             ">
             <i class="fa-solid fa-briefcase text-light " style="font-size: 6em"></i>
         </div>
 
-        <form class="container mt-3">
-            <div class="mb-2 col-10">
+        <form class="container mt-3" [formGroup]="myForm" (ngSubmit)="submit()">
+            <div class="mb-2 col-12 col-lg-10">
                 <label class="form-label">Name</label>
-                <input type="text" id="NameRequired" class="form-control">
+                <input formControlName="name" placeholder="name" name="name" type="text" id="NameRequired"
+                    class="form-control">
             </div>
 
-            <div class="mb-3 col-10">
+            <div class="mb-3 col-12 col-lg-10">
                 <label class="form-label">Last name</label>
-                <input type="text" id="LastNameRequired" class="form-control">
+                <input formControlName="lastName" placeholder="last name" name="lastName" type="text"
+                    id="LastNameRequired" class="form-control">
                 <div class="form-text">We'll never share your personal data with anyone else.</div>
             </div>
 
             <label class="mb-1" for="services">Chose a service:</label>
-            <select class="form-select" id="services" name="services">
+            <select formControlName="service" class="form-select" id="services" name="services">
                 <option value="">Chose a service</option>
-                <option value="static">Static website</option>
-                <option value="cms">CMS</option>
-                <option value="ecom">E-Commerce</option>
-                <option value="management">management services</option>
-                <option value="iot">IoT services</option>
-                <option value="ia">IA services</option>
+                <option value="50">Static website</option>
+                <option value="100">CMS</option>
+                <option value="150">E-Commerce</option>
+                <option value="200">management services</option>
+                <option value="250">IoT services</option>
+                <option value="300">IA services</option>
             </select>
 
             <div class="d-flex justify-content-center">
@@ -122,23 +123,22 @@
 
             <div class="container d-flex justify-content-around">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" id="domain" name="extra" value="yes"
-                        onclick="showInput()">
+                    <input formControlName="domain" class="form-check-input" type="radio" id="domain" value="50">
                     Yes
                 </div>
 
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" id="domain" name="extra" value="no"
-                        onclick="hideInput()">
+                    <input formControlName="domain" class="form-check-input" type="radio" id="domain" value="0">
                     No
                 </div>
             </div>
 
-            <div id="extraInput" class="mt-2" style="display:none;">
-                <input type="text" class="form-control " id="extraText" name="extraText"
+            <div *ngIf="myForm.get('domain')?.value === '50'" class="mt-2">
+                <input type="text" formControlName="domainName" class="form-control " id="extraText" name="domainName"
                     placeholder="enter your domain">
             </div>
-
+            
+            <div *ngIf="myForm.get('domain')?.value === '50' && message" class="card p-3 border border-3 fw-bold" >{{ message }}</div>
 
             <div class="d-flex justify-content-center">
                 <label class="mt-3 mb-2" for="extra">Select the maintenance package:</label>
@@ -146,33 +146,44 @@
             <div class="d-flex justify-content-evenly">
 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="1month" value="option1">
-                    <label class="form-check-label" for="inlineRadio1">1 month</label>
+                    <input class="form-check-input" formControlName="maintenance" type="radio" id="1month" value="50">
+                    <label class="form-check-label">1 month</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="6months" value="option2">
-                    <label class="form-check-label" for="inlineRadio2">6 months</label>
+                    <input class="form-check-input" formControlName="maintenance" type="radio" id="6months" value="100">
+                    <label class="form-check-label">6 months</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="1year" value="option2">
-                    <label class="form-check-label" for="inlineRadio2">1 year</label>
+                    <input class="form-check-input" formControlName="maintenance" type="radio" id="1year" value="200">
+                    <label class="form-check-label">1 year</label>
                 </div>
             </div>
 
             <label for="date" class="col-12 col-form-label mt-2">When do you need it? </label>
             <div class="col-12">
                 <div class="input-group date" id="datepicker">
-                    <input type="date" class="form-control" id="DateRequired" />
+                    <input type="date" formControlName="date" class="form-control" id="DateRequired" />
                 </div>
             </div>
 
             <div class="d-flex justify-content-around mx-2 my-4">
-                <button type="submit" class="btn btn-primary col-6 ms-3" id="submitButton"
-                    onclick="calcola()">Calcola</button>
+                <button type="submit" [disabled]="!myForm.valid" class="btn btn-primary col-6 ms-3"
+                    id="submitButton">Calcola</button>
                 <button type="reset" class="btn btn-danger col-4 ms-3" id="resetButton">Reset</button>
             </div>
-            <div class="form-control bg bg-dark text-light align-items-center self-center" id="result"
-                aria-label="Disabled input example" disabled readonly></div>
+
+            <div *ngIf="myForm.invalid && myForm.touched"
+                class="form-control bg bg-danger text-uppercase text-light text-center mt-2"
+                aria-label="Disabled input example" disabled readonly>
+                <p class="m-auto p-2 fs-5" ><strong>Compila tutti i campi !!</strong></p>
+            </div>
+
+            <div *ngIf="result !== undefined" class="card text-center p-4 mt-2">
+                <p class="m-auto fs-2"> <strong>Il costo totale è:</strong>
+                    {{ result }}€</p>
+            </div>
+
         </form>
     </div>
+
 </section>
