@@ -1,3 +1,4 @@
+<!--
 <section class="d-flex flex-column"
     style=" background-image: url('../../../assets/background/background.png'); background-size: cover; background-repeat: no-repeat;">
 
@@ -60,28 +61,28 @@
                                     <h3 class="fw-bold" >Let's get in touch</h3>
                                     <p class="mb-4">We're open for any suggestion or just to have a chat</p>
                                     <div class="dbox w-100 d-flex align-items-start">
-                                        <div class="icon d-flex align-items-center justify-content-center">
+                                        <div class="icon d-flex align-items-center justify-content-center mb-2">
                                             <span class="fa fa-map-marker"></span>
                                         </div>
                                         <div class="text pl-3">
-                                            <p><span>Address:</span> C.so Francesco Ferrucci, 11, 10138 Torino TO
+                                            <p class=" ms-2"><span>Address:</span> C.so Francesco Ferrucci, 11, 10138 Torino TO
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="dbox w-100 d-flex align-items-center">
+                                    <div class="dbox w-100 d-flex align-items-center mb-2">
                                         <div class="icon d-flex align-items-center justify-content-center">
                                             <span class="fa fa-phone"></span>
                                         </div>
                                         <div class="text pl-3">
-                                            <p><span>Phone:</span> <a class="text-light" href="tel://1234567920"> +39 393 161 0473</a></p>
+                                            <p class="mb-0 ms-2"><span>Phone:</span> <a class="text-light" href="tel://1234567920"> +39 393 161 0473</a></p>
                                         </div>
                                     </div>
-                                    <div class="dbox w-100 d-flex align-items-center">
+                                    <div class="dbox w-100 d-flex align-items-center mb-2">
                                         <div class="icon d-flex align-items-center justify-content-center">
                                             <span class="fa fa-paper-plane"></span>
                                         </div>
                                         <div class="text pl-3">
-                                            <p><span>Email:</span> <a
+                                            <p class="mb-0 ms-2"><span>Email:</span> <a
                                                     href="mailto:info@yoursite.com" class="text-light"> paw.services@gmail.com</a></p>
                                         </div>
                                     </div>
@@ -90,7 +91,7 @@
                                             <span class="fa fa-globe"></span>
                                         </div>
                                         <div class="text pl-3">
-                                            <p><span>Website:</span> <a class="text-light" href="#"> PAW.com</a></p>
+                                            <p class="mb-0 ms-2" ><span>Website:</span> <a class="text-light" href="#"> paw-agency.com</a></p>
                                         </div>
                                     </div>
                                 </div>
@@ -102,4 +103,66 @@
         </div>
     </section>
 
-</section>
+</section> 
+-->
+<style>
+
+    input[type="submit"] {
+        background-color:  rgb(15, 76, 129);
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color:  rgb(28, 98, 160);
+    }
+
+</style>
+
+<body style="font-family: Arial, sans-serif; background-color: #C1E0EA;">
+    <div class="container p-5 position-relative rounded-5 w-auto">
+        <div class="mt-5 card d-flex py-3 col-6 m-auto position-absolute top-10 start-50 translate-middle">
+            <h1 class="m-0 text-center fs-2 fw-bold text-uppercase">Contattaci</h1>
+        </div>
+        <form class="my-5 p-5 bg-white rounded-5" (ngSubmit)="onSubmit()" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);" >
+            <input class="w-100 p-3 my-4 rounded-2" style="border: none" type="text" name="name" [(ngModel)]="inputName" placeholder="Nome" required>
+            <input class="w-100 p-3 mb-4 rounded-2" style="border: none" type="text" name="email" [(ngModel)]="inputEmail" placeholder="Indirizzo email" required>
+            <textarea class="w-100 p-3 mb-4 rounded-2" style="border: none" name="message" [(ngModel)]="inputText" placeholder="Messaggio" required></textarea>
+            <input type="submit" class="text-light border border-none px-4 py-2 rounded-2" data-bs-toggle="modal" data-bs-target="#exampleModal" value="Invia">
+        </form>
+        <div class="p-5 bg-white rounded-5" style="box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+            <h2 class="mb-4 fs-4 fw-bold">Informazioni di contatto</h2>
+            <p class="fs-6" style="color: #555"><strong>Indirizzo:</strong> C.so Francesco Ferrucci, 112, 10138 Torino TO</p>
+            <p class="fs-6" style="color: #555"><strong>Telefono:</strong> +39 393 161 0473</p>
+            <p class="fs-6" style="color: #555"><strong>Email:</strong> support@paw.agency.com</p>
+        </div>
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header d-flex justify-content-center align-items-center">
+                    <h1 class="modal-title fs-5 mb-0" id="exampleModalLabel">Messaggio inviato con successo!</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h2 class="fs-5">I dati che hai inserito sono:</h2>
+                    <small>
+                        <p><strong>Nome:</strong> {{inputName}} </p>
+                    </small>
+                    <small>
+                        <p><strong>Indirizzo e-mail:</strong> {{inputEmail}} </p>
+                    </small>
+                    <small>
+                        <p><strong>Messaggio:</strong> {{inputText}} </p>
+                    </small>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" style="background-color:  rgb(15, 76, 129);" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
