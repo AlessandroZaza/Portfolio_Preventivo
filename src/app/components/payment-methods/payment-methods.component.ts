@@ -1,23 +1,60 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Injectable } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root',
-})
+interface CreditCardResponse {
+  data: Array<{
+    type: string;
+    number: number;
+    expiration: string;
+    owner: string;
+  }>;
+}
+
 @Component({
   selector: 'app-payment-methods',
   templateUrl: './payment-methods.component.html',
   styleUrls: ['./payment-methods.component.css'],
 })
-export class PaymentMethodsComponent {
-  constructor(private http: HttpClient) {
-    const result = document.createElement('div');
+export class PaymentMethodsComponent implements OnInit {
+  loading: boolean = false;
+  cardsDisplay: CreditCardResponse = {
+    data: []
+  }
+  private readonly apiAddress = 'https://fakerapi.it/api/v1/credit_cards?_quantity=';
+  private readonly quantity = 5; 
+  constructor(public http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.loadCards();
+  }
+
+  loadCards(): void {
+    this.loading = true;
+
+    let min: number;
+
     this.http
-      .get('https://fakerapi.it/api/v1/credit_cards?_quantity=5')
-      .subscribe((data) => {
-        result.textContent = JSON.stringify(data);
-        document.body.appendChild(result);
+      .get<CreditCardResponse>(
+        `${this.apiAddress}${this.quantity}`
+      )
+      .subscribe((res) => {
+        this.cardsDisplay = res;
+        this.cardsDisplay.data.sort((a, b) => a.number - b.number); // ordina in base al numero della carta
+        console.log('-------------------------------------');
+        this.cardsDisplay.data.forEach((card) => {
+          console.log(
+            '| Tipo: ' +
+              card.type +
+              '\n| Numero: ' +
+              card.number +
+              '\n| Scadenza: ' +
+              card.expiration +
+              '\n| Proprietario: ' +
+              card.owner 
+          );
+          console.log('-------------------------------------');
+        });
+        this.loading = false;
       });
   }
-  
 }

@@ -2,23 +2,26 @@
     <div class="my-5 card d-flex py-3 col-6 m-auto">
         <h1 class="m-0 text-center fs-2 fw-bold text-uppercase">My cards</h1>
     </div>
-    <div class="d-flex justify-content-evenly p-3">
+    <div class="d-flex justify-content-evenly p-3 mx-4 flex-wrap">
 
-        <div class="card col-5">
-            <img class="card p-3" src="../../../assets/credit-cards/card.png" alt="Title">
-            <div class="card-body">
-                <h4 class="card-title">Title</h4>
-                <p class="card-text">Body</p>
+        <div class="card col-12 m-3 position-relative" style="background-color:  rgb(15, 76, 129);"
+            *ngFor="let card of cardsDisplay.data; index as i">
+            <div class="d-flex align-items-center justify-content-center rounded-circle position-absolute z-1 top-0 start-0 translate-middle" style="width: 50px; height: 50px; background-color:  rgb(15, 76, 129);">
+                <p class="card-text text-light">
+                    {{i+1}}
+                </p>
+            </div>
+            <img class="card p-3" style="background-color: #C1E0EA" src="../../../assets/credit-cards/card.png"
+                alt="Title">
+            <div class="card p-4 text-light rounded-0 rounded-bottom" style="background-color:  rgb(15, 76, 129);">
+                <h4 class="card-title">{{card.type}}</h4>
+                <p class="card-text">Number: {{card.number}}</p>
+                <p class="card-text">Expiration Date: {{card.expiration}}</p>
+                <p class="card-text">Owner: {{card.owner}}</p>
             </div>
         </div>
 
-        <div class="card col-5">
-            <img class="card p-3" src="../../../assets/credit-cards/card.png" alt="Title">
-            <div class="card-body">
-                <h4 class="card-title">Title</h4>
-                <p class="card-text">Body</p>
-            </div>
-        </div>
     </div>
-</section>
 
+    <h1 *ngIf="loading">LOADING ... </h1>
+</section>
