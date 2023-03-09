@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,8 +17,6 @@ import { PortfolioAlessandroComponent } from './components/portfolio-alessandro/
 import { PortfolioprovapaoloComponent } from './components/portfolioprovapaolo/portfolioprovapaolo.component';
 import { PaymentMethodsComponent } from './components/payment-methods/payment-methods.component';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,9 +30,15 @@ import { PaymentMethodsComponent } from './components/payment-methods/payment-me
     PortfolioprovapaoloComponent,
     PaymentMethodsComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
+  ],
   providers: [],
   bootstrap: [AppComponent],
-  
 })
 export class AppModule {}
