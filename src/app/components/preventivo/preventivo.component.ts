@@ -1,16 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-<<<<<<< HEAD
-let arrayDomain = [
-  'www.google.com',
-  'www.facebook.com',
-  'www.microsoft.com',
-  'www.sony.com',
-  'www.nttdata.com',
-];
-=======
->>>>>>> origin/AlessandroZaza
 @Component({
   selector: 'app-preventivo',
   templateUrl: './preventivo.component.html',
@@ -67,4 +57,3 @@ export class PreventivoComponent {
     }
   }
 }
->>>>>>> origin/AlessandroZaza
