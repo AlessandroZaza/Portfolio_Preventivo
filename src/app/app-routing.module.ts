@@ -8,6 +8,7 @@ import { PreventivoComponent } from './components/preventivo/preventivo.componen
 import { PortfolioPaoloComponent } from './components/portfolio-paolo/portfolio-paolo.component';
 import { PortfolioAlessandroComponent } from './components/portfolio-alessandro/portfolio-alessandro.component';
 import { PortfolioprovapaoloComponent } from './components/portfolioprovapaolo/portfolioprovapaolo.component';
+import { PaymentMethodsComponent } from './components/payment-methods/payment-methods.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'portfolioprovapaolo', component: PortfolioprovapaoloComponent },
   { path: 'portfolio-alessandro', component: PortfolioAlessandroComponent },
   { path: 'preventivo', component: PreventivoComponent },
+  { path: 'payment-methods', component: PaymentMethodsComponent }
 ];
 
 @NgModule({
