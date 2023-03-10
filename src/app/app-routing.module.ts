@@ -9,6 +9,8 @@ import { PortfolioPaoloComponent } from './components/portfolio-paolo/portfolio-
 import { PortfolioAlessandroComponent } from './components/portfolio-alessandro/portfolio-alessandro.component';
 import { PortfolioprovapaoloComponent } from './components/portfolioprovapaolo/portfolioprovapaolo.component';
 import { PaymentMethodsComponent } from './components/payment-methods/payment-methods.component';
+import { NgFor } from '@angular/common';
+
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
