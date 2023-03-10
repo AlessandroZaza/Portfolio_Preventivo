@@ -1,16 +1,19 @@
-<section class="py-5">
-    <div class="mx-5 bg bg-light d-flex rounded-top-5 flex-column flex-wrap">
+<section>
+    <div class="m-auto d-flex justify-content-evenly">
 
-        <div class="d-flex justify-content-center flex-column align-items-center">
-            <p class="fs-1 fw-bold mt-5 pt-4">Choose payment</p>
-            <p class="fs-5 fw-light mt-3">List of all your credit cards</p>
-            <img class="w-50 py-5 mb-4" src="../../../assets/credit-cards/credit-card-illustration.png" alt="credit-card-illustration">
-
+        <div class="my-auto shadow-lg bg bg-light col-3 d-flex rounded-5 ms-5 flex-column flex-wrap ">
+            <div class="d-flex justify-content-center flex-column align-items-center">
+                <p class="fs-1 fw-bold mt-5 pt-4 px-4 mx-5">Choose payment</p>
+                <p class="fs-5 fw-light mt-3">List of all your credit cards</p>
+                <img class="w-100 p-5 m-auto" src="../../../assets/credit-cards/credit-card-illustration.png"
+                    alt="credit-card-illustration">
+            </div>
         </div>
-    </div>
 
-            <div class="box mx-5">
-                <div class="card creditCard col-lg-5 border shadow rounded-top-4 rounded-bottom-4 m-4 overflow-hidden"
+        <div class="bg bg-light shadow-lg col-6 my-5 me-5 rounded-5">
+            <h1 *ngIf="loading">LOADING ... </h1>
+            <div class="box col-12 p-5 d-flex rounded-5" >
+                <div class="d-flex mx-5 flex-column creditCard border rounded-top-4 rounded-bottom-4 m-4 overflow-hidden"
                     *ngFor="let card of cardsDisplay.data; index as i" style="background-color: #C1E0EA">
                     <div class="d-flex flex-column position-relative rounded-top-4 p-4 my-2"
                         style="background-color: #C1E0EA">
@@ -37,12 +40,13 @@
                 </div>
             </div>
 
-            <div class="mx-5 py-5 bg bg-light d-flex justify-content-center align-items-center rounded-bottom-5 flex-column flex-wrap">
+            <div
+                class="mx-5 py-5 bg bg-light d-flex justify-content-center align-items-center rounded-bottom-5 flex-column flex-wrap">
                 <button class="btn btn-outline-info rounded-pill fs-3 col-8 mt-5">Select</button>
                 <h3 class="fw-bold mt-4">+ Add new payment method</h3>
             </div>
+        </div>
 
-
-    <h1 *ngIf="loading">LOADING ... </h1>
-
+    </div>
+    
 </section>
