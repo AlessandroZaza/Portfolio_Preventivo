@@ -1,27 +1,48 @@
-<section>
-    <div class="my-5 card d-flex py-3 col-6 m-auto">
-        <h1 class="m-0 text-center fs-2 fw-bold text-uppercase">My cards</h1>
-    </div>
-    <div class="d-flex justify-content-evenly p-3 mx-4 flex-wrap">
+<section class="py-5">
+    <div class="mx-5 bg bg-light d-flex rounded-top-5 flex-column flex-wrap">
 
-        <div class="card col-12 m-3 position-relative" style="background-color:  rgb(15, 76, 129);"
-            *ngFor="let card of cardsDisplay.data; index as i">
-            <div class="d-flex align-items-center justify-content-center rounded-circle position-absolute z-1 top-0 start-0 translate-middle" style="width: 50px; height: 50px; background-color:  rgb(15, 76, 129);">
-                <p class="card-text text-light">
-                    {{i+1}}
-                </p>
-            </div>
-            <img class="card p-3" style="background-color: #C1E0EA" src="../../../assets/credit-cards/card.png"
-                alt="Title">
-            <div class="card p-4 text-light rounded-0 rounded-bottom" style="background-color:  rgb(15, 76, 129);">
-                <h4 class="card-title">{{card.type}}</h4>
-                <p class="card-text">Number: {{card.number}}</p>
-                <p class="card-text">Expiration Date: {{card.expiration}}</p>
-                <p class="card-text">Owner: {{card.owner}}</p>
-            </div>
+        <div class="d-flex justify-content-center flex-column align-items-center">
+            <p class="fs-1 fw-bold mt-5 pt-4">Choose payment</p>
+            <p class="fs-5 fw-light mt-3">List of all your credit cards</p>
+            <img class="w-50 py-5 mb-4" src="../../../assets/credit-cards/credit-card-illustration.png" alt="credit-card-illustration">
+
         </div>
-
     </div>
+
+            <div class="box mx-5">
+                <div class="card creditCard col-lg-5 border shadow rounded-top-4 rounded-bottom-4 m-4 overflow-hidden"
+                    *ngFor="let card of cardsDisplay.data; index as i" style="background-color: #C1E0EA">
+                    <div class="d-flex flex-column position-relative rounded-top-4 p-4 my-2"
+                        style="background-color: #C1E0EA">
+                        <h3 class="card-title fs-2 fw-bold m-0 mb-3">{{card.type}}</h3>
+                        <p class="card-text">N: {{card.number}}</p>
+
+                        <div class="d-flex align-items-center justify-content-center rounded-circle position-absolute z-1 translate-middle"
+                            style="width: 20vh; height: 20vh; background-color:  rgb(103, 162, 213); left: 95%; top: 85%">
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center rounded-circle position-absolute z-1 top-0 start-100 translate-middle"
+                            style="width: 20vh; height: 20vh; background-color:  rgb(15, 76, 129);">
+                        </div>
+                    </div>
+                    <div class="bg bg-dark w-100 rounded-bottom-4 d-flex justify-content-between p-4 z-2">
+                        <div class="d-flex flex-column">
+                            <p class="card-text text-muted m-0">Expiration Date:</p>
+                            <p class="card-text text-light fw-bold">{{card.expiration}}</p>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <p class="card-text text-muted m-0 text-end">Owner:</p>
+                            <p class="card-text text-light fw-bold">{{card.owner}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mx-5 py-5 bg bg-light d-flex justify-content-center align-items-center rounded-bottom-5 flex-column flex-wrap">
+                <button class="btn btn-outline-info rounded-pill fs-3 col-8 mt-5">Select</button>
+                <h3 class="fw-bold mt-4">+ Add new payment method</h3>
+            </div>
+
 
     <h1 *ngIf="loading">LOADING ... </h1>
+
 </section>

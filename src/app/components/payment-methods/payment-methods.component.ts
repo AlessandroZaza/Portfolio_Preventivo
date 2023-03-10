@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 
 interface CreditCardResponse {
   data: Array<{
@@ -16,6 +16,7 @@ interface CreditCardResponse {
   styleUrls: ['./payment-methods.component.css'],
 })
 export class PaymentMethodsComponent implements OnInit {
+
   loading: boolean = false;
   cardsDisplay: CreditCardResponse = {
     data: []
@@ -30,8 +31,6 @@ export class PaymentMethodsComponent implements OnInit {
 
   loadCards(): void {
     this.loading = true;
-
-    let min: number;
 
     this.http
       .get<CreditCardResponse>(
