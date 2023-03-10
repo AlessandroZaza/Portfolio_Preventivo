@@ -1,20 +1,64 @@
 <section>
-    <div class="m-auto d-flex justify-content-evenly">
+    <div class="m-auto d-flex justify-content-evenly flex-column flex-lg-row pt-5 pt-lg-0 pb-5 pb-lg-0 p-md-5">
 
-        <div class="my-auto shadow-lg bg bg-light col-3 d-flex rounded-5 ms-5 flex-column flex-wrap ">
+        <div class="my-auto shadow-lg bg bg-light col-lg-3 d-flex rounded-5 mx-4 flex-column flex-wrap">
             <div class="d-flex justify-content-center flex-column align-items-center">
-                <p class="fs-1 fw-bold mt-5 pt-4 px-4 mx-5">Choose payment</p>
-                <p class="fs-5 fw-light mt-3">List of all your credit cards</p>
+                <p class="fs-1 fw-bold mt-sm-5 pt-5 pt-sm-4 px-sm-4 text-center lh-1">Choose payment</p>
+                <p class="fs-5 fw-light p-3 p-sm-0 mt-sm-3 mx-md-4 text-center">List of all your credit cards</p>
                 <img class="w-100 p-5 m-auto" src="../../../assets/credit-cards/credit-card-illustration.png"
                     alt="credit-card-illustration">
             </div>
         </div>
 
-        <div class="bg bg-light shadow-lg col-6 my-5 me-5 rounded-5">
-            <h1 *ngIf="loading">LOADING ... </h1>
-            <div class="box col-12 p-5 d-flex rounded-5" >
+        <div class="bg bg-light col-lg-6 shadow-lg mx-4 my-lg-5 me-lg-5 ms-lg-0 rounded-5">
+
+            <!-- Modal -->
+            <div class="modal fade" id="creditCardModal" tabindex="-1" aria-labelledby="creditCardModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5 mb-0 fw-bold text-uppercase" id="creditCardModalLabel">proceed to payment</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <h3 class="modal-title">Your selected card infos</h3>
+                            <p class="text-dark text-muted">
+                                Type: <strong>{{cardsDisplay.data[currentCardIndex].type}}</strong>
+                            </p>
+                            <p class="text-dark text-muted">
+                                Number: <strong>{{cardsDisplay.data[currentCardIndex].number}}</strong>
+                            </p>
+                            <p class="text-dark text-muted">
+                                Expiration: <strong>{{cardsDisplay.data[currentCardIndex].expiration}}</strong>
+                            </p>
+                            <p class="text-dark text-muted">
+                                Owner: <strong>{{cardsDisplay.data[currentCardIndex].owner}}</strong>
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Confirm</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="box col-12 p-5 d-flex rounded-5">
+
+                <div *ngIf="loading" class="d-flex justify-content-center align-items-center">
+                    <button class="btn btn-light" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Loading...
+                    </button>
+                </div>
+
                 <div class="d-flex mx-5 flex-column creditCard border rounded-top-4 rounded-bottom-4 m-4 overflow-hidden"
-                    *ngFor="let card of cardsDisplay.data; index as i" style="background-color: #C1E0EA">
+                    *ngFor="let card of cardsDisplay.data; index as i" style="background-color: #C1E0EA"
+                    (click)="test(i)" data-bs-toggle="modal"
+                    data-bs-target="#creditCardModal">
                     <div class="d-flex flex-column position-relative rounded-top-4 p-4 my-2"
                         style="background-color: #C1E0EA">
                         <h3 class="card-title fs-2 fw-bold m-0 mb-3">{{card.type}}</h3>
@@ -41,12 +85,12 @@
             </div>
 
             <div
-                class="mx-5 py-5 bg bg-light d-flex justify-content-center align-items-center rounded-bottom-5 flex-column flex-wrap">
-                <button class="btn btn-outline-info rounded-pill fs-3 col-8 mt-5">Select</button>
+                class="py-3 py-lg-5 bg bg-light d-flex justify-content-center align-items-center rounded-bottom-5 flex-column flex-wrap">
+                <button class="btn btn-outline-info rounded-pill fs-3 px-5 mt-5">Confirm</button>
                 <h3 class="fw-bold mt-4">+ Add new payment method</h3>
             </div>
         </div>
 
     </div>
-    
+
 </section>
