@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +14,9 @@ import { PortfolioComponent } from './components/portfolio/portfolio.component';
 import { PreventivoComponent } from './components/preventivo/preventivo.component';
 import { PortfolioPaoloComponent } from './components/portfolio-paolo/portfolio-paolo.component';
 import { PortfolioAlessandroComponent } from './components/portfolio-alessandro/portfolio-alessandro.component';
+import { PortfolioprovapaoloComponent } from './components/portfolioprovapaolo/portfolioprovapaolo.component';
+import { PaymentMethodsComponent } from './components/payment-methods/payment-methods.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,8 +27,17 @@ import { PortfolioAlessandroComponent } from './components/portfolio-alessandro/
     PreventivoComponent,
     PortfolioPaoloComponent,
     PortfolioAlessandroComponent,
+    PortfolioprovapaoloComponent,
+    PaymentMethodsComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
