@@ -1,141 +1,50 @@
-*{
-  margin:0;
-  padding:0;
+section {
+  background: linear-gradient(45deg, #3f84e5, #f0e2e7, #a5742f);
+  background-size: 300% 300%;
+  animation: color 12s ease-in-out infinite;
 }
 
-.container{
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+@keyframes color {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
 }
 
-.card{
-  height:200px;
-  width:350px;
-  background-image: linear-gradient(to right top,#1D3634,#2C514C);
-  border-radius:10px;
-  overflow:hidden;
-  position:relative;
-  cursor:pointer;
+::-webkit-scrollbar {
+  height: 8px;
 }
-
-.card .circle{
-  position:absolute;
-  height:150px;
-  width:150px;
-  background-color:#fff;
-  border-radius:50%;
-  opacity:0.1;
-  top:-60px;
-  right:-60px;
-  transition:all 0.5s;
-  
+::-webkit-scrollbar-track {
+  background: #fdfdfd;
+  border-radius: 25px;
 }
-
-.card:hover .circle{
-  height:200px;
-  width:200px;
+::-webkit-scrollbar-thumb {
+  background: #6e93f7;
+  border-radius: 25px;
 }
-
-.top-div{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  position:relative;
+::-webkit-scrollbar-thumb:hover {
+  background: #4070f4;
 }
-
-.chip-image{
-  padding:15px;
+.box {
+  background: #4070f4;
+  scroll-snap-type: x mandatory;
+  overflow-x: scroll;
+  scroll-padding: 30px;
 }
-
-.chip-image img{
-  width:30px;
+.box .creditCard {
+  flex: 0 0 50%;
+  scroll-snap-align: center;
 }
-
-.plus-sign{
-  position:absolute;
-  top:0px;
-  right:70px;
-  
+.creditCard:hover {
+  box-shadow: 0px 0px 50px rgb(255, 255, 255);
+  cursor: pointer;
 }
-
-.plus-sign::before{
-  content:'';
-  position:absolute;
-  height:10px;
-  width:10px;
-  background-color:#fff;
-  top:25px;
-  left:31px;
-  transform:rotate(45deg);
-  
-}
-
-.plus-sign span:nth-child(1){
-  position:absolute;
-  height:70px;
-  width:2px;
-  left:35px;
-  background-color:#fff;
-}
-.plus-sign span:nth-child(2){
-  position:absolute;
-  height:2px;
-  width:70px;
-  top:30px;
-  background-color:#fff;
-}
-
-.card-details{
-  padding:0 10px;
-  margin-top:0px 0px 1px;
-}
-
-.card-number{
-  font-size:20px;
-  color:#fff;
-}
-
-.card-number span{
-  padding:0px 4px;
-}
-
-.card-details .date{
-  padding:0px 4px;
-  color:#BDC3CB;
-  font-size:13px;
-  
-}
-
-.ownername {
-  color:#fff;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-top:40px;
-  padding:0px 20px;
-  
-  
-}
-
-.ownername span{
-  font-size:13px;
-  text-transform:uppercase;
-  margin-top:0px 0px 30px;
-}
-
-.card-logo{
-  position: relative;
-  margin-bottom:0 0 10px;
-  margin-right: 0 0 10px;
-}
-
-.card-logo img {
-  position: relative;
-  width: 80px;
-  height: 5rem;
-  display: flex;
-  justify-content: right;
-  align-content: flex-end; /* imposta la larghezza dell'immagine in base alle tue esigenze */
+.creditCard:active {
+  box-shadow: 0px 0px 50px rgb(255, 255, 255);
+  cursor: pointer;
 }
