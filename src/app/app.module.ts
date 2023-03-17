@@ -2,6 +2,7 @@ import { NgModule, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,9 +34,15 @@ import { NgFor } from '@angular/common';
     PortfolioprovapaoloComponent,
     PaymentMethodsComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, FormsModule, ReactiveFormsModule, HttpClientModule, NgFor],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
+  ],
   providers: [],
   bootstrap: [AppComponent],
-  
 })
 export class AppModule {}
