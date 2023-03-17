@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -15,6 +15,8 @@ import { PortfolioPaoloComponent } from './components/portfolio-paolo/portfolio-
 import { PortfolioAlessandroComponent } from './components/portfolio-alessandro/portfolio-alessandro.component';
 import { PortfolioprovapaoloComponent } from './components/portfolioprovapaolo/portfolioprovapaolo.component';
 import { PaymentMethodsComponent } from './components/payment-methods/payment-methods.component';
+import { HttpClientModule } from '@angular/common/http';
+import { NgFor } from '@angular/common';
 
 
 
@@ -31,7 +33,7 @@ import { PaymentMethodsComponent } from './components/payment-methods/payment-me
     PortfolioprovapaoloComponent,
     PaymentMethodsComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, FormsModule, ReactiveFormsModule],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, FormsModule, ReactiveFormsModule, HttpClientModule, NgFor],
   providers: [],
   bootstrap: [AppComponent],
   

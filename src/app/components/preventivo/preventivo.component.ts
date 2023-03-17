@@ -14,10 +14,13 @@ export class PreventivoComponent {
   date: Date | undefined;
   result: number | undefined;
   myForm: FormGroup;
+  service: string = '';
 
   domains: string[] = ['google.com', 'facebook.com', 'apple.com'];
   message: string | undefined;
-
+  arrService: string = '';
+  isCheck: boolean = false;
+  
   constructor() {
     this.myForm = new FormGroup({
       name: new FormControl('', Validators.required),
@@ -54,4 +57,17 @@ export class PreventivoComponent {
       this.message = 'Dominio disponibile';
     }
   }
+
+  selectedService(event: Event): void {
+    const selectedOption = event.target as HTMLSelectElement;
+    const selectedOptionName = selectedOption.options[selectedOption.selectedIndex];
+    if(selectedOptionName.getAttribute('name') === 'E-Commerce') {
+      this.arrService = "E-Commerce";
+    }
+    else {
+      this.arrService = "CMS";
+      this.isCheck = false;
+    }
+  }
+
 }
