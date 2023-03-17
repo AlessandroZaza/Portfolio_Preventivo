@@ -6,6 +6,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   templateUrl: './preventivo.component.html',
   styleUrls: ['./preventivo.component.css'],
 })
+
 export class PreventivoComponent {
 
   domainName: string = '';
