@@ -8,7 +8,6 @@ import { PreventivoComponent } from './components/preventivo/preventivo.componen
 import { PortfolioPaoloComponent } from './components/portfolio-paolo/portfolio-paolo.component';
 import { PortfolioAlessandroComponent } from './components/portfolio-alessandro/portfolio-alessandro.component';
 import { PaymentMethodsComponent } from './components/payment-methods/payment-methods.component';
-import { NgFor } from '@angular/common';
 
 
 const routes: Routes = [
@@ -20,7 +19,8 @@ const routes: Routes = [
   { path: 'portfolio-paolo', component: PortfolioPaoloComponent },
   { path: 'portfolio-alessandro', component: PortfolioAlessandroComponent },
   { path: 'preventivo', component: PreventivoComponent },
-  { path: 'payment-methods', component: PaymentMethodsComponent }
+  { path: 'payment-methods', component: PaymentMethodsComponent },
+  { path: 'login', loadChildren: () => import('./components/login/login.module').then((m) => m.LoginModule)},
 ];
 
 @NgModule({

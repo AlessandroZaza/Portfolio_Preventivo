@@ -1,0 +1,76 @@
+<section>
+    <div class="container px-0 py-5 p-md-5">
+        <div class="row justify-content-center m-5">
+
+            <div class="col-sm-12 px-0 d-flex justify-content-center">
+
+                <div class="card rounded-end-0 col-5">
+                    <div class="card bg-primary m-4 p-4">
+                        <p class="mt-5 mx-4 display-6 text-white" style="font-weight: 500;">Start your business with us.</p>
+                        <p class="mt-4 mb-5 mx-4 fs-6 col-10 text-white" style="font-weight: 100;">
+                            Se siete alla ricerca di una web agency che vi supporti in ogni fase del processo siamo la scelta giusta
+                            per voi.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card col-4 shadow-sm rounded-start-0">
+
+                    <p class="mt-4 mx-4 pt-3 display-6 fs-3" style="font-weight: 500;">Login</p>
+                    <p class="mx-4">Don't have an account? <span class="text-primary">Register</span> </p>
+
+                    <div class="card-body">
+                        <form (submit)="login(email, password)">
+                            <div class="mb-3">
+                                <label for="inputEmail" class="form-label">Email</label>
+                                <input type="email" [(ngModel)]="email" class="form-control" id="inputEmail"
+                                    placeholder="Email" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="inputPassword" class="form-label">Password</label>
+                                <input type="password" [(ngModel)]="password" class="form-control" id="inputPassword"
+                                    placeholder="Password" name="password" required>
+                            </div>
+                            <div class="text-start">
+                                <button type="submit" class="btn btn-primary mt-2" data-bs-toggle="modal"
+                                    data-bs-target="#loginModal">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+<!-- Modale per login effettuato -->
+<div class="modal fade" *ngIf="loginTrue" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mb-0" id="loginModalLabel">Login effettuato con successo!</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Benvenuto/a !</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modale per login non effettuato -->
+<div class="modal fade" id="loginFailedModal" tabindex="-1" aria-labelledby="loginFailedModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title mb-0" id="loginFailedModalLabel">Login non effettuato!</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Ricontrolla le credenziali</p>
+            </div>
+        </div>
+    </div>
+</div>

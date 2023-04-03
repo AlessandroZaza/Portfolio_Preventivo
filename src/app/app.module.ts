@@ -16,7 +16,6 @@ import { PortfolioPaoloComponent } from './components/portfolio-paolo/portfolio-
 import { PortfolioAlessandroComponent } from './components/portfolio-alessandro/portfolio-alessandro.component';
 import { PaymentMethodsComponent } from './components/payment-methods/payment-methods.component';
 import { HttpClientModule } from '@angular/common/http';
-import { NgFor } from '@angular/common';
 
 
 
@@ -30,7 +29,7 @@ import { NgFor } from '@angular/common';
     PreventivoComponent,
     PortfolioPaoloComponent,
     PortfolioAlessandroComponent,
-    PaymentMethodsComponent,
+    PaymentMethodsComponent
   ],
   imports: [
     BrowserModule,
