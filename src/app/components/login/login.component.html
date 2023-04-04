@@ -6,12 +6,16 @@
 
                 <div class="card rounded-end-0 col-5">
                     <div class="card bg-primary m-4 p-4">
-                        <p class="mt-5 mx-4 display-6 text-white z-1" style="font-weight: 500;">Start your business with us.</p>
-                        <p class="mt-4 mb-5 mx-4 fs-6 col-10 text-white position-relative z-1" style="font-weight: 100;">
-                            Se siete alla ricerca di una web agency che vi supporti in ogni fase del processo siamo la scelta giusta
+                        <p class="mt-5 mx-4 display-6 text-white z-1" style="font-weight: 500;">Start your business with
+                            us.</p>
+                        <p class="mt-4 mb-5 mx-4 fs-6 col-10 text-white position-relative z-1"
+                            style="font-weight: 100;">
+                            Se siete alla ricerca di una web agency che vi supporti in ogni fase del processo siamo la
+                            scelta giusta
                             per voi.
                         </p>
-                        <img src="../../../assets/logo-paw-icon.png" class="position-absolute z-0 opacity-25 rotate-20" style="top: 6%; right: 5%;" width="150" height="130" alt="">
+                        <img src="../../../assets/logo-paw-icon.png" class="position-absolute z-0 opacity-25 rotate-20"
+                            style="top: 6%; right: 5%;" width="150" height="130" alt="">
                     </div>
                 </div>
 
@@ -21,7 +25,7 @@
                     <p class="mx-4">Don't have an account? <span class="text-primary pe-auto">Register</span> </p>
 
                     <div class="card-body">
-                        <form (submit)="login(email, password)">
+                        <form class="needs-validation" (submit)="login(email, password)" novalidate>
                             <div class="mb-3">
                                 <label for="inputEmail" class="form-label">Email</label>
                                 <input type="email" [(ngModel)]="email" class="form-control" id="inputEmail"
@@ -42,7 +46,6 @@
             </div>
         </div>
     </div>
-
 
 </section>
 <!-- Modale per login effettuato -->
