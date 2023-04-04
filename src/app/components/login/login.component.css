@@ -17,3 +17,8 @@ section {
       background-position: 0 50%;
     }
   }
+
+  .rotate-20 {
+    transform: rotate(20deg);
+  }
+  
