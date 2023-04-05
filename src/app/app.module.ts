@@ -28,8 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     PortfolioComponent,
     PreventivoComponent,
     PortfolioPaoloComponent,
-    PortfolioAlessandroComponent,
-    PaymentMethodsComponent
+    PortfolioAlessandroComponent
   ],
   imports: [
     BrowserModule,

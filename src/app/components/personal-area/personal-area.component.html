@@ -1,0 +1,43 @@
+<section class="py-5 d-flex justify-content-center align-items-center">
+
+    <div class="card p-5">
+        <p class="display-6 m-0"><strong>Payments methods</strong></p>
+    </div>
+
+    <div class="card col-4 mx-5 p-5">
+        <div class="d-flex">
+            <img class="me-5 border border-3 border-dark" style="
+          width: 15h;
+          height: 15vh;
+          border-radius: 50%;
+          background-color: rgb(221, 197, 178);
+        " src="../../../assets/portraits/portrait-ale-nobg.png" alt="user-photo" />
+
+
+            <div class="d-flex flex-column justify-content-center">
+                <p class="display-6 fs-3 mb-0" style="font-weight: 400">WELCOME <span><strong>Alessandro</strong></span>
+                    ! </p>
+                <hr class="col-12 ">
+                <p class="display-6 fs-6" style="font-weight: 400">e-mail logged with:
+                    <span><strong>example@gmail.com</strong></span>
+                </p>
+                <button type="button" routerLink="/login" class="btn btn-danger col-4 mt-2">Logout</button>
+            </div>
+        </div>
+        <img src="../../../assets/logo-paw-icon.png" class="position-absolute z-1 opacity-25 rotate-20"
+        style="top: 45%; right: 15%;" width="150" height="130" alt="">
+        <div class="d-flex flex-column mt-5 mx-4">
+            <p class="fs-5 mb-3"><strong>Personal infos:</strong><i class="fa-regular fa-pen-to-square ms-2"></i></p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Name: <span><strong>{{user.name}}</strong></span></li>
+                <li class="list-group-item">Surname: <span><strong></strong></span></li>
+                <li class="list-group-item">Address: <span><strong></strong></span></li>
+                <li class="list-group-item">Phone number: <span><strong></strong></span></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card p-5">
+        <p class="display-6 m-0"><strong>Request a quote</strong></p>
+    </div>
+</section>

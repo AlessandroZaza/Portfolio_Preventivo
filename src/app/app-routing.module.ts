@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: 'preventivo', component: PreventivoComponent },
   { path: 'payment-methods', component: PaymentMethodsComponent },
   { path: 'login', loadChildren: () => import('./components/login/login.module').then((m) => m.LoginModule)},
+  { path: 'personal-area/:id', loadChildren: () => import('./components/personal-area/personal-area.module').then((m) => m.PersonalAreaModule)},
 ];
 
 @NgModule({

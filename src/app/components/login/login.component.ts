@@ -34,7 +34,7 @@ export class LoginComponent {
     if (user) {
       this.isLogged = true;
       console.log('Accesso consentito');
-      this.router.navigate(['/home']);
+      this.router.navigate(['/personal-area/:id']);
       console.log(this.isLogged);
       this.loginTrue = true;
     } else {
