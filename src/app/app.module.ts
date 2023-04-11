@@ -11,11 +11,11 @@ import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PortfolioComponent } from './components/portfolio/portfolio.component';
-import { PreventivoComponent } from './components/preventivo/preventivo.component';
 import { PortfolioPaoloComponent } from './components/portfolio-paolo/portfolio-paolo.component';
 import { PortfolioAlessandroComponent } from './components/portfolio-alessandro/portfolio-alessandro.component';
-import { PaymentMethodsComponent } from './components/payment-methods/payment-methods.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PersonalAreaModule } from './components/personal-area/personal-area.module';
+import { CommonModule } from '@angular/common';
 
 
 
@@ -26,7 +26,6 @@ import { HttpClientModule } from '@angular/common/http';
     AboutComponent,
     ContactComponent,
     PortfolioComponent,
-    PreventivoComponent,
     PortfolioPaoloComponent,
     PortfolioAlessandroComponent
   ],
@@ -36,7 +35,9 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    PersonalAreaModule,
+    CommonModule
   ],
   providers: [],
   bootstrap: [AppComponent],

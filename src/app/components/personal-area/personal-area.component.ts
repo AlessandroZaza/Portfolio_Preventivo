@@ -1,19 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {MatTabsModule} from '@angular/material/tabs';
-import { UserService } from './user.service';
-import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
-import { PaymentMethodsComponent } from '../payment-methods/payment-methods.component';
-
-interface User {
-  email: string;
-  password: string;
-  utente: string;
-  name: string;
-  lastName: string;
-  address: string;
-  phoneNumber: string;
-}
 
 @Component({
   selector: 'app-personal-area',
@@ -21,22 +6,22 @@ interface User {
   styleUrls: ['./personal-area.component.css']
 })
 export class PersonalAreaComponent implements OnInit {
+  email: string = '';
+  name: string = '';
+  lastName: string = '';
+  address: string = '';
+  phoneNumber: number = 0;
+  pfp: string = '';
   
-  id: string = ""
-  user!: User;
-
-  constructor(
-    private route: ActivatedRoute,
-    private http: HttpClient
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
-    
-    this.route.params.subscribe(params => {
-      this.id = params['id'];
-      this.http.get<User[]>('../../../assets/users.json').subscribe(users => {
-        this.user = users.find(user => user.utente === this.id)!;
-      });
-    });
+    const userLogged = JSON.parse(localStorage.getItem('userLogged') || '{}');
+    this.email = userLogged.email;
+    this.name = userLogged.name;
+    this.lastName = userLogged.lastName;
+    this.address = userLogged.address;
+    this.phoneNumber = userLogged.phoneNumber;
+    this.pfp = userLogged.pfp;
   }
 }

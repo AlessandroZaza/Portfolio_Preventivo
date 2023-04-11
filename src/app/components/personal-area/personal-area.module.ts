@@ -3,33 +3,18 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { PersonalAreaComponent } from './personal-area.component';
 import { PaymentMethodsComponent } from '../payment-methods/payment-methods.component';
-
-interface CreditCardResponse {
-  data: Array<Card>;
-}
-
-interface Card {
-  type: string;
-  number: number;
-  expiration: string;
-  owner: string;
-}
+import { PreventivoComponent } from '../preventivo/preventivo.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
-  { path: '', component: PersonalAreaComponent }
+  { path: '', component: PersonalAreaComponent },
+  { path: 'preventivo', component: PreventivoComponent },
+  { path: 'payment-methods', component: PaymentMethodsComponent },
 ];
 
 @NgModule({
-  declarations: [
-    PersonalAreaComponent,
-    PaymentMethodsComponent
-  ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes)
-  ],
-  exports: [
-    PersonalAreaComponent
-  ]
+  declarations: [ PersonalAreaComponent, PreventivoComponent, PaymentMethodsComponent ],
+  imports: [CommonModule, RouterModule.forChild(routes), FormsModule, ReactiveFormsModule],
+  exports: [PersonalAreaComponent],
 })
-export class PersonalAreaModule { }
+export class PersonalAreaModule {}

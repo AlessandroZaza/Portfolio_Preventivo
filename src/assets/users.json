@@ -7,17 +7,19 @@
       "name": "Alessandro",
       "lastName": "Zaza",
       "address": "via Francesco Petrarca, 59",
-      "phoneNumber": 3931610473
+      "phoneNumber": 3931610473,
+      "pfp": "../assets/portraits/ale-portrait.jpeg"
     },
     {
       "id": 2,
       "email": "utente2@example.com",
       "password": "2",
       "utente": "utente2",
-      "name": "Alessandro",
-      "lastName": "Zaza",
-      "address": "via Francesco Petrarca, 59",
-      "phoneNumber": 3931610473
+      "name": "Paolo",
+      "lastName": "Gippa",
+      "address": "corso Ferrucci, 11",
+      "phoneNumber": 3936296306,
+      "pfp": "../assets/portraits/paolo-portrait.jpg"
     },
     {
       "id": 3,

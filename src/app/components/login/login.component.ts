@@ -2,6 +2,14 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
+// export interface users {
+//   email: string;
+//   password: string;
+//   name: string;
+//   lastName: string;
+//   phoneNumber: number;
+// }
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,7 +18,6 @@ import { HttpClient } from '@angular/common/http';
 export class LoginComponent {
   
   users: any;
-
   password: string = '';
   email: string = '';
 
@@ -34,7 +41,8 @@ export class LoginComponent {
     if (user) {
       this.isLogged = true;
       console.log('Accesso consentito');
-      this.router.navigate(['/personal-area/:id']);
+      localStorage.setItem('userLogged', JSON.stringify(user));
+      this.router.navigate(['/personal-area']);
       console.log(this.isLogged);
       this.loginTrue = true;
     } else {
