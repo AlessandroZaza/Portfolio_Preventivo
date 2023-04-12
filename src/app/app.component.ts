@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Portfolio_Preventivo';
+  isLogged: boolean = false;
+
+  constructor() {}
+  ngDoCheck(): void {
+    this.isLogged=JSON.parse(localStorage.getItem("isLogged") || 'false');
+  }
 }

@@ -24,4 +24,8 @@ export class PersonalAreaComponent implements OnInit {
     this.phoneNumber = userLogged.phoneNumber;
     this.pfp = userLogged.pfp;
   }
+
+  logout() {
+    localStorage.setItem('isLogged', JSON.stringify(false));
+  }
 }

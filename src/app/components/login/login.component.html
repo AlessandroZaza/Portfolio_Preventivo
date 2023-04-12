@@ -36,9 +36,14 @@
                                 <input type="password" [(ngModel)]="password" class="form-control" id="inputPassword"
                                     placeholder="Password" name="password" required>
                             </div>
+                            <div *ngIf="errorMessage">
+                                <p class="text-danger mb-2">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                    Invalid credentials
+                                </p>
+                            </div>
                             <div class="text-start">
-                                <button type="submit" class="btn btn-primary mt-2" data-bs-toggle="modal"
-                                    data-bs-target="#loginModal">Login</button>
+                                <button type="submit" class="btn btn-primary mt-2">Login</button>
                             </div>
                         </form>
                     </div>
@@ -48,33 +53,3 @@
     </div>
 
 </section>
-<!-- Modale per login effettuato -->
-<div class="modal fade" *ngIf="loginTrue" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title mb-0" id="loginModalLabel">Login effettuato con successo!</h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p class="mb-0">Benvenuto/a !</p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modale per login non effettuato -->
-<div class="modal fade" id="loginFailedModal" tabindex="-1" aria-labelledby="loginFailedModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title mb-0" id="loginFailedModalLabel">Login non effettuato!</h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p class="mb-0">Ricontrolla le credenziali</p>
-            </div>
-        </div>
-    </div>
-</div>

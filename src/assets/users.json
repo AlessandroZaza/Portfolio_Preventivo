@@ -1,9 +1,8 @@
 [
     {
       "id": 1,
-      "email": "utente1@example.com",
+      "email": "q",
       "password": "1",
-      "utente": "utente1",
       "name": "Alessandro",
       "lastName": "Zaza",
       "address": "via Francesco Petrarca, 59",
@@ -14,7 +13,6 @@
       "id": 2,
       "email": "utente2@example.com",
       "password": "2",
-      "utente": "utente2",
       "name": "Paolo",
       "lastName": "Gippa",
       "address": "corso Ferrucci, 11",
@@ -25,7 +23,6 @@
       "id": 3,
       "email": "utente3@example.com",
       "password": "3",
-      "utente": "utente3",
       "name": "Alessandro",
       "lastName": "Zaza",
       "address": "via Francesco Petrarca, 59",

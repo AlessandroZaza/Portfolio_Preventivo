@@ -17,7 +17,7 @@
                 <p class="display-6 fs-6" style="font-weight: 400">e-mail logged with:
                     <span><strong>{{email}}</strong></span>
                 </p>
-                <button type="button" routerLink="/login" class="btn btn-danger col-xxl-4 mt-2">Logout</button>
+                <button type="button" routerLink="/login" (click)="logout()" class="btn btn-danger col-xxl-4 mt-2">Logout</button>
             </div>
             <div class="ps-5 ms-5 mt-4">
                 <button type="button" class="btn btn-primary px-4"><a routerLink="payment-methods" class="nav-link">your payment methods</a></button>
