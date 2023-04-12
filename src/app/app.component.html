@@ -45,8 +45,8 @@
     <li class="nav-item"><a routerLink="home" class="nav-link px-2 text-muted">Home</a></li>
     <li class="nav-item"><a routerLink="portfolio" class="nav-link px-2 text-muted">Portfolio</a></li>
     <li class="nav-item"><a routerLink="about" class="nav-link px-2 text-muted">About</a></li>
-    <li class="nav-item"><a routerLink="preventivo" class="nav-link px-2 text-muted">Request a quote</a></li>
-    <li class="nav-item"><a routerLink="payment-methods" class="nav-link px-2 text-muted">Payment methods</a></li>
+    <li class="nav-item"><a routerLink="personal-area/preventivo" class="nav-link px-2" [ngClass]="{'': isLogged, 'disabled': !isLogged}">Request a quote</a></li>
+    <li class="nav-item"><a routerLink="personal-area/payment-methods" class="nav-link px-2" [ngClass]="{'': isLogged, 'disabled': !isLogged}">Payment methods</a></li>
     <li class="nav-item"><a routerLink="contact" class="nav-link px-2 text-muted">Contact</a></li>
     <li class="nav-item"> <a *ngIf="isLogged" routerLink="personal-area" class="nav-link px-2 text-muted">Personal Area</a>
       <a *ngIf="isLogged == false" routerLink="login" class="nav-link px-2 text-muted">Login</a>
