@@ -16,7 +16,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ PersonalAreaComponent, PreventivoComponent, PaymentMethodsComponent ],
+  declarations: [ PersonalAreaComponent, PreventivoComponent, PaymentMethodsComponent, CompaniesComponent ],
   imports: [CommonModule, RouterModule.forChild(routes), FormsModule, ReactiveFormsModule],
   exports: [PersonalAreaComponent],
 })
