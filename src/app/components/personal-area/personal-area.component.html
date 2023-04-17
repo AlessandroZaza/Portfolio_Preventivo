@@ -1,40 +1,143 @@
 <section class="py-5 d-flex justify-content-center align-items-center">
 
-    <div class="card col-8 col-xxl-6 mx-5 p-5">
-        <div class="d-flex">
-            <img class="me-5 border border-3 border-dark" style="
-          width: 15h;
-          height: 15vh;
-          border-radius: 50%;
-          background-color: rgb(221, 197, 178);
-        " src="{{pfp}}" alt="user-photo" />
+    <div class="card d-flex col-10 col-xl-10 col-xxl-7 mx-5 p-5 position-relative">
 
+        <!-- CARD FINO A SM -->
+        <div class="d-sm-none">
 
-            <div class="d-flex flex-column justify-content-center col-5">
-                <p class="display-6 fs-3 mb-0" style="font-weight: 400">WELCOME <span><strong>{{name}}</strong></span>
-                    ! </p>
-                <hr class="col-12 ">
+            <button type="button" routerLink="/login" (click)="logout()"
+                class="btn btn-danger position-absolute shadow-0 rounded-top-0 rounded-end-0 top-0 end-0">
+                <i class="fa-solid fa-right-from-bracket fs-6"></i></button>
+
+            <div class="d-flex justify-content-between align-items-center">
+                <img class="col-4 border border-3 border-dark" style="border-radius: 50%;" src="{{pfp}}"
+                    alt="user-photo" />
+                <div class="d-flex flex-column mt-3 col-7">
+                    <p class="display-6 fs-3 mb-0" style="font-weight: 400">WELCOME
+                        <span><strong>{{name}}</strong></span> !
+                    </p>
+                    <hr>
+                    <p class="display-6 fs-6" style="font-weight: 400">e-mail logged with:
+                        <span><strong>{{email}}</strong></span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="accordion accordion-flush mt-5" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button px-4 py-2" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            
+                            <p class="fs-5"><strong>Personal infos</strong></p>
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                        <div class="accordion-body p-1">
+
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Name: <span><strong>{{name}}</strong></span></li>
+                                <li class="list-group-item">Surname: <span><strong>{{lastName}}</strong></span></li>
+                                <li class="list-group-item">Address: <span><strong>{{address}}</strong></span></li>
+                                <li class="list-group-item">Phone number: <span><strong>{{phoneNumber}}</strong></span></li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <p class="fs-5 mb-3"><strong>Private sections</strong></p>
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                        <div class="accordion-body p-1">
+
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><a routerLink="payment-methods" class="nav-link">
+                                    <button type="button" class="btn btn-primary">your payment methods</button></a></li>
+                                <li class="list-group-item"><a routerLink="preventivo" class="nav-link">
+                                    <button type="button" class="btn btn-primary ">Request a quote</button></a></li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CARD SM IN POI -->
+        <div class="d-none d-sm-flex justify-content-between">
+            <img class="align-self-center me-md-4 me-xxl-4 col-sm-4 col-md-3 col-xl-2 border border-3 border-dark"
+                style="
+                border-radius: 50%;
+              " src="{{pfp}}" alt="user-photo" />
+
+            <div class="d-flex flex-column justify-content-center col-7 col-md-8 col-xl-6">
+                <p class="display-6 fs-3 mb-0" style="font-weight: 400">WELCOME
+                    <span><strong>{{name}}</strong></span>
+                    !
+                </p>
+                <hr class="col-11 col-md-8">
                 <p class="display-6 fs-6" style="font-weight: 400">e-mail logged with:
                     <span><strong>{{email}}</strong></span>
                 </p>
-                <button type="button" routerLink="/login" (click)="logout()" class="btn btn-danger col-xxl-4 mt-2">Logout</button>
+                <button type="button" routerLink="/login" (click)="logout()"
+                    class="btn btn-danger col-6 col-md-4 mt-2">Logout</button>
             </div>
-            <div class="ps-5 ms-5 mt-4">
-                <a routerLink="payment-methods" class="nav-link"><button type="button" class="btn btn-primary px-4">your payment methods</button></a>
-                <a routerLink="preventivo" class="nav-link"><button type="button" class="btn btn-primary mt-4 px-5">Request a quote</button></a>
+            <div class="d-none d-lg-block mt-4 justify-content-center flex-wrap d-flex align-self-center">
+                <div class="mb-2">
+                    <a routerLink="payment-methods" class="nav-link"><button type="button" class="btn btn-primary">your
+                            payment methods</button></a>
+                </div>
+                <div class="mt-2">
+                    <a routerLink="preventivo" class="nav-link"><button type="button" class="btn btn-primary ">Request a
+                            quote</button></a>
+                </div>
             </div>
         </div>
-        <img src="../../../assets/logo-paw-icon.png" class="position-absolute z-1 opacity-25 rotate-20"
-            style="top: 45%; right: 15%;" width="150" height="130" alt="">
-        <div class="d-flex flex-column mt-5 mx-4">
-            <p class="fs-5 mb-3"><strong>Personal infos:</strong><i class="fa-regular fa-pen-to-square ms-2"></i></p>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Name: <span><strong>{{name}}</strong></span></li>
-                <li class="list-group-item">Surname: <span><strong>{{lastName}}</strong></span></li>
-                <li class="list-group-item">Address: <span><strong>{{address}}</strong></span></li>
-                <li class="list-group-item">Phone number: <span><strong>{{phoneNumber}}</strong></span></li>
-            </ul>
+        <div class="d-none d-md-flex d-lg-none mt-5 align-items-center justify-content-evenly z-2">
+            <p class="fw-bold fs-5 mb-0 ms-4">Private section: </p>
+            <div class="">
+                <a routerLink="payment-methods" class="nav-link"><button type="button" class="btn btn-primary">your
+                        payment methods</button></a>
+            </div>
+            <div class="">
+                <a routerLink="preventivo" class="nav-link"><button type="button" class="btn btn-primary ">Request a
+                        quote</button></a>
+            </div>
         </div>
+        <img src="../../../assets/logo-paw-icon.png"
+            class="d-none d-lg-block position-absolute z-1 opacity-25 rotate-20" style="top: 45%; right: 15%;"
+            width="150" height="130" alt="">
+        <div class="d-flex justify-content-between mt-4">
+            <div class="d-none d-sm-flex flex-column col-12 col-sm-6 col-md-11 mt-4 mx-sm-4">
+                <p class="fs-5 mb-3"><strong>Personal infos:</strong><i class="fa-regular fa-pen-to-square ms-2"></i>
+                </p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Name: <span><strong>{{name}}</strong></span></li>
+                    <li class="list-group-item">Surname: <span><strong>{{lastName}}</strong></span></li>
+                    <li class="list-group-item">Address: <span><strong>{{address}}</strong></span></li>
+                    <li class="list-group-item">Phone number: <span><strong>{{phoneNumber}}</strong></span></li>
+                </ul>
+            </div>
+
+            <div class="d-none d-sm-flex d-md-none flex-column mt-4">
+                <p class="fw-bold fs-5 mb-0">Private section: </p>
+                <div class="mt-4">
+                    <a routerLink="payment-methods" class="nav-link"><button type="button" class="btn btn-primary">your
+                            payment methods</button></a>
+                </div>
+                <div class="mt-3">
+                    <a routerLink="preventivo" class="nav-link"><button type="button" class="btn btn-primary ">Request a
+                            quote</button></a>
+                </div>
+            </div>
+        </div>
+
     </div>
-    
+
 </section>
