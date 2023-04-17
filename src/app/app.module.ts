@@ -16,6 +16,7 @@ import { PortfolioAlessandroComponent } from './components/portfolio-alessandro/
 import { HttpClientModule } from '@angular/common/http';
 import { PersonalAreaModule } from './components/personal-area/personal-area.module';
 import { CommonModule } from '@angular/common';
+import { CompaniesComponent } from './companies/companies.component';
 
 
 
@@ -27,7 +28,8 @@ import { CommonModule } from '@angular/common';
     ContactComponent,
     PortfolioComponent,
     PortfolioPaoloComponent,
-    PortfolioAlessandroComponent
+    PortfolioAlessandroComponent,
+    CompaniesComponent
   ],
   imports: [
     BrowserModule,
