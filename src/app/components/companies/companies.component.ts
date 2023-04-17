@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 interface ApiResponse {
-  data: Array<companies>;
+  data: companies[];
 }
 
 interface companies {
@@ -12,7 +12,7 @@ interface companies {
   vat: number;
   phone: number;
   country: string;
-  addresses: Array<addressesObj>;
+  addresses: addressesObj[];
   website: string;
   image: string;
   contact: {
@@ -69,7 +69,18 @@ export class CompaniesComponent implements OnInit {
         vat: 0,
         phone: 0,
         country: '',
-        addresses: [],
+        addresses: [{
+          id: 0,
+          street: '',
+          streetName: '',
+          buildingNumber: 0,
+          city: '',
+          zipcode: 0,
+          country: '',
+          county_code: '',
+          latitude: 0,
+          longitude: 0,
+        }],
         website: '',
         image: '',
         contact: {
@@ -101,7 +112,7 @@ export class CompaniesComponent implements OnInit {
 
   private readonly apiAddress =
     'https://fakerapi.it/api/v1/companies?_quantity=';
-  private readonly quantity = 3;
+  private readonly quantity = 10;
 
   constructor(public http: HttpClient) {}
 
@@ -131,7 +142,9 @@ export class CompaniesComponent implements OnInit {
               '\n| Country: ' +
               table.country +
               '\n| Street: ' +
-              table.addresses[0].street
+              table.addresses[0].street +
+              '\n| id: ' +
+              table.id
           );
           console.log('-------------------------------------');
         });
