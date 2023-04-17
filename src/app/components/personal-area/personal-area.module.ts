@@ -5,7 +5,8 @@ import { PersonalAreaComponent } from './personal-area.component';
 import { PaymentMethodsComponent } from '../payment-methods/payment-methods.component';
 import { PreventivoComponent } from '../preventivo/preventivo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CompaniesComponent } from 'src/app/companies/companies.component';
+import { CompaniesComponent } from '../companies/companies.component';
+
 
 const routes: Routes = [
   { path: '', component: PersonalAreaComponent },
