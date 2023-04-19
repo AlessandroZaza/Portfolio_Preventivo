@@ -1,0 +1,7 @@
+.hover:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+.hoverLight:hover{
+    background-color: rgba(0, 0, 0, 0.05);
+}
+

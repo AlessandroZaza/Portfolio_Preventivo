@@ -6,7 +6,8 @@ import { PaymentMethodsComponent } from '../payment-methods/payment-methods.comp
 import { PreventivoComponent } from '../preventivo/preventivo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CompaniesComponent } from '../companies/companies.component';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { NgPipesModule } from 'ngx-pipes';
 
 const routes: Routes = [
   { path: '', component: PersonalAreaComponent },
@@ -17,7 +18,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [ PersonalAreaComponent, PreventivoComponent, PaymentMethodsComponent, CompaniesComponent ],
-  imports: [CommonModule, RouterModule.forChild(routes), FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule.forChild(routes), FormsModule, ReactiveFormsModule, Ng2SearchPipeModule, NgPipesModule],
   exports: [PersonalAreaComponent],
 })
 export class PersonalAreaModule {}

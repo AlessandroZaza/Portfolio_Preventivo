@@ -28,7 +28,7 @@
                     <h2 class="accordion-header">
                         <button class="accordion-button px-4 py-2" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            
+
                             <p class="fs-5"><strong>Personal infos</strong></p>
                         </button>
                     </h2>
@@ -39,7 +39,8 @@
                                 <li class="list-group-item">Name: <span><strong>{{name}}</strong></span></li>
                                 <li class="list-group-item">Surname: <span><strong>{{lastName}}</strong></span></li>
                                 <li class="list-group-item">Address: <span><strong>{{address}}</strong></span></li>
-                                <li class="list-group-item">Phone number: <span><strong>{{phoneNumber}}</strong></span></li>
+                                <li class="list-group-item">Phone number: <span><strong>{{phoneNumber}}</strong></span>
+                                </li>
                             </ul>
 
                         </div>
@@ -57,9 +58,10 @@
 
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item"><a routerLink="payment-methods" class="nav-link">
-                                    <button type="button" class="btn btn-primary">your payment methods</button></a></li>
+                                        <button type="button" class="btn btn-primary">your payment methods</button></a>
+                                </li>
                                 <li class="list-group-item"><a routerLink="preventivo" class="nav-link">
-                                    <button type="button" class="btn btn-primary ">Request a quote</button></a></li>
+                                        <button type="button" class="btn btn-primary ">Request a quote</button></a></li>
                             </ul>
 
                         </div>
@@ -96,6 +98,9 @@
                 <div class="mt-2">
                     <a routerLink="preventivo" class="nav-link"><button type="button" class="btn btn-primary ">Request a
                             quote</button></a>
+                </div>
+                <div class="mt-2">
+                    <a routerLink="companies" class="nav-link"><button type="button" class="btn btn-primary ">Companies</button></a>
                 </div>
             </div>
         </div>

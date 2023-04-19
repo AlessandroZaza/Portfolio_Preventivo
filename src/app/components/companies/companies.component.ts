@@ -59,6 +59,7 @@ interface addressesObj {
   styleUrls: ['./companies.component.css'],
 })
 export class CompaniesComponent implements OnInit {
+  searchText: any;
   loading = false;
   tableDisplay: ApiResponse = {
     data: [
@@ -110,9 +111,16 @@ export class CompaniesComponent implements OnInit {
     ],
   };
 
+  filteredCompanies: ApiResponse = { data: [] };
+  noFilterTable = true;
+  filterBox = false;
+  filter = '';
+  viewOptions = false;
+  visibleColumns = [true, true, true, true, true, true, true, false];
+
   private readonly apiAddress =
     'https://fakerapi.it/api/v1/companies?_quantity=';
-  private readonly quantity = 10;
+  private readonly quantity = 100;
 
   constructor(public http: HttpClient) {}
 
@@ -127,28 +135,49 @@ export class CompaniesComponent implements OnInit {
       .get<ApiResponse>(`${this.apiAddress}${this.quantity}`)
       .subscribe((res) => {
         this.tableDisplay = res;
-
-        console.log('-------------------------------------');
-        this.tableDisplay.data.forEach((table) => {
-          console.log(
-            '| Nome: ' +
-              table.name +
-              '\n| E-mail: ' +
-              table.email +
-              '\n| Vat: ' +
-              table.vat +
-              '\n| Phone number: ' +
-              table.phone + 
-              '\n| Country: ' +
-              table.country +
-              '\n| Street: ' +
-              table.addresses[0].street +
-              '\n| id: ' +
-              table.id
-          );
-          console.log('-------------------------------------');
-        });
         this.loading = false;
       });
+  }
+
+  filterCompanies(searchText: string) {
+    this.filterBox = true;
+    this.filter = searchText;
+    this.noFilterTable = false;
+    if(searchText == ''){
+      this.resetFilter();
+    }
+    this.filteredCompanies.data = this.tableDisplay.data.filter((company) => {
+      return company.name.toLowerCase().includes(searchText.toLowerCase());
+    });
+}
+  
+  resetFilter() {
+    this.filterBox = false;
+    this.searchText = '';
+    this.noFilterTable = true;
+  }  
+ 
+  openViewOptions(){
+    if(this.viewOptions == false){
+      this.viewOptions = true;
+    } else {
+      this.viewOptions = false;
+    }
+
+  }
+
+  visibleOrInvisible(i: number){
+    if(this.visibleColumns[i] == true){
+      this.visibleColumns[i] = false;
+    } else {
+      this.visibleColumns[i] = true;
+    }
+  }
+
+  hideAll(){
+    this.visibleColumns.fill(false);
+  }
+  displayAll(){
+    this.visibleColumns.fill(true);
   }
 }
