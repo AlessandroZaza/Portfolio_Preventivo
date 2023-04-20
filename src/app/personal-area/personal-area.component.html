@@ -1,0 +1,96 @@
+<section
+  class="vh-100 bg-image"
+  style="
+    background-color: #f4f5f7;
+    background-image: url('../../assets/img-projects/color.jpg');
+  "
+>
+  <div class="d-flex flex-row justify-content-sm-between">
+    <div class="d-flex col col-auto align-items-center m-lg-5">
+      <a routerLink="/preventivo">
+        <button
+          type="button"
+          class="btn btn-lg d-flex text-start flex-row"
+          style="background-color: rgba(255, 180, 6, 255)"
+        >
+          Request a quote
+        </button></a
+      >
+    </div>
+    <div class="d-flex">
+      <div class="container py-md-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col mb-4 mb-lg-0">
+            <div class="card mb-3" style="border-radius: 0.5rem">
+              <div class="row g-0">
+                <div
+                  class="col-md-4 gradient-custom text-center text-white"
+                  style="
+                    border-top-left-radius: 0.5rem;
+                    border-bottom-left-radius: 0.5rem;
+                  "
+                >
+                  <img
+                    src="../../assets/portraits/paolo-portrait.jpg"
+                    alt="Avatar"
+                    class="img-fluid my-5"
+                    style="width: 80px; border-radius: 40px"
+                  />
+                  <h5>Paolo</h5>
+                  <p>Junior Front End Web Developer</p>
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body p-4">
+                    <h6>Personal Infos:</h6>
+                    <div class="row pt-1">
+                      <div class="col-6 mb-3">
+                        <h6>Email:</h6>
+                        <p class="text">{{ email }}</p>
+                      </div>
+                      <hr class="one" />
+                      <div class="col-6 mb-3">
+                        <h6>Phone:</h6>
+                        <p class="text">{{ phone }}</p>
+                      </div>
+                      <hr class="one" />
+                    </div>
+                    <div class="row pt-1">
+                      <div class="col-6 mb-3">
+                        <h6>Address:</h6>
+                        <p class="text">{{ address }}</p>
+                      </div>
+                      <hr class="one" />
+                      <div class="col-6 mb-3">
+                        <h6>Name:</h6>
+                        <p class="text">{{ name }}</p>
+                      </div>
+                      <hr class="one" />
+                    </div>
+                    <div class="d-flex justify-content-start">
+                      <a href="#!"
+                        ><i class="fab fa-facebook-f fa-lg me-3"></i
+                      ></a>
+                      <a href="#!"><i class="fab fa-twitter fa-lg me-3"></i></a>
+                      <a href="#!"><i class="fab fa-instagram fa-lg"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex col col-auto align-items-center m-5">
+      <a routerLink="/payment-methods"
+        ><button
+          type="button"
+          class="btn btn-lg d-flex text-end flex-row text-light"
+          style="background-color: rgba(252, 82, 59, 255)"
+        >
+          Payment methods
+        </button></a
+      >
+    </div>
+  </div>
+</section>

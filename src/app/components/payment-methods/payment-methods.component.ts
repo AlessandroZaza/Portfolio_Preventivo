@@ -63,7 +63,7 @@ export class PaymentMethodsComponent implements OnInit {
       )
       .subscribe((res) => {
         this.cardsDisplay = res;
-        this.cardsDisplay.data.sort((a, b) => a.number - b.number); // ordina in base al numero della carta
+        this.cardsDisplay.data.sort((a: Card, b: Card) => a.number - b.number); // ordina in base al numero della carta
           console.log('-------------------------------------');
           this.cardsDisplay.data.forEach((card) => {
            console.log(

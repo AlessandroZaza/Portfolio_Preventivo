@@ -1,0 +1,9 @@
+.table-group-divider > tr > td {
+    border-top: none;
+}
+
+@media screen and (max-width: 576px) {
+    .table-responsive {
+      overflow-x: auto;
+    }
+}

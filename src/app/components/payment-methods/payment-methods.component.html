@@ -1,7 +1,6 @@
 <style href="./payment-methods.component.css"></style>
 <h2 *ngIf="loading">LOADING...</h2>
-
-<div class="container" *ngFor="let card of cardsDisplay.data; let i = index;">
+<div class="container" *ngFor="let card of cardsDisplay.data; let i = index;"> <!--div class="container"-->
   <div class="card-outer">
   <div class="card">
       <span class="circle"></span>
@@ -24,13 +23,11 @@
       </div>
       <div class="ownername">
               <span>{{card.owner}}</span>
-              <ul (click)="getCreditCardLogo('Visa')">{{card.type}}</ul>
-  <!--simbolo carta in basso a destra-->      
+              <ul>{{card.type}}</ul>  
       </div> 
   </div>
   </div>
 </div>
-
 
 <!--Visa, MasterCard, Visa Retired, Discover Card, American Express-->
 

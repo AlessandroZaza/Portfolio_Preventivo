@@ -1,0 +1,36 @@
+<link rel="stylesheet" href="companies.component.css">
+<div class="border border-3 border-primary rounded" style="margin: 80px;">
+  <div class="table-responsive" style="margin: 80px;">   <!--name, email, vat, phone, country, addresses[0].street-->
+    <div class="container" style="margin: 40px; width: 30rem;">
+    <label for="filter" class="form-label">Searching Filter By Name</label>
+    <div class="input-group">
+    <input class="form-control border border-primary" id="usersfilter" placeholder="Search..." [(ngModel)]="searchTerm">
+    <button class="btn btn-primary" type="submit" (click)="filterUsers(searchTerm)">Search</button>
+    </div>
+    </div>
+   <table class="table table-sm">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Vat</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Country</th>
+        <th scope="col">Addresses</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider" style="border-top-color: #0d6efd">
+      <tr *ngFor="let Users of UsersDisplay.data">
+        <th scope="row">{{Users.id}}</th>
+        <td>{{Users.name}}</td>
+        <td>{{Users.email}}</td>
+        <td>{{Users.vat}}</td>
+        <td>{{Users.phone}}</td>
+        <td>{{Users.country}}</td>
+        <td>{{Users.addresses[0].street}}</td>
+      </tr>
+    </tbody>
+   </table>
+  </div>
+</div>
