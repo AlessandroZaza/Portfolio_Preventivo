@@ -65,7 +65,7 @@ export class CompaniesComponent implements OnInit{
   
   loading = false;
   searchTerm: any;
-
+  usersDisplayFiltered : UsersResponde = { data : [] };
   UsersDisplay: UsersResponde = {
     data: [{
       id: 0,
@@ -116,15 +116,16 @@ export class CompaniesComponent implements OnInit{
     },]
   };
   
-  filterData = false;
-  filter = '';
-
   private readonly apiAddress = 'https://fakerapi.it/api/v1/companies?_quantity=';
   private readonly quantity = 100;
   
   Users: any;
+  filterData = false;
+  filter = '';
+  AllUsersDisplay = '';
 
   constructor(public http: HttpClient) {}
+
   ngOnInit(): void {
     this.loadUsers();
   }
@@ -133,6 +134,7 @@ export class CompaniesComponent implements OnInit{
     this.loading = true;
     this.http.get<UsersResponde>(`${this.apiAddress}${this.quantity}`).subscribe((response) => {
         this.UsersDisplay = response;
+        this.usersDisplayFiltered = response; 
         this.Users = this.UsersDisplay;
         console.log('------------------------------');
         this.UsersDisplay.data.forEach((Users) => {
@@ -155,13 +157,32 @@ export class CompaniesComponent implements OnInit{
     });
   }
 
-  filterUsers(searchTerm: string) {
-    this.filterData = true;
-    this.filter = searchTerm;
-    this.UsersDisplay.data = this.UsersDisplay.data.filter((user) => {
-      return user.name.toLowerCase().includes(searchTerm.toLowerCase());
-    });
-  }
+  filterUsers(searchTerm: string): any {
+      debugger
+      this.filterData = true;
+      this.filter = searchTerm;
+      // il problema è che l'array viene aggiornato e non abbiamo un modo per tornare indietro 
+      this.usersDisplayFiltered.data = this.UsersDisplay.data.filter((user) => {
+        if(searchTerm === '') {
+         return this.usersDisplayFiltered.data = this.UsersDisplay.data;
+       } else {
+        return user.name.toLowerCase().includes(searchTerm.toLowerCase());
+        }
+      });
+    }
 }
 
 
+// filterUsers(searchTerm: string): any {
+//  debugger
+//  this.filterData = true;
+//  this.filter = searchTerm;
+  // il problema è che l'array viene aggiornato e non abbiamo un modo per tornare indietro 
+//  this.usersDisplayFiltered.data = this.UsersDisplay.data.filter((user) => {
+//    if(searchTerm === '') {
+//      return this.usersDisplayFiltered.data = this.UsersDisplay.data;
+//    } else {
+//    return user.name.toLowerCase().includes(searchTerm.toLowerCase());
+//    }
+//  });
+//}
