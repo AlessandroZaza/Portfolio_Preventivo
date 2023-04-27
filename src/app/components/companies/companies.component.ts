@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { FormGroup, FormsModule } from '@angular/forms';
 
-interface CompanyResponde {
+interface CompanyResponse {
   data: Array<Companies>;
 }
 
@@ -70,8 +70,8 @@ export class CompaniesComponent implements OnInit{
   searchTermByPhone: any;
   searchTermByCountry: any;
   searchTermByAddresses: any;
-  companiesDisplayFiltered : CompanyResponde = { data : [] };
-  CompaniesDisplay: CompanyResponde = {
+  companiesDisplayFiltered : CompanyResponse = { data : [] };
+  CompaniesDisplay: CompanyResponse = {
     data: [{
       id: 0,
       name: '',
@@ -127,6 +127,7 @@ export class CompaniesComponent implements OnInit{
   Companies: any;
   filterData = false;
   filter = '';
+  CompaniesDisplayDeepCopy: CompanyResponse = {data: []};
 
   constructor(public http: HttpClient) {}
 
@@ -136,9 +137,10 @@ export class CompaniesComponent implements OnInit{
 
   loadCompanies(): any {
     this.loading = true;
-    this.http.get<CompanyResponde>(`${this.apiAddress}${this.quantity}`).subscribe((response) => {
+    this.http.get<CompanyResponse>(`${this.apiAddress}${this.quantity}`).subscribe((response) => {
         this.CompaniesDisplay = response;
-        this.companiesDisplayFiltered = response; 
+        this.companiesDisplayFiltered = response; //stessa cosa di CompaniesDisplay, i dati della table vengono messi qua dentro//
+        this.CompaniesDisplayDeepCopy = JSON.parse(JSON.stringify(this.companiesDisplayFiltered));
         this.Companies = this.CompaniesDisplay;
         console.log('------------------------------');
         this.CompaniesDisplay.data.forEach((Companies) => {
@@ -162,39 +164,49 @@ export class CompaniesComponent implements OnInit{
   }
 
   filterCompaniesByName(searchTermByName: any): any {
-    this.CompaniesDisplay.data = this.companiesDisplayFiltered.data.filter((Companies) => {
+    this.CompaniesDisplay.data = this.CompaniesDisplayDeepCopy.data.filter((Companies) => {
           return Companies.name.toLowerCase().includes(searchTermByName.toLowerCase());
     }); 
   }
 
   filterCompaniesByEmail(searchTermByEmail: any): any {
-    this.CompaniesDisplay.data = this.companiesDisplayFiltered.data.filter((Companies) => {
+    this.CompaniesDisplay.data = this.CompaniesDisplayDeepCopy.data.filter((Companies) => {
       return Companies.email.toLowerCase().includes(searchTermByEmail.toLowerCase());
     }); 
   }
 
   filterCompaniesByVat(searchTermByVat: any): any {
-    this.CompaniesDisplay.data = this.companiesDisplayFiltered.data.filter((Companies) => {
+    this.CompaniesDisplay.data = this.CompaniesDisplayDeepCopy.data.filter((Companies) => {
       return Companies.vat.toLowerCase().includes(searchTermByVat.toLowerCase());
     }); 
   }
 
   filterCompaniesByPhone(searchTermByPhone: any): any {
-    this.CompaniesDisplay.data = this.companiesDisplayFiltered.data.filter((Companies) => {
+    this.CompaniesDisplay.data = this.CompaniesDisplayDeepCopy.data.filter((Companies) => {
       return Companies.phone.toLowerCase().includes(searchTermByPhone.toLowerCase());
     }); 
   }
 
   filterCompaniesByCountry(searchTermByCountry: any): any {
-    this.CompaniesDisplay.data = this.companiesDisplayFiltered.data.filter((Companies) => {
+    this.CompaniesDisplay.data = this.CompaniesDisplayDeepCopy.data.filter((Companies) => {
       return Companies.country.toLowerCase().includes(searchTermByCountry.toLowerCase());
     }); 
   }
 
   filterCompaniesByAddresses(searchTermByAddresses: any): any {
-    this.CompaniesDisplay.data = this.companiesDisplayFiltered.data.filter((Companies) => {
+    this.CompaniesDisplay.data = this.CompaniesDisplayDeepCopy.data.filter((Companies) => {
       return Companies.addresses[0].street.toLowerCase().includes(searchTermByAddresses.toLowerCase());
     }); 
+  }
+
+  resetCompaniesFilters() {
+    this.searchTermByName = '';
+    this.searchTermByEmail = '';
+    this.searchTermByVat = '';
+    this.searchTermByPhone = '';
+    this.searchTermByCountry = '';
+    this.searchTermByAddresses = '';
+    this.loadCompanies();
   }
   
 }
