@@ -3,40 +3,44 @@
   <div class="table-responsive" style="margin: 80px;">   <!--name, email, vat, phone, country, addresses[0].street-->
     <div class="container" style="margin: 40px; width: 30rem;">
     <div class="input-group">
-    <input class="form-control border border-primary" id="usersfilter" placeholder="Name..." [(ngModel)]="searchTerm">
-    <button class="btn btn-primary" type="submit" (click)="filterUsers(searchTerm)">Search</button>
+    <input class="form-control border border-primary" id="usersfilter" placeholder="Name..." [(ngModel)]="searchTermByName">
+    <button class="btn btn-primary" type="submit" (click)="filterCompaniesByName(searchTermByName)">Search</button>
+    <!-- <input class="form-control border border-primary" id="usersfilter" placeholder="Name..." [(ngModel)]="searchTerm">
+    <button class="btn btn-primary" type="submit" (click)="filterUsers(searchTerm)">Search</button>-->
     </div>
     </div>
     <div class="container" style="margin: 40px; width: 30rem;">
       <div class="input-group">
-      <input class="form-control border border-primary" id="usersfilter" placeholder="Email...">
-      <button class="btn btn-primary" type="submit">Search</button>
+      <input class="form-control border border-primary" id="usersfilter" placeholder="Email... " [(ngModel)]="searchTermByEmail">
+      <button class="btn btn-primary" type="submit" (click)="filterCompaniesByEmail(searchTermByEmail)">Search</button>
       </div>
       </div>
       <div class="container" style="margin: 40px; width: 30rem;">
         <div class="input-group">
-        <input class="form-control border border-primary" id="usersfilter" placeholder="Vat...">
-        <button class="btn btn-primary" type="submit">Search</button>
+        <input class="form-control border border-primary" id="usersfilter" placeholder="Vat..." [(ngModel)]="searchTermByVat">
+        <button class="btn btn-primary" type="submit" (click)="filterCompaniesByVat(searchTermByVat)">Search</button>
         </div>
         </div>
+        <div class="container" style="width: 30rem; border: solid red;">
         <div class="container" style="margin: 40px; width: 30rem;">
           <div class="input-group">
-          <input class="form-control border border-primary" id="usersfilter" placeholder="Phone...">
-          <button class="btn btn-primary" type="submit">Search</button>
+          <input class="form-control border border-primary" id="usersfilter" placeholder="Phone..." [(ngModel)]="searchTermByPhone">
+          <button class="btn btn-primary" type="submit" (click)="filterCompaniesByPhone(searchTermByPhone)">Search</button>
           </div>
           </div>
           <div class="container" style="margin: 40px; width: 30rem;">
             <div class="input-group">
-            <input class="form-control border border-primary" id="usersfilter" placeholder="Country...">
-            <button class="btn btn-primary" type="submit">Search</button>
+            <input class="form-control border border-primary" id="usersfilter" placeholder="Country..." [(ngModel)]="searchTermByCountry">
+            <button class="btn btn-primary" type="submit" (click)="filterCompaniesByCountry(searchTermByCountry)">Search</button>
             </div>
             </div>
             <div class="container" style="margin: 40px; width: 30rem;">
               <div class="input-group">
-              <input class="form-control border border-primary" id="usersfilter" placeholder="Addresses...">
-              <button class="btn btn-primary" type="submit">Search</button>
+              <input class="form-control border border-primary" id="usersfilter" placeholder="Addresses..." [(ngModel)]="searchTermByAddresses">
+              <button class="btn btn-primary" type="submit" (click)="filterCompaniesByAddresses(searchTermByAddresses)">Search</button>
               </div>
               </div>
+        </div>
    <table class="table table-sm">
     <thead>
       <tr>
@@ -50,14 +54,14 @@
       </tr>
     </thead>
     <tbody class="table-group-divider" style="border-top-color: #0d6efd">
-      <tr *ngFor="let Users of usersDisplayFiltered.data">
-        <th scope="row">{{Users.id}}</th>
-        <td>{{Users.name}}</td>
-        <td>{{Users.email}}</td>
-        <td>{{Users.vat}}</td>
-        <td>{{Users.phone}}</td>
-        <td>{{Users.country}}</td>
-        <td>{{Users.addresses[0].street}}</td>
+      <tr *ngFor="let Companies of companiesDisplayFiltered.data">
+        <th scope="row">{{Companies.id}}</th>
+        <td>{{Companies.name}}</td>
+        <td>{{Companies.email}}</td>
+        <td>{{Companies.vat}}</td>
+        <td>{{Companies.phone}}</td>
+        <td>{{Companies.country}}</td>
+        <td>{{Companies.addresses[0].street}}</td>
       </tr>
     </tbody>
    </table>

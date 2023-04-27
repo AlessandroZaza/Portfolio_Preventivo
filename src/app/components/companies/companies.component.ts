@@ -3,16 +3,16 @@ import { Component, OnInit } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { FormGroup, FormsModule } from '@angular/forms';
 
-interface UsersResponde {
-  data: Array<Users>;
+interface CompanyResponde {
+  data: Array<Companies>;
 }
 
-interface Users {
+interface Companies {
   id: number;
   name: string;
   email: string;
-  vat: number;
-  phone: number;
+  vat: string;
+  phone: string;
   country: string;
   addresses: addressesObj[];
   website: string;
@@ -22,7 +22,7 @@ interface Users {
     firstname: string;
     lastname: string;
     email: string;
-    phone: number;
+    phone: string;
     birthday: number;
     gender: string;
     address: {
@@ -64,15 +64,20 @@ interface addressesObj {
 export class CompaniesComponent implements OnInit{
   
   loading = false;
-  searchTerm: any;
-  usersDisplayFiltered : UsersResponde = { data : [] };
-  UsersDisplay: UsersResponde = {
+  searchTermByName: any;
+  searchTermByEmail: any;
+  searchTermByVat: any;
+  searchTermByPhone: any;
+  searchTermByCountry: any;
+  searchTermByAddresses: any;
+  companiesDisplayFiltered : CompanyResponde = { data : [] };
+  CompaniesDisplay: CompanyResponde = {
     data: [{
       id: 0,
       name: '',
       email: '',
-      vat: 0,
-      phone: 0,
+      vat: '',
+      phone: '',
       country: '',
       addresses: [{
         id: 0,
@@ -93,7 +98,7 @@ export class CompaniesComponent implements OnInit{
         firstname: '',
         lastname: '',
         email: '',
-        phone: 0,
+        phone: '',
         birthday: 0,
         gender: '',
         address: {
@@ -119,57 +124,79 @@ export class CompaniesComponent implements OnInit{
   private readonly apiAddress = 'https://fakerapi.it/api/v1/companies?_quantity=';
   private readonly quantity = 100;
   
-  Users: any;
+  Companies: any;
   filterData = false;
   filter = '';
-  AllUsersDisplay = '';
 
   constructor(public http: HttpClient) {}
 
   ngOnInit(): void {
-    this.loadUsers();
+    this.loadCompanies();
   }
 
-  loadUsers(): any {
+  loadCompanies(): any {
     this.loading = true;
-    this.http.get<UsersResponde>(`${this.apiAddress}${this.quantity}`).subscribe((response) => {
-        this.UsersDisplay = response;
-        this.usersDisplayFiltered = response; 
-        this.Users = this.UsersDisplay;
+    this.http.get<CompanyResponde>(`${this.apiAddress}${this.quantity}`).subscribe((response) => {
+        this.CompaniesDisplay = response;
+        this.companiesDisplayFiltered = response; 
+        this.Companies = this.CompaniesDisplay;
         console.log('------------------------------');
-        this.UsersDisplay.data.forEach((Users) => {
+        this.CompaniesDisplay.data.forEach((Companies) => {
               console.log('| Name: ' +
-               Users.name +
+               Companies.name +
                '\n| Email: ' +
-               Users.email +
+               Companies.email +
                '\n| Vat: ' +
-               Users.vat +
+               Companies.vat +
                '\n| Phone: ' +
-               Users.phone + 
+               Companies.phone + 
                '\n| Country: ' +
-               Users.country +
+               Companies.country +
                '\n| Addresses: ' +
-               Users.addresses[0].street +
+               Companies.addresses[0].street +
                '\n| Street: ' + 
-               Users.id + 
+               Companies.id + 
                '\n| Id: ');
         });
     });
   }
 
-  filterUsers(searchTerm: string): any {
-      debugger
-      this.filterData = true;
-      this.filter = searchTerm;
-      // il problema è che l'array viene aggiornato e non abbiamo un modo per tornare indietro 
-      this.usersDisplayFiltered.data = this.UsersDisplay.data.filter((user) => {
-        if(searchTerm === '') {
-         return this.usersDisplayFiltered.data = this.UsersDisplay.data;
-       } else {
-        return user.name.toLowerCase().includes(searchTerm.toLowerCase());
-        }
-      });
-    }
+  filterCompaniesByName(searchTermByName: any): any {
+    this.CompaniesDisplay.data = this.companiesDisplayFiltered.data.filter((Companies) => {
+          return Companies.name.toLowerCase().includes(searchTermByName.toLowerCase());
+    }); 
+  }
+
+  filterCompaniesByEmail(searchTermByEmail: any): any {
+    this.CompaniesDisplay.data = this.companiesDisplayFiltered.data.filter((Companies) => {
+      return Companies.email.toLowerCase().includes(searchTermByEmail.toLowerCase());
+    }); 
+  }
+
+  filterCompaniesByVat(searchTermByVat: any): any {
+    this.CompaniesDisplay.data = this.companiesDisplayFiltered.data.filter((Companies) => {
+      return Companies.vat.toLowerCase().includes(searchTermByVat.toLowerCase());
+    }); 
+  }
+
+  filterCompaniesByPhone(searchTermByPhone: any): any {
+    this.CompaniesDisplay.data = this.companiesDisplayFiltered.data.filter((Companies) => {
+      return Companies.phone.toLowerCase().includes(searchTermByPhone.toLowerCase());
+    }); 
+  }
+
+  filterCompaniesByCountry(searchTermByCountry: any): any {
+    this.CompaniesDisplay.data = this.companiesDisplayFiltered.data.filter((Companies) => {
+      return Companies.country.toLowerCase().includes(searchTermByCountry.toLowerCase());
+    }); 
+  }
+
+  filterCompaniesByAddresses(searchTermByAddresses: any): any {
+    this.CompaniesDisplay.data = this.companiesDisplayFiltered.data.filter((Companies) => {
+      return Companies.addresses[0].street.toLowerCase().includes(searchTermByAddresses.toLowerCase());
+    }); 
+  }
+  
 }
 
 
@@ -177,12 +204,43 @@ export class CompaniesComponent implements OnInit{
 //  debugger
 //  this.filterData = true;
 //  this.filter = searchTerm;
-  // il problema è che l'array viene aggiornato e non abbiamo un modo per tornare indietro 
+//  il problema è che l'array viene aggiornato e non abbiamo un modo per tornare indietro 
 //  this.usersDisplayFiltered.data = this.UsersDisplay.data.filter((user) => {
 //    if(searchTerm === '') {
 //      return this.usersDisplayFiltered.data = this.UsersDisplay.data;
 //    } else {
 //    return user.name.toLowerCase().includes(searchTerm.toLowerCase());
 //    }
+//  });
+//}
+
+// filterUsers(searchTerm: string): any {
+//  this.filterData = true;
+//  this.filter = searchTerm;
+
+  // Filtra l'array di utenti in base al valore di ricerca
+//  this.usersDisplayFiltered.data = this.UsersDisplay.data.filter((user) => {
+//    const search = searchTerm.toLowerCase();
+
+    // Filtra per name, email, vat e phone
+//    if (
+//      user.name.toLowerCase().includes(search) ||
+//      user.email.toLowerCase().includes(search) ||
+//      user.vat.toString().includes(search) ||
+//      user.phone.toString().includes(search)
+//   ) {
+//      return true;
+//    }
+
+    // Filtra per addresses
+//    for (const address of user.addresses) {
+//      if (
+//        address.street.toLowerCase().includes(search)
+//      ) {
+//        return true;
+//      }
+//    }
+
+//    return false;
 //  });
 //}
