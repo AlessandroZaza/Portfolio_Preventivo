@@ -8,32 +8,70 @@
             </button>
         </div>
 
-        <div class="d-flex mb-3">
-            <div class="d-flex justify-content-start col-11">
-                <div class="d-flex p-2 justify-content-start align-self-center me-5">
-                    <input class="ps-3  py-3 col-10 border border-dark" type="text" name="search"
-                        [(ngModel)]="filterText" placeholder="Search by name ...">
-                    <button type="button" class="btn btn-dark rounded-start-0 col-5"
-                        (click)="filterCompanies(filterText)">Search
-                        <i class="fa-solid fa-search ms-1"></i> </button>
-                </div>
-                <div class="ms-5">
-                    <label class="fw-bold" for="state-select">Seleziona uno stato:</label>
-                    <select class="form-select border border-dark" placeholder="Search by name ..."
-                        [(ngModel)]="selectedCountry" (change)="filterTableByCountry()">
-                        <option selected>Tutti gli stati</option>
-                        <option *ngFor="let country of countries">{{country}}</option>
-                    </select>
-                </div>
-            </div>
-
-
-
+        <div class="d-flex align-items-center mb-5">
+            <p class="h1 fw-normal display-5 m-0 ms-3"> Companies </p>
             <div class="ms-auto">
-                <button type="button" class="btn ms-auto shadow-none hover" (click)="openViewOptions()"><i
+
+                <button type="button" class="btn shadow-none" id="searchIcon" (click)="openFilterSection()"
+                    [ngClass]="{'': !viewFilterSection, 'hoverButton': viewFilterSection}"><i
+                        class="fa-solid fa-search ms-auto fs-3"></i></button>
+
+                <button type="button" class="btn shadow-none" (click)="openViewOptions()"
+                    [ngClass]="{'': !viewOptions, 'hoverButton': viewOptions}"><i
                         class="fa-solid fa-ellipsis-vertical ms-auto fs-3"></i></button>
 
-                <div *ngIf="viewOptions" class="card p-2 col-3 col-xxl-2 lh-lg ms-auto me-5 position-absolute end-0 z-1">
+                <div *ngIf="viewFilterSection" id="filterSection"
+                    class="card border p-2 col-4 col-xxl-3 col-xxl-4 lh-lg ms-auto me-5 position-absolute end-0 z-1">
+                    <p class="h5 p-3 m-0">Filter Section</p>
+                    <hr class="hr col-10 m-auto mt-2 mb-3">
+
+                    <div class="d-flex flex-column align-items-center">
+
+                        <div class="d-flex flex-column col-10">
+                            <label class="fw-bold">Name:</label>
+                            <input class="ps-3 py-2 border border-dark rounded" type="text" name="search"
+                                [(ngModel)]="filterName" placeholder="Search by name ...">
+                        </div>
+
+                        <div class="d-flex flex-column col-10 my-3">
+                            <label class="fw-bold">E-mail:</label>
+                            <input class="ps-3 py-2 border border-dark rounded" type="text" name="search"
+                                [(ngModel)]="filterEmail" placeholder="Search by e-mail ...">
+                        </div>
+
+                        <div class="d-flex flex-column col-10 mb-3">
+                            <label class="fw-bold">Vat:</label>
+                            <input class="ps-3 py-2 border border-dark rounded" type="text" name="search"
+                                [(ngModel)]="filterVat" placeholder="Search by vat ...">
+                        </div>
+
+                        <div class="d-flex flex-column col-10">
+                            <label class="fw-bold">Phone:</label>
+                            <input class="ps-3 py-2 border border-dark rounded" type="text" name="search"
+                                [(ngModel)]="filterPhone" placeholder="Search by phone ...">
+                        </div>
+
+                        <div class="d-flex flex-column my-3 col-10 justify-content-center align-items-center">
+                            <label class="fw-bold align-self-start" for="state-select">Seleziona uno stato:</label>
+                            <select class="form-select border border-dark ps-3 py-2" [(ngModel)]="selectedCountry" aria-label="Default select example">
+                                <option selected>Tutti gli stati</option>
+                                <option *ngFor="let country of uniqueCountries">{{country}}</option>
+                            </select>
+                        </div>
+
+                        <div class="d-flex justify-content-between col-10 mb-3 mt-2">
+                            <button type="button" class="btn btn-dark rounded col-5"
+                                (click)="searchButton()">Search
+                                <i class="fa-solid fa-search ms-1"></i> </button>
+                            <button class="btn btn-danger rounded" (click)="resetAllFilter()">Reset</button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div *ngIf="viewOptions"
+                    class="card border p-2 col-3 col-xxl-2 lh-lg ms-auto me-5 position-absolute end-0 z-1">
 
                     <p class="h5 p-3 m-0">View Options</p>
                     <hr class="hr col-10 m-auto mt-2 mb-3">
@@ -48,50 +86,50 @@
                     <div *ngIf="visibleColumns[0]"
                         class="d-flex align-items-center justify-content-between rounded py-1 px-3 hover">
                         <p class="m-0 fw-bold">#</p> <button class="btn p-0 shadow-none"
-                            (click)="visibleOrInvisible(0)"><i class="fa-regular fs-5"
+                            (click)="isColumnVisible(0)"><i class="fa-regular fs-5"
                                 [ngClass]="{'fa-eye': visibleColumns[0], 'fa-eye-slash': !visibleColumns[0]}"></i></button>
 
                     </div>
                     <div *ngIf="visibleColumns[1]"
                         class="d-flex align-items-center justify-content-between rounded py-1 px-3 hover">
                         <p class="m-0 fw-bold">Name</p> <button class="btn p-0 shadow-none"
-                            (click)="visibleOrInvisible(1)"><i class="fa-regular fs-5"
+                            (click)="isColumnVisible(1)"><i class="fa-regular fs-5"
                                 [ngClass]="{'fa-eye': visibleColumns[1], 'fa-eye-slash': !visibleColumns[1]}"></i></button>
                     </div>
                     <div *ngIf="visibleColumns[2]"
                         class="d-flex align-items-center justify-content-between rounded py-1 px-3 hover">
                         <p class="m-0 fw-bold">E-mail</p> <button class="btn p-0 shadow-none"
-                            (click)="visibleOrInvisible(2)"><i class="fa-regular fs-5"
+                            (click)="isColumnVisible(2)"><i class="fa-regular fs-5"
                                 [ngClass]="{'fa-eye': visibleColumns[2], 'fa-eye-slash': !visibleColumns[2]}"></i></button>
                     </div>
                     <div *ngIf="visibleColumns[3]"
                         class="d-flex align-items-center justify-content-between rounded py-1 px-3 hover">
                         <p class="m-0 fw-bold">Vat</p> <button class="btn p-0 shadow-none"
-                            (click)="visibleOrInvisible(3)"><i class="fa-regular fs-5"
+                            (click)="isColumnVisible(3)"><i class="fa-regular fs-5"
                                 [ngClass]="{'fa-eye': visibleColumns[3], 'fa-eye-slash': !visibleColumns[3]}"></i></button>
                     </div>
                     <div *ngIf="visibleColumns[4]"
                         class="d-flex align-items-center justify-content-between rounded py-1 px-3 hover">
                         <p class="m-0 fw-bold">Phone Number</p> <button class="btn p-0 shadow-none"
-                            (click)="visibleOrInvisible(4)"><i class="fa-regular fs-5"
+                            (click)="isColumnVisible(4)"><i class="fa-regular fs-5"
                                 [ngClass]="{'fa-eye': visibleColumns[4], 'fa-eye-slash': !visibleColumns[4]}"></i></button>
                     </div>
                     <div *ngIf="visibleColumns[5]"
                         class="d-flex align-items-center justify-content-between rounded py-1 px-3 hover">
                         <p class="m-0 fw-bold">Country</p> <button class="btn p-0 shadow-none"
-                            (click)="visibleOrInvisible(5)"><i class="fa-regular fs-5"
+                            (click)="isColumnVisible(5)"><i class="fa-regular fs-5"
                                 [ngClass]="{'fa-eye': visibleColumns[5], 'fa-eye-slash': !visibleColumns[5]}"></i></button>
                     </div>
                     <div *ngIf="visibleColumns[6]"
                         class="d-flex align-items-center justify-content-between rounded py-1 px-3 hover">
                         <p class="m-0 fw-bold">Street</p> <button class="btn p-0 shadow-none"
-                            (click)="visibleOrInvisible(6)"><i class="fa-regular fs-5"
+                            (click)="isColumnVisible(6)"><i class="fa-regular fs-5"
                                 [ngClass]="{'fa-eye': visibleColumns[6], 'fa-eye-slash': !visibleColumns[6]}"></i></button>
                     </div>
                     <div *ngIf="visibleColumns[7]"
                         class="d-flex align-items-center justify-content-between rounded py-1 px-3 hover">
                         <p class="m-0 fw-bold">Website</p> <button class="btn p-0 shadow-none"
-                            (click)="visibleOrInvisible(7)"><i class="fa-regular fs-5"
+                            (click)="isColumnVisible(7)"><i class="fa-regular fs-5"
                                 [ngClass]="{'fa-eye': visibleColumns[7], 'fa-eye-slash': !visibleColumns[7]}"></i></button>
                     </div>
 
@@ -110,50 +148,50 @@
                     <div *ngIf="!visibleColumns[0]"
                         class="d-flex align-items-center justify-content-between rounded py-1 px-3 hover">
                         <p class="m-0 fw-bold">#</p> <button class="btn p-0 shadow-none"
-                            (click)="visibleOrInvisible(0)"><i class="fa-regular fs-5"
+                            (click)="isColumnVisible(0)"><i class="fa-regular fs-5"
                                 [ngClass]="{'fa-eye': visibleColumns[0], 'fa-eye-slash': !visibleColumns[0]}"></i></button>
 
                     </div>
                     <div *ngIf="!visibleColumns[1]"
                         class="d-flex align-items-center justify-content-between rounded py-1 px-3 hover">
                         <p class="m-0 fw-bold">Name</p> <button class="btn p-0 shadow-none"
-                            (click)="visibleOrInvisible(1)"><i class="fa-regular fs-5"
+                            (click)="isColumnVisible(1)"><i class="fa-regular fs-5"
                                 [ngClass]="{'fa-eye': visibleColumns[1], 'fa-eye-slash': !visibleColumns[1]}"></i></button>
                     </div>
                     <div *ngIf="!visibleColumns[2]"
                         class="d-flex align-items-center justify-content-between rounded py-1 px-3 hover">
                         <p class="m-0 fw-bold">E-mail</p> <button class="btn p-0 shadow-none"
-                            (click)="visibleOrInvisible(2)"><i class="fa-regular fs-5"
+                            (click)="isColumnVisible(2)"><i class="fa-regular fs-5"
                                 [ngClass]="{'fa-eye': visibleColumns[2], 'fa-eye-slash': !visibleColumns[2]}"></i></button>
                     </div>
                     <div *ngIf="!visibleColumns[3]"
                         class="d-flex align-items-center justify-content-between rounded py-1 px-3 hover">
                         <p class="m-0 fw-bold">Vat</p> <button class="btn p-0 shadow-none"
-                            (click)="visibleOrInvisible(3)"><i class="fa-regular fs-5"
+                            (click)="isColumnVisible(3)"><i class="fa-regular fs-5"
                                 [ngClass]="{'fa-eye': visibleColumns[3], 'fa-eye-slash': !visibleColumns[3]}"></i></button>
                     </div>
                     <div *ngIf="!visibleColumns[4]"
                         class="d-flex align-items-center justify-content-between rounded py-1 px-3 hover">
                         <p class="m-0 fw-bold">Phone Number</p> <button class="btn p-0 shadow-none"
-                            (click)="visibleOrInvisible(4)"><i class="fa-regular fs-5"
+                            (click)="isColumnVisible(4)"><i class="fa-regular fs-5"
                                 [ngClass]="{'fa-eye': visibleColumns[4], 'fa-eye-slash': !visibleColumns[4]}"></i></button>
                     </div>
                     <div *ngIf="!visibleColumns[5]"
                         class="d-flex align-items-center justify-content-between rounded py-1 px-3 hover">
                         <p class="m-0 fw-bold">Country</p> <button class="btn p-0 shadow-none"
-                            (click)="visibleOrInvisible(5)"><i class="fa-regular fs-5"
+                            (click)="isColumnVisible(5)"><i class="fa-regular fs-5"
                                 [ngClass]="{'fa-eye': visibleColumns[5], 'fa-eye-slash': !visibleColumns[5]}"></i></button>
                     </div>
                     <div *ngIf="!visibleColumns[6]"
                         class="d-flex align-items-center justify-content-between rounded py-1 px-3 hover">
                         <p class="m-0 fw-bold">Street</p> <button class="btn p-0 shadow-none"
-                            (click)="visibleOrInvisible(6)"><i class="fa-regular fs-5"
+                            (click)="isColumnVisible(6)"><i class="fa-regular fs-5"
                                 [ngClass]="{'fa-eye': visibleColumns[6], 'fa-eye-slash': !visibleColumns[6]}"></i></button>
                     </div>
                     <div *ngIf="!visibleColumns[7]"
                         class="d-flex align-items-center justify-content-between rounded py-1 px-3 hover">
                         <p class="m-0 fw-bold">Website</p> <button class="btn p-0 shadow-none"
-                            (click)="visibleOrInvisible(7)"><i class="fa-regular fs-5"
+                            (click)="isColumnVisible(7)"><i class="fa-regular fs-5"
                                 [ngClass]="{'fa-eye': visibleColumns[7], 'fa-eye-slash': !visibleColumns[7]}"></i></button>
                     </div>
 
@@ -162,20 +200,43 @@
 
         </div>
         <div *ngIf="filterBoxWithResults" class="d-flex">
-            <div *ngIf="filterBoxText" class="mt-2">
-                <button type="button" class="btn btn-outline-dark rounded-pill" (click)="resetFilterText()"
-                    style="background-color: rgba(0, 0, 0, 0.10);">{{filter}} <i class="fa-solid fa-x ms-1"></i>
+            <div *ngIf="filterBoxName" class="mt-2">
+                <button type="button" class="btn btn-outline-dark rounded-pill d-flex" (click)="removeFilterName()"
+                    style="background-color: rgba(0, 0, 0, 0.10);">
+                    <p class="m-0 me-1 text-lowercase">name: </p> <span class="fw-bold"> {{filterChipsForName}}</span>
+                    <i class="fa-solid fa-x ms-2 ps-1 align-self-center"></i>
+                </button>
+            </div>
+            <div *ngIf="filterBoxEmail" class="mt-2 ms-2">
+                <button type="button" class="btn btn-outline-dark rounded-pill d-flex" (click)="removeFilterEmail()"
+                    style="background-color: rgba(0, 0, 0, 0.10);">
+                    <p class="m-0 me-1 text-lowercase">e-mail: </p> <span class="fw-bold">
+                        {{filterChipsForEmail}}</span> <i class="fa-solid fa-x ms-2 ps-1 align-self-center"></i>
+                </button>
+            </div>
+            <div *ngIf="filterBoxVat" class="mt-2 ms-2">
+                <button type="button" class="btn btn-outline-dark rounded-pill d-flex" (click)="removeFilterVat()"
+                    style="background-color: rgba(0, 0, 0, 0.10);">
+                    <p class="m-0 me-1 text-lowercase">vat: </p> <span class="fw-bold">
+                        {{filterChipsForVat}}</span> <i class="fa-solid fa-x ms-2 ps-1 align-self-center"></i>
+                </button>
+            </div>
+            <div *ngIf="filterBoxPhone" class="mt-2 ms-2">
+                <button type="button" class="btn btn-outline-dark rounded-pill d-flex" (click)="removeFilterPhone()"
+                    style="background-color: rgba(0, 0, 0, 0.10);">
+                    <p class="m-0 me-1 text-lowercase">phone number: </p> <span class="fw-bold">
+                        {{filterChipsForPhone}}</span> <i class="fa-solid fa-x ms-2 ps-1 align-self-center"></i>
                 </button>
             </div>
             <div *ngIf="filterBoxCountry" class="mt-2 ms-2">
-                <button type="button" class="btn btn-outline-dark rounded-pill" (click)="resetFilterCountry()"
-                    style="background-color: rgba(0, 0, 0, 0.10);">{{selectedCountry}} <i
-                        class="fa-solid fa-x ms-1"></i>
+                <button type="button" class="btn btn-outline-dark rounded-pill d-flex" (click)="removeFilterCountry()"
+                    style="background-color: rgba(0, 0, 0, 0.10);">
+                    <p class="m-0 me-1 text-lowercase">country: </p> <span class="fw-bold">
+                        {{filterChipsForCountry}}</span> <i class="fa-solid fa-x ms-2 ps-1 align-self-center"></i>
                 </button>
             </div>
             <p class="m-0 ms-3 mt-3 fw-bold">{{filteredCompanies.data.length}} Results</p>
         </div>
-
 
 
         <table class="table table-hover">
@@ -194,7 +255,7 @@
 
             <tbody class="table-group-divider" style="border-top-color: black;">
 
-                <ng-container *ngIf="noFilterTable">
+                <!-- <ng-container *ngIf="noFilterTable">
                     <tr *ngFor="let company of tableDisplay.data">
                         <th scope="row" style="font-weight:bolder;" *ngIf="visibleColumns[0]">{{company.id}}</th>
                         <td *ngIf="visibleColumns[1]">{{company.name}}</td>
@@ -205,9 +266,9 @@
                         <td *ngIf="visibleColumns[6]">{{company.addresses[0].street}}</td>
                         <td *ngIf="visibleColumns[7]">{{company.website}}</td>
                     </tr>
-                </ng-container>
+                </ng-container> -->
 
-                <ng-container *ngIf="!noFilterTable">
+                <ng-container>
                     <tr *ngFor="let company of filteredCompanies.data">
                         <th scope="row" style="font-weight:bolder;" *ngIf="visibleColumns[0]">{{company.id}}</th>
                         <td *ngIf="visibleColumns[1]">{{company.name}}</td>

@@ -9,8 +9,8 @@ interface companies {
   id: number;
   name: string;
   email: string;
-  vat: number;
-  phone: number;
+  vat: string;
+  phone: string;
   country: string;
   addresses: addressesObj[];
   website: string;
@@ -59,28 +59,30 @@ interface addressesObj {
   styleUrls: ['./companies.component.css'],
 })
 export class CompaniesComponent implements OnInit {
-  loading = false;
+  loading = false; // booleana per attivare o disattivare il loading
   tableDisplay: ApiResponse = {
     data: [
       {
         id: 0,
         name: '',
         email: '',
-        vat: 0,
-        phone: 0,
+        vat: '',
+        phone: '',
         country: '',
-        addresses: [{
-          id: 0,
-          street: '',
-          streetName: '',
-          buildingNumber: 0,
-          city: '',
-          zipcode: 0,
-          country: '',
-          county_code: '',
-          latitude: 0,
-          longitude: 0,
-        }],
+        addresses: [
+          {
+            id: 0,
+            street: '',
+            streetName: '',
+            buildingNumber: 0,
+            city: '',
+            zipcode: 0,
+            country: '',
+            county_code: '',
+            latitude: 0,
+            longitude: 0,
+          },
+        ],
         website: '',
         image: '',
         contact: {
@@ -109,17 +111,30 @@ export class CompaniesComponent implements OnInit {
       },
     ],
   };
-  countries: string[] = []; // array degli stati per il filtro a tendina
-  filterText: any; // testo inserito dall'utente per filtrare i nomi
-  filter: string = ''; 
-  selectedCountry: any; // stato selezionato
+  countries: string[] = []; // array contenente tutti gli stati per la select (con parole duplicate)
+  uniqueCountries: string[] = []; // array contenente tutti gli stati per la select (senza parole duplicate)
+  filterName: any; // testo inserito dall'utente per filtrare i nomi
+  filterEmail: any; // testo inserito dall'utente per filtrare l'e-mail
+  filterVat: any; // testo inserito dall'utente per filtrare il vat
+  filterPhone: any; // testo inserito dall'utente per filtrare il numero di telefono
+  filterChipsForName: string = ''; // stringa contenuta all'interno della chip per il filtro name
+  filterChipsForEmail: string = ''; // stringa contenuta all'interno della chip per il filtro email
+  filterChipsForVat: string = ''; // stringa contenuta all'interno della chip per il filtro vat
+  filterChipsForPhone: string = ''; // stringa contenuta all'interno della chip per il filtro phone
+  filterChipsForCountry: string = ''; // stringa contenuta all'interno della chip per il filtro country
+  selectedCountry: string = 'Tutti gli stati' // stato selezionato
   filteredCompanies: ApiResponse = { data: [] }; // tabella filtrata, ora vuota, andrà a popolarsi successivamente
-  noFilterTable = true; // booleana per far apparire o meno la tabella con i filtri o senza
-  filterBoxText = false; // booleana per far apparire il div con il filtro (nome) inserito dall'utente
+  filterBoxName = false; // booleana per far apparire il div con il filtro (nome) inserito dall'utente
+  filterBoxEmail = false; // booleana per far apparire il div con il filtro (email) inserito dall'utente
+  filterBoxVat = false; // booleana per far apparire il div con il filtro (vat) inserito dall'utente
+  filterBoxPhone = false; // booleana per far apparire il div con il filtro (phone) inserito dall'utente
   filterBoxCountry = false; // booleana per far apparire il div con il filtro (stato) inserito dall'utente
   filterBoxWithResults = false; // booleana per far apparire il div con tutti i filtri e il numero di risultati
   viewOptions = false; // booleana per far apparire il div con le View Options della tabella
+  viewFilterSection = false; // booleana per far apparire il div con le sezioni per i filtri della tabella
   visibleColumns = [true, true, true, true, true, true, true, false]; // array di booleani per settare quali colonne devono essere visibili o no
+  filterSectionElement = document.getElementById('filterSection');
+  searchIconElement = document.getElementById('searchIcon');
 
   private readonly apiAddress =
     'https://fakerapi.it/api/v1/companies?_quantity=';
@@ -139,82 +154,317 @@ export class CompaniesComponent implements OnInit {
       .subscribe((res) => {
         this.tableDisplay = res;
 
-        // funzione per popolare l'array countries e ordinarlo 
-        this.tableDisplay.data.forEach(company => { this.countries.push(company.country)}); 
-        this.countries.sort((a,b)=> {
-          if (a > b) { return 1 }
-          if (a < b) { return -1}
+        //metodo per creare una copia della tabella originale senza referenze
+        this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
+
+        // funzione per popolare l'array countries e ordinarlo
+        this.tableDisplay.data.forEach((company) => {
+          this.countries.push(company.country);
+        });
+
+        this.countries.sort((a, b) => {
+          if (a > b) {
+            return 1;
+          }
+          if (a < b) {
+            return -1;
+          }
           return 0;
-        })
+        });
+
+        // metodo per creare una copia dell'array countries senza parole duplicate
+        this.uniqueCountries = Array.from(new Set(this.countries));
 
         this.loading = false;
       });
   }
 
-  
-  filterCompanies(filterText: string) {
+  // funzione per filtrare per nome
+  filterTableByName(filterName: string) {
     this.filterBoxWithResults = true;
-    this.filterBoxText = true;
-    this.noFilterTable = false;
-    this.filter = filterText;
-    if(filterText == ''){
-      this.resetFilterText();
-    }
-    this.filteredCompanies.data = this.tableDisplay.data.filter((company) => {
-      return company.name.toLowerCase().includes(filterText.toLowerCase());
-    }); 
-}
-
-filterTableByCountry() {
-  if (this.selectedCountry === 'Tutti gli stati') {
-    this.filteredCompanies.data = this.tableDisplay.data;
-  } else {
-    this.filteredCompanies.data = this.tableDisplay.data.filter(company => company.country === this.selectedCountry);
+    this.filterBoxName = true;
+    this.filterChipsForName = filterName;
+    this.filteredCompanies.data = this.filteredCompanies.data.filter(
+      (company) => {
+        return company.name.toLowerCase().includes(filterName.toLowerCase());
+      }
+    );
   }
-  this.filterBoxWithResults = true;
-  this.noFilterTable = false;
-  this.filterBoxCountry = true;
-}
-  
-  resetFilterText() {
-    this.filterBoxText = false;
-    this.filterText = '';
-    this.noFilterTable = true;
-    if(this.filterBoxText == false && this.filterBoxCountry == false){
+  filterTableByEmail(filterEmail: string) {
+    this.filterBoxWithResults = true;
+    this.filterBoxEmail = true;
+    this.filterChipsForEmail = filterEmail;
+    this.filteredCompanies.data = this.filteredCompanies.data.filter(
+      (company) => {
+        return company.email.toLowerCase().includes(filterEmail.toLowerCase());
+      }
+    );
+  }
+  filterTableByVat(filterVat: string) {
+    this.filterBoxWithResults = true;
+    this.filterBoxVat = true;
+    this.filterChipsForVat = filterVat;
+    this.filteredCompanies.data = this.filteredCompanies.data.filter(
+      (company) => {
+        return company.vat.toLowerCase().includes(filterVat.toLowerCase());
+      }
+    );
+  }
+  filterTableByPhoneNumber(filterPhone: string) {
+    this.filterBoxWithResults = true;
+    this.filterBoxPhone = true;
+    this.filterChipsForPhone = filterPhone;
+    this.filteredCompanies.data = this.filteredCompanies.data.filter(
+      (company) => {
+        return company.phone.toLowerCase().includes(filterPhone.toLowerCase());
+      }
+    );
+  }
+  filterTableByCountry() {
+    if (this.selectedCountry != 'Tutti gli stati') {
+      this.filteredCompanies.data = this.filteredCompanies.data.filter(
+        (company) => company.country === this.selectedCountry
+      );
+      this.filterBoxWithResults = true;
+      this.filterChipsForCountry = this.selectedCountry;
+      this.filterBoxCountry = true;
+    } else if (this.filterBoxName == false && this.filterBoxEmail == false && this.filterBoxVat == false && this.filterBoxPhone == false) {
+      this.filterBoxCountry = false;
       this.filterBoxWithResults = false;
     }
-  }  
-  resetFilterCountry() {
+  }
+
+  // funzione per gestire il campo name vuoto
+  nameFilterEmpty(){
+    this.filterBoxName = false;
+    this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
+    if (
+      this.filterBoxName == false &&
+      this.filterBoxEmail == false &&
+      this.filterBoxVat == false &&
+      this.filterBoxPhone == false &&
+      this.filterBoxCountry == false
+    ) {
+      this.filterBoxWithResults = false;
+    }
+  }
+  emailFilterEmpty(){
+    this.filterBoxEmail = false;
+    this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
+    if (
+      this.filterBoxName == false &&
+      this.filterBoxEmail == false &&
+      this.filterBoxVat == false &&
+      this.filterBoxPhone == false &&
+      this.filterBoxCountry == false
+    ) {
+      this.filterBoxWithResults = false;
+    }
+  }
+  vatFilterEmpty(){
+    this.filterBoxVat = false;
+    this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
+    if (
+      this.filterBoxName == false &&
+      this.filterBoxEmail == false &&
+      this.filterBoxVat == false &&
+      this.filterBoxPhone == false &&
+      this.filterBoxCountry == false
+    ) {
+      this.filterBoxWithResults = false;
+    }
+  }
+  phoneFilterEmpty(){
+    this.filterBoxPhone = false;
+    this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
+    if (
+      this.filterBoxName == false &&
+      this.filterBoxEmail == false &&
+      this.filterBoxVat == false &&
+      this.filterBoxPhone == false &&
+      this.filterBoxCountry == false
+    ) {
+      this.filterBoxWithResults = false;
+    }
+  }
+
+  //funzione per resettare tutti i filtri con il button reset
+  resetAllFilter() {
+    this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
+    this.filterBoxWithResults = false;
+    this.filterBoxName = false;
+    this.filterName = '';
+    this.filterBoxEmail = false;
+    this.filterEmail = '';
+    this.filterBoxVat = false;
+    this.filterVat = '';
+    this.filterBoxPhone = false;
+    this.filterPhone = '';
     this.filterBoxCountry = false;
     this.selectedCountry = 'Tutti gli stati';
-    this.noFilterTable = true;
-    if(this.filterBoxText == false && this.filterBoxCountry == false){
+  }
+
+  // funzione per rimuovere il filtro cliccando la chip
+  removeFilterName() {
+    this.filterBoxName = false;
+    this.filterName = '';
+    this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
+    if (
+      this.filterBoxName == false &&
+      this.filterBoxEmail == false &&
+      this.filterBoxVat == false &&
+      this.filterBoxPhone == false &&
+      this.filterBoxCountry == false
+    ) {
       this.filterBoxWithResults = false;
     }
-  }  
- 
-  openViewOptions(){
-    if(this.viewOptions == false){
+    this.searchButton();
+  }
+  removeFilterEmail() {
+    this.filterBoxEmail = false;
+    this.filterEmail = '';
+    this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
+    if (
+      this.filterBoxName == false &&
+      this.filterBoxEmail == false &&
+      this.filterBoxVat == false &&
+      this.filterBoxPhone == false &&
+      this.filterBoxCountry == false
+    ) {
+      this.filterBoxWithResults = false;
+    }
+    this.searchButton();
+  }
+  removeFilterVat() {
+    this.filterBoxVat = false;
+    this.filterVat = '';
+    this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
+    if (
+      this.filterBoxName == false &&
+      this.filterBoxEmail == false &&
+      this.filterBoxVat == false &&
+      this.filterBoxPhone == false &&
+      this.filterBoxCountry == false
+    ) {
+      this.filterBoxWithResults = false;
+    }
+    this.searchButton();
+  }
+  removeFilterPhone() {
+    this.filterBoxPhone = false;
+    this.filterPhone = '';
+    this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
+    if (
+      this.filterBoxName == false &&
+      this.filterBoxEmail == false &&
+      this.filterBoxVat == false &&
+      this.filterBoxPhone == false &&
+      this.filterBoxCountry == false
+    ) {
+      this.filterBoxWithResults = false;
+    }
+    this.searchButton();
+  }
+  removeFilterCountry() {
+    this.filterBoxCountry = false;
+    this.selectedCountry = 'Tutti gli stati';
+    this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
+    if (
+      this.filterBoxName == false &&
+      this.filterBoxEmail == false &&
+      this.filterBoxVat == false &&
+      this.filterBoxPhone == false &&
+      this.filterBoxCountry == false
+    ) {
+      this.filterBoxWithResults = false;
+    }
+    this.searchButton();
+  }
+
+  // funzione per far apparire il div con le view options
+  openViewOptions() {
+    if (this.viewOptions == false) {
       this.viewOptions = true;
+      this.viewFilterSection = false;
     } else {
       this.viewOptions = false;
     }
   }
+  // funzione per far apparire il div filter section
+  openFilterSection() {
+    if (this.viewFilterSection == false) {
+      this.viewFilterSection = true;
+      this.viewOptions = false;
+      if(this.searchIconElement){
+        console.log('ciao');
+      }
+      if (this.searchIconElement && this.filterSectionElement) {
+        this.searchIconElement.addEventListener('click', () => {
+          this.filterSectionElement?.focus();
+        });
+        console.log('ciao');
+      }    
 
-  visibleOrInvisible(i: number){
-    if(this.visibleColumns[i] == true){
+      // if (this.searchIconElement && this.filterSectionElement) {
+      //   this.searchIconElement.addEventListener('click', () => {
+      //     this.filterSectionElement.focus();
+      //   });
+      // }
+      // if (this.filterSectionElement) {
+      //   this.filterSectionElement.focus();
+      //   console.log('ciao');
+      // }
+    } else {
+      this.viewFilterSection = false;
+    }
+  }
+
+  // funzione per rendere visibile o invisibile una colonna della table
+  isColumnVisible(i: number) {
+    if (this.visibleColumns[i] == true) {
       this.visibleColumns[i] = false;
     } else {
       this.visibleColumns[i] = true;
     }
   }
 
-  hideAll(){
+  // funzione per rendere tutte le colonne invisibili
+  hideAll() {
     this.visibleColumns.fill(false);
   }
-  displayAll(){
+  // funzione per rendere tutte le colonne visibili
+  displayAll() {
     this.visibleColumns.fill(true);
   }
 
-  
+  //funzione per il bottone ricerca dei filtri
+  searchButton() {
+    if (this.filterName == '') {
+      this.nameFilterEmpty();
+    }
+    if (this.filterEmail == '') {
+      this.emailFilterEmpty();
+    }
+    if (this.filterVat == '') {
+      this.vatFilterEmpty();
+    }
+    if (this.filterPhone == '') {
+      this.phoneFilterEmpty();
+    }
+    if (this.filterName) {
+      this.filterTableByName(this.filterName);
+    }
+    if (this.filterEmail) {
+      this.filterTableByEmail(this.filterEmail);
+    }
+    if (this.filterVat) {
+      this.filterTableByVat(this.filterVat);
+    }
+    if (this.filterPhone) {
+      this.filterTableByPhoneNumber(this.filterPhone);
+    }
+    if (this.selectedCountry != 'tutti gli stati') {
+      this.filterTableByCountry();
+    }
+  }
 }

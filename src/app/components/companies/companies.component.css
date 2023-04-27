@@ -4,4 +4,13 @@
 .hoverLight:hover{
     background-color: rgba(0, 0, 0, 0.05);
 }
+.hoverButton {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+/* select {
+  --bs-form-select-color: red !important;
+}
+select.form-select option:checked {
+  background-color: #8B0000 !important;
+} */
 
