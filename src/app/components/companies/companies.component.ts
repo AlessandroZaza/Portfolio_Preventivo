@@ -71,6 +71,7 @@ export class CompaniesComponent implements OnInit{
   searchTermByCountry: any;
   searchTermByAddresses: any;
   companiesDisplayFiltered : CompanyResponse = { data : [] };
+  
   CompaniesDisplay: CompanyResponse = {
     data: [{
       id: 0,
