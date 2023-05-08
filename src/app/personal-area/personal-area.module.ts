@@ -7,6 +7,7 @@ import { PreventivoComponent } from '../components/preventivo/preventivo.compone
 import { PaymentMethodsComponent } from '../components/payment-methods/payment-methods.component';
 import { LoginComponent } from '../login/login.component';
 import { CompaniesComponent } from '../components/companies/companies.component';
+import { MatTableModule } from '@angular/material/table';
 
 const routes: Routes = [ 
   { path: '', component: PersonalAreaComponent },
@@ -17,7 +18,7 @@ const routes: Routes = [
 
  @NgModule({
   declarations: [PersonalAreaComponent, PreventivoComponent, PaymentMethodsComponent, CompaniesComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule.forChild(routes), FormsModule, ReactiveFormsModule, MatTableModule],
 })
 
 export class PersonalAreaModule {}

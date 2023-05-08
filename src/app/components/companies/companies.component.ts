@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { FormGroup, FormsModule } from '@angular/forms';
+import { MatTableDataSource } from '@angular/material/table';
 
 interface CompanyResponse {
   data: Array<Companies>;
@@ -141,7 +142,7 @@ export class CompaniesComponent implements OnInit{
     this.http.get<CompanyResponse>(`${this.apiAddress}${this.quantity}`).subscribe((response) => {
         this.CompaniesDisplay = response;
         this.companiesDisplayFiltered = response; //stessa cosa di CompaniesDisplay, i dati della table vengono messi qua dentro//
-        this.CompaniesDisplayDeepCopy = JSON.parse(JSON.stringify(this.companiesDisplayFiltered));
+        this.CompaniesDisplayDeepCopy = JSON.parse(JSON.stringify(this.CompaniesDisplay));
         this.Companies = this.CompaniesDisplay;
         console.log('------------------------------');
         this.CompaniesDisplay.data.forEach((Companies) => {
@@ -209,5 +210,55 @@ export class CompaniesComponent implements OnInit{
     this.searchTermByAddresses = '';
     this.loadCompanies();
   }
+
+  displayedColumns: string[] = ['id','name', 'email', 'phone', 'vat', 'country', 'addresses']; // colonne che vuoi visualizzare nella tabella
+  dataSource = this.CompaniesDisplay.data; // dichiara la proprietà dataSource come una nuova istanza di MatTableDataSource, inizializzata con un array vuoto di oggetti Company
+
   
 }
+
+
+//FILTRO CONCATENATO PROTOTYPE
+//filterCompanies(filters: {name?: string, email?: string, vat?: string, phone?: string, country?: string, addresses?: string}): any {
+  //let filteredData = this.CompaniesDisplayDeepCopy.data;
+
+  //if (filters.name) {
+    //filteredData = filteredData.filter((company) => {
+      //return company.name.toLowerCase().includes(filters.name.toLowerCase());
+    //});
+  //}
+
+  //if (filters.email) {
+    //filteredData = filteredData.filter((company) => {
+      //return company.email.toLowerCase().includes(filters.email.toLowerCase());
+    //});
+  //}
+
+  //if (filters.vat) {
+    //filteredData = filteredData.filter((company) => {
+      //return company.vat.toLowerCase().includes(filters.vat.toLowerCase());
+    //});
+  //}
+
+  //if (filters.phone) {
+    //filteredData = filteredData.filter((company) => {
+      //return company.phone.toLowerCase().includes(filters.phone.toLowerCase());
+    //});
+  //}
+
+  //if (filters.country) {
+    //filteredData = filteredData.filter((company) => {
+      //return company.country.toLowerCase().includes(filters.country.toLowerCase());
+    //});
+  //}
+
+  //if (filters.addresses) {
+    //filteredData = filteredData.filter((company) => {
+      //return company.addresses.some((address) => {
+        //return address.street.toLowerCase().includes(filters.addresses.toLowerCase());
+      //});
+    //});
+  //}
+
+  //this.CompaniesDisplay.data = filteredData;
+//}
