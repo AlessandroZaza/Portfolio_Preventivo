@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { FormGroup, FormsModule } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
+import { map } from 'rxjs/operators';
+
 
 interface CompanyResponse {
   data: Array<Companies>;
@@ -65,13 +67,14 @@ interface addressesObj {
 export class CompaniesComponent implements OnInit{
   
   loading = false;
-  searchTermByName: any;
-  searchTermByEmail: any;
-  searchTermByVat: any;
-  searchTermByPhone: any;
-  searchTermByCountry: any;
-  searchTermByAddresses: any;
+  searchTermByName: string = '';
+  searchTermByEmail: string = '';
+  searchTermByVat: string = '';
+  searchTermByPhone: string = '';
+  searchTermByCountry: string = '';
+  searchTermByAddresses: string = '';
   companiesDisplayFiltered : CompanyResponse = { data : [] };
+  
   
   CompaniesDisplay: CompanyResponse = {
     data: [{
@@ -127,14 +130,17 @@ export class CompaniesComponent implements OnInit{
   private readonly quantity = 100;
   
   Companies: any;
-  filterData = false;
-  filter = '';
   CompaniesDisplayDeepCopy: CompanyResponse = {data: []};
+  filteredData = this.CompaniesDisplayDeepCopy;
+  filters: any = '';
+  displayedColumns: string[] = ['id','name', 'email', 'phone', 'vat', 'country', 'addresses']; // colonne che voglio visualizzare nella tabella
+  dataSource: any = this.filteredData; // dichiara la proprietà dataSource come una nuova istanza di MatTableDataSource, inizializzata con un array vuoto di oggetti Company
 
   constructor(public http: HttpClient) {}
 
   ngOnInit(): void {
     this.loadCompanies();
+    console.log(this.dataSource);
   }
 
   loadCompanies(): any {
@@ -144,76 +150,57 @@ export class CompaniesComponent implements OnInit{
         this.companiesDisplayFiltered = response; //stessa cosa di CompaniesDisplay, i dati della table vengono messi qua dentro//
         this.CompaniesDisplayDeepCopy = JSON.parse(JSON.stringify(this.CompaniesDisplay));
         this.Companies = this.CompaniesDisplay;
-        console.log('------------------------------');
-        this.CompaniesDisplay.data.forEach((Companies) => {
-              console.log('| Name: ' +
-               Companies.name +
-               '\n| Email: ' +
-               Companies.email +
-               '\n| Vat: ' +
-               Companies.vat +
-               '\n| Phone: ' +
-               Companies.phone + 
-               '\n| Country: ' +
-               Companies.country +
-               '\n| Addresses: ' +
-               Companies.addresses[0].street +
-               '\n| Street: ' + 
-               Companies.id + 
-               '\n| Id: ');
-        });
+        //console.log('------------------------------'); adios
+        //this.CompaniesDisplay.data.forEach((Companies) => {
+          //    console.log('| Name: ' +
+            //   Companies.name +
+            //   '\n| Email: ' +
+            //   Companies.email +
+            //   '\n| Vat: ' +
+            //   Companies.vat +
+            //   '\n| Phone: ' +
+            //   Companies.phone + 
+            //   '\n| Country: ' +
+            //   Companies.country +
+            //   '\n| Addresses: ' +
+            //   Companies.addresses[0].street +
+            //   '\n| Street: ' + 
+            //   Companies.id + 
+            //   '\n| Id: ');
+        //});
     });
   }
+   
+ // resetCompaniesFilters() {
+   // this.searchTermByName = '';
+    //this.searchTermByEmail = '';
+    //this.searchTermByVat = '';
+    //this.searchTermByPhone = '';
+    //this.searchTermByCountry = '';
+    //this.searchTermByAddresses = '';
+    //this.loadCompanies();
+  //}
 
-  filterCompaniesByName(searchTermByName: any): any {
-    this.CompaniesDisplay.data = this.CompaniesDisplayDeepCopy.data.filter((Companies) => {
-          return Companies.name.toLowerCase().includes(searchTermByName.toLowerCase());
-    }); 
-  }
-
-  filterCompaniesByEmail(searchTermByEmail: any): any {
-    this.CompaniesDisplay.data = this.CompaniesDisplayDeepCopy.data.filter((Companies) => {
-      return Companies.email.toLowerCase().includes(searchTermByEmail.toLowerCase());
-    }); 
-  }
-
-  filterCompaniesByVat(searchTermByVat: any): any {
-    this.CompaniesDisplay.data = this.CompaniesDisplayDeepCopy.data.filter((Companies) => {
-      return Companies.vat.toLowerCase().includes(searchTermByVat.toLowerCase());
-    }); 
-  }
-
-  filterCompaniesByPhone(searchTermByPhone: any): any {
-    this.CompaniesDisplay.data = this.CompaniesDisplayDeepCopy.data.filter((Companies) => {
-      return Companies.phone.toLowerCase().includes(searchTermByPhone.toLowerCase());
-    }); 
-  }
-
-  filterCompaniesByCountry(searchTermByCountry: any): any {
-    this.CompaniesDisplay.data = this.CompaniesDisplayDeepCopy.data.filter((Companies) => {
-      return Companies.country.toLowerCase().includes(searchTermByCountry.toLowerCase());
-    }); 
-  }
-
-  filterCompaniesByAddresses(searchTermByAddresses: any): any {
-    this.CompaniesDisplay.data = this.CompaniesDisplayDeepCopy.data.filter((Companies) => {
-      return Companies.addresses[0].street.toLowerCase().includes(searchTermByAddresses.toLowerCase());
-    }); 
-  }
-
-  resetCompaniesFilters() {
-    this.searchTermByName = '';
-    this.searchTermByEmail = '';
-    this.searchTermByVat = '';
-    this.searchTermByPhone = '';
-    this.searchTermByCountry = '';
-    this.searchTermByAddresses = '';
-    this.loadCompanies();
-  }
-
-  displayedColumns: string[] = ['id','name', 'email', 'phone', 'vat', 'country', 'addresses']; // colonne che vuoi visualizzare nella tabella
-  dataSource = this.CompaniesDisplay.data; // dichiara la proprietà dataSource come una nuova istanza di MatTableDataSource, inizializzata con un array vuoto di oggetti Company
-
+  //FILTRO CONCATENATO PROTOTYPE
+  filterCompanies(): any {
+    let filteredData = this.CompaniesDisplay.data;
+    if(this.searchTermByName || this.searchTermByEmail || this.searchTermByVat || this.searchTermByPhone || this.searchTermByCountry || this.searchTermByAddresses){
+      filteredData = filteredData.filter((company) => {
+        return(company.name.toLowerCase().includes(this.searchTermByName.toLowerCase()) &&
+        company.email.toLowerCase().includes(this.searchTermByEmail.toLowerCase()) && 
+        company.vat.toLowerCase().includes(this.searchTermByVat.toLowerCase()) &&
+        company.phone.toLowerCase().includes(this.searchTermByPhone.toLowerCase()) &&
+        company.country.toLowerCase().includes(this.searchTermByCountry.toLowerCase())
+       );
+      });
+    } else {
+      this.filteredData = this.CompaniesDisplayDeepCopy;
+    };
+    this.dataSource = this.filteredData
+    console.log(filteredData);
+    return filteredData;
+    
+  }     
   
 }
 

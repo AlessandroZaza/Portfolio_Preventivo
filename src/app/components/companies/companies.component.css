@@ -8,28 +8,46 @@
     }
 }*/
 
-.demo-table {
-  width: 100%;
-}
-
-.mat-column-demo-position {
+.mat-column-id {
   width: 32px;
   border-right: 1px solid currentColor;
   padding-right: 24px;
   text-align: center;
 }
 
-.mat-column-demo-name {
+.mat-column-name {
   padding-left: 16px;
   font-size: 20px;
+  text-align: center;
 }
 
-.mat-column-demo-weight {
+.mat-column-email {
+  text-align: center;
   font-style: italic;
 }
 
-.mat-column-demo-symbol {
+.mat-column-phone {
   width: 32px;
   text-align: center;
   font-weight: bold;
+}
+
+.mat-column-addresses {
+  font-style: italic;
+  text-align: center;
+}
+
+.mat-column-vat {
+  width: 32px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.mat-column-country {
+  width: 32px;
+  text-align: center;
+}
+
+.container {
+  margin: 20px;
 }

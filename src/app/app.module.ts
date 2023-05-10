@@ -20,7 +20,6 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { LoginModule } from './login/login.module';
 import { MatTableModule } from '@angular/material/table'; // importa il modulo MatTableModule
 
-
 @NgModule({
   declarations: [
     AppComponent,
