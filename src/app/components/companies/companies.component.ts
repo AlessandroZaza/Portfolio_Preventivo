@@ -1,10 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import {
   MatDialog,
   MAT_DIALOG_DATA,
   MatDialogRef,
 } from '@angular/material/dialog';
+import { Observable } from 'rxjs/internal/Observable';
 
 interface ApiResponse {
   data: companies[];
@@ -149,12 +150,8 @@ export class CompaniesComponent implements OnInit {
     'Street',
   ];
 
-  private readonly apiAddress =
-    'https://fakerapi.it/api/v1/companies?_quantity=';
-  private readonly quantity = 100;
-
   constructor(public http: HttpClient, public dialog: MatDialog) {}
-  
+
   ngOnInit(): void {
     this.loadTable();
   }
@@ -162,8 +159,13 @@ export class CompaniesComponent implements OnInit {
   loadTable() {
     this.loading = true;
 
+    const url = 'https://fakerapi.it/api/v1/companies';
+
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('_quantity', 100);
+
     this.http
-      .get<ApiResponse>(`${this.apiAddress}${this.quantity}`)
+      .get<ApiResponse>(url, { params: queryParams })
       .subscribe((res) => {
         this.tableDisplay = res;
 
@@ -191,7 +193,7 @@ export class CompaniesComponent implements OnInit {
         this.loading = false;
       });
   }
-  
+
   // funzione per aprire la modale con i dettagli della company selezionata
   openCompanyDetails(
     row: companies,
@@ -205,7 +207,7 @@ export class CompaniesComponent implements OnInit {
       exitAnimationDuration,
       data: row,
       autoFocus: true,
-      restoreFocus: false
+      restoreFocus: false,
     });
   }
 
@@ -253,7 +255,7 @@ export class CompaniesComponent implements OnInit {
   filterTableByCountry() {
     if (this.selectedCountry != 'All state') {
       this.filteredCompanies.data = this.filteredCompanies.data.filter(
-        (company) => company.country === this.selectedCountry      
+        (company) => company.country === this.selectedCountry
       );
       this.filterBoxWithResults = true;
       this.filterChipsForCountry = this.selectedCountry;
@@ -317,7 +319,7 @@ export class CompaniesComponent implements OnInit {
 
   //funzione per resettare tutti i filtri con il button reset
   resetAllFilter() {
-    // this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
+    this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
     this.filterBoxWithResults = false;
     this.filterBoxName = false;
     this.filterName = '';
@@ -460,9 +462,10 @@ export class CompaniesComponent implements OnInit {
     if (this.filterPhone == '') {
       this.phoneFilterEmpty();
     }
-    if (this.selectedCountry == '' || 'All state'){
+    if (this.selectedCountry == '' || 'All state') {
       this.filterBoxCountry = false;
       this.filterBoxWithResults = false;
+      this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
     }
     if (this.filterName) {
       this.filterTableByName(this.filterName);
