@@ -1,11 +1,16 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+} from '@angular/material/dialog';
 
 interface ApiResponse {
   data: companies[];
 }
 
-interface companies {
+export interface companies {
   id: number;
   name: string;
   email: string;
@@ -40,7 +45,7 @@ interface companies {
   };
 }
 
-interface addressesObj {
+export interface addressesObj {
   id: number;
   street: string;
   streetName: string;
@@ -60,57 +65,57 @@ interface addressesObj {
 })
 export class CompaniesComponent implements OnInit {
   loading = false; // booleana per attivare o disattivare il loading
-  tableDisplay: ApiResponse = {
-    data: [
-      {
-        id: 0,
-        name: '',
-        email: '',
-        vat: '',
-        phone: '',
-        country: '',
-        addresses: [
-          {
-            id: 0,
-            street: '',
-            streetName: '',
-            buildingNumber: 0,
-            city: '',
-            zipcode: 0,
-            country: '',
-            county_code: '',
-            latitude: 0,
-            longitude: 0,
-          },
-        ],
-        website: '',
-        image: '',
-        contact: {
-          id: 0,
-          firstname: '',
-          lastname: '',
-          email: '',
-          phone: 0,
-          birthday: 0,
-          gender: '',
-          address: {
-            id: 0,
-            street: '',
-            streetName: '',
-            buildingNumber: 0,
-            city: '',
-            zipcode: 0,
-            country: '',
-            county_code: '',
-            latitude: 0,
-            longitude: 0,
-          },
-          website: '',
-          image: '',
-        },
-      },
-    ],
-  };
+  tableDisplay!: ApiResponse; // = {
+  //   data: [
+  //     {
+  //       id: 0,
+  //       name: '',
+  //       email: '',
+  //       vat: '',
+  //       phone: '',
+  //       country: '',
+  //       addresses: [
+  //         {
+  //           id: 0,
+  //           street: '',
+  //           streetName: '',
+  //           buildingNumber: 0,
+  //           city: '',
+  //           zipcode: 0,
+  //           country: '',
+  //           county_code: '',
+  //           latitude: 0,
+  //           longitude: 0,
+  //         },
+  //       ],
+  //       website: '',
+  //       image: '',
+  //       contact: {
+  //         id: 0,
+  //         firstname: '',
+  //         lastname: '',
+  //         email: '',
+  //         phone: 0,
+  //         birthday: 0,
+  //         gender: '',
+  //         address: {
+  //           id: 0,
+  //           street: '',
+  //           streetName: '',
+  //           buildingNumber: 0,
+  //           city: '',
+  //           zipcode: 0,
+  //           country: '',
+  //           county_code: '',
+  //           latitude: 0,
+  //           longitude: 0,
+  //         },
+  //         website: '',
+  //         image: '',
+  //       },
+  //     },
+  //   ],
+  // };
   countries: string[] = []; // array contenente tutti gli stati per la select (con parole duplicate)
   uniqueCountries: string[] = []; // array contenente tutti gli stati per la select (senza parole duplicate)
   filterName: any; // testo inserito dall'utente per filtrare i nomi
@@ -122,7 +127,7 @@ export class CompaniesComponent implements OnInit {
   filterChipsForVat: string = ''; // stringa contenuta all'interno della chip per il filtro vat
   filterChipsForPhone: string = ''; // stringa contenuta all'interno della chip per il filtro phone
   filterChipsForCountry: string = ''; // stringa contenuta all'interno della chip per il filtro country
-  selectedCountry: string = 'Tutti gli stati' // stato selezionato
+  selectedCountry: string = 'All state'; // stato selezionato
   filteredCompanies: ApiResponse = { data: [] }; // tabella filtrata, ora vuota, andrà a popolarsi successivamente
   filterBoxName = false; // booleana per far apparire il div con il filtro (nome) inserito dall'utente
   filterBoxEmail = false; // booleana per far apparire il div con il filtro (email) inserito dall'utente
@@ -133,15 +138,23 @@ export class CompaniesComponent implements OnInit {
   viewOptions = false; // booleana per far apparire il div con le View Options della tabella
   viewFilterSection = false; // booleana per far apparire il div con le sezioni per i filtri della tabella
   visibleColumns = [true, true, true, true, true, true, true, false]; // array di booleani per settare quali colonne devono essere visibili o no
-  filterSectionElement = document.getElementById('filterSection');
-  searchIconElement = document.getElementById('searchIcon');
+
+  displayedColumns: string[] = [
+    'id',
+    'Name',
+    'E-mail',
+    'Vat',
+    'Phone number',
+    'Country',
+    'Street',
+  ];
 
   private readonly apiAddress =
     'https://fakerapi.it/api/v1/companies?_quantity=';
   private readonly quantity = 100;
 
-  constructor(public http: HttpClient) {}
-
+  constructor(public http: HttpClient, public dialog: MatDialog) {}
+  
   ngOnInit(): void {
     this.loadTable();
   }
@@ -177,6 +190,23 @@ export class CompaniesComponent implements OnInit {
 
         this.loading = false;
       });
+  }
+  
+  // funzione per aprire la modale con i dettagli della company selezionata
+  openCompanyDetails(
+    row: companies,
+    enterAnimationDuration: string,
+    exitAnimationDuration: string
+  ): void {
+    console.log(row);
+    this.dialog.open(DialogDetailsCompanyComponent, {
+      width: '100vh',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: row,
+      autoFocus: true,
+      restoreFocus: false
+    });
   }
 
   // funzione per filtrare per nome
@@ -221,21 +251,18 @@ export class CompaniesComponent implements OnInit {
     );
   }
   filterTableByCountry() {
-    if (this.selectedCountry != 'Tutti gli stati') {
+    if (this.selectedCountry != 'All state') {
       this.filteredCompanies.data = this.filteredCompanies.data.filter(
-        (company) => company.country === this.selectedCountry
+        (company) => company.country === this.selectedCountry      
       );
       this.filterBoxWithResults = true;
       this.filterChipsForCountry = this.selectedCountry;
       this.filterBoxCountry = true;
-    } else if (this.filterBoxName == false && this.filterBoxEmail == false && this.filterBoxVat == false && this.filterBoxPhone == false) {
-      this.filterBoxCountry = false;
-      this.filterBoxWithResults = false;
     }
   }
 
   // funzione per gestire il campo name vuoto
-  nameFilterEmpty(){
+  nameFilterEmpty() {
     this.filterBoxName = false;
     this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
     if (
@@ -248,7 +275,7 @@ export class CompaniesComponent implements OnInit {
       this.filterBoxWithResults = false;
     }
   }
-  emailFilterEmpty(){
+  emailFilterEmpty() {
     this.filterBoxEmail = false;
     this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
     if (
@@ -261,7 +288,7 @@ export class CompaniesComponent implements OnInit {
       this.filterBoxWithResults = false;
     }
   }
-  vatFilterEmpty(){
+  vatFilterEmpty() {
     this.filterBoxVat = false;
     this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
     if (
@@ -274,7 +301,7 @@ export class CompaniesComponent implements OnInit {
       this.filterBoxWithResults = false;
     }
   }
-  phoneFilterEmpty(){
+  phoneFilterEmpty() {
     this.filterBoxPhone = false;
     this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
     if (
@@ -290,7 +317,7 @@ export class CompaniesComponent implements OnInit {
 
   //funzione per resettare tutti i filtri con il button reset
   resetAllFilter() {
-    this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
+    // this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
     this.filterBoxWithResults = false;
     this.filterBoxName = false;
     this.filterName = '';
@@ -301,7 +328,7 @@ export class CompaniesComponent implements OnInit {
     this.filterBoxPhone = false;
     this.filterPhone = '';
     this.filterBoxCountry = false;
-    this.selectedCountry = 'Tutti gli stati';
+    this.selectedCountry = 'All state';
   }
 
   // funzione per rimuovere il filtro cliccando la chip
@@ -367,7 +394,7 @@ export class CompaniesComponent implements OnInit {
   }
   removeFilterCountry() {
     this.filterBoxCountry = false;
-    this.selectedCountry = 'Tutti gli stati';
+    this.selectedCountry = 'All state';
     this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
     if (
       this.filterBoxName == false &&
@@ -390,30 +417,12 @@ export class CompaniesComponent implements OnInit {
       this.viewOptions = false;
     }
   }
+
   // funzione per far apparire il div filter section
   openFilterSection() {
     if (this.viewFilterSection == false) {
       this.viewFilterSection = true;
       this.viewOptions = false;
-      if(this.searchIconElement){
-        console.log('ciao');
-      }
-      if (this.searchIconElement && this.filterSectionElement) {
-        this.searchIconElement.addEventListener('click', () => {
-          this.filterSectionElement?.focus();
-        });
-        console.log('ciao');
-      }    
-
-      // if (this.searchIconElement && this.filterSectionElement) {
-      //   this.searchIconElement.addEventListener('click', () => {
-      //     this.filterSectionElement.focus();
-      //   });
-      // }
-      // if (this.filterSectionElement) {
-      //   this.filterSectionElement.focus();
-      //   console.log('ciao');
-      // }
     } else {
       this.viewFilterSection = false;
     }
@@ -451,6 +460,10 @@ export class CompaniesComponent implements OnInit {
     if (this.filterPhone == '') {
       this.phoneFilterEmpty();
     }
+    if (this.selectedCountry == '' || 'All state'){
+      this.filterBoxCountry = false;
+      this.filterBoxWithResults = false;
+    }
     if (this.filterName) {
       this.filterTableByName(this.filterName);
     }
@@ -463,8 +476,22 @@ export class CompaniesComponent implements OnInit {
     if (this.filterPhone) {
       this.filterTableByPhoneNumber(this.filterPhone);
     }
-    if (this.selectedCountry != 'tutti gli stati') {
+    if (this.selectedCountry) {
       this.filterTableByCountry();
     }
+    this.viewFilterSection = false;
   }
+}
+
+@Component({
+  selector: 'dialogDetailsCompany',
+  templateUrl: 'dialogDetailsCompany.html',
+  styleUrls: ['./companies.component.css'],
+})
+export class DialogDetailsCompanyComponent {
+  constructor(
+    public dialogRef: MatDialogRef<DialogDetailsCompanyComponent>,
+    @Inject(MAT_DIALOG_DATA)
+    public data: companies
+  ) {}
 }

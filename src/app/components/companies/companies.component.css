@@ -1,16 +1,23 @@
 .hover:hover {
     background-color: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
   }
 .hoverLight:hover{
     background-color: rgba(0, 0, 0, 0.05);
+    cursor: pointer;
 }
-.hoverButton {
+.hoverLightForCards:hover{
+  background-color: rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 0px 3px;
+  cursor: pointer;
+}
+.mat-mdc-row:hover .mat-mdc-cell {
+  cursor: pointer;
   background-color: rgba(0, 0, 0, 0.1);
 }
-/* select {
-  --bs-form-select-color: red !important;
+.verticalDivider{
+  height: 30vh;
 }
-select.form-select option:checked {
-  background-color: #8B0000 !important;
-} */
-
+.verticalDividerShort{
+  height: 25vh;
+}

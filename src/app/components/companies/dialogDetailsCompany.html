@@ -1,0 +1,84 @@
+<div mat-dialog-title class="ps-4 ms-2 pb-4">
+    <h1 class="fw-bold m-0 fs-3">{{ data.name }}</h1>
+    <p class="text-muted fs-6 mb-0">{{ data.contact.address.street }} {{data.contact.address.buildingNumber}}, {{data.contact.address.streetName}} {{data.contact.address.city}}
+        ({{data.contact.address.zipcode}})</p>
+</div>
+
+<mat-tab-group class="mb-5" animationDuration="500ms">
+
+    <mat-tab label="Details">
+        <div class="pt-4 pb-0 mt-2" mat-dialog-content>
+            <div class="d-flex justify-content-center align-items-center px-3 mx-2">
+                <div class="d-flex flex-column">
+
+                    <!-- id: number; -->
+
+                    <p>E-mail: <span class="fw-bold">{{ data.email }}</span></p>
+                    <p>Vat: <span class="fw-bold">{{ data.vat }}</span></p>
+                    <p>Phone number: <span class="fw-bold">{{ data.phone }}</span></p>
+                    <p>Country: <span class="fw-bold">{{ data.country }}</span></p>
+                    <p>Website: <span class="fw-bold">{{ data.website }}</span></p>
+                </div>
+                <mat-divider vertical class="verticalDivider mx-5"></mat-divider>
+                <img src="{{data.image}}" class="rounded-3" width="380vh" height="300vh" alt="">
+            </div>
+        </div>
+    </mat-tab>
+
+    <mat-tab label="Contacts">
+        <div class="pt-4 pb-0 mt-2" mat-dialog-content>
+            <div class="d-flex justify-content-center px-3 mx-2">
+                <div class="d-flex flex-column">
+
+                    <!-- contactId: number; -->
+
+                    <p>First name: <span class="fw-bold">{{ data.contact.firstname }}</span></p>
+                    <p>Last name: <span class="fw-bold">{{ data.contact.lastname }}</span></p>
+                    <p>E-mail for contact: <span class="fw-bold">{{ data.contact.email }}</span></p>
+                    <p>Phone number for contact: <span class="fw-bold">{{ data.contact.phone }}</span></p>
+                    <p>Birthday: <span class="fw-bold">{{ data.contact.birthday }}</span></p>
+                    <p>Gender: <span class="fw-bold">{{ data.contact.gender }}</span></p>
+                    <p>Contact website: <span class="fw-bold">{{ data.contact.website }}</span></p>
+                </div>
+                <mat-divider vertical class="verticalDivider mx-5"></mat-divider>
+                <div class="mx-3 mt-2">
+                    <mat-card class="p-3">
+                        <mat-card-header class="pt-1">
+                            <mat-card-title>Main address</mat-card-title>
+                            <mat-icon class="ms-auto">location_on</mat-icon>
+                        </mat-card-header>
+                        <mat-divider class="m-3"></mat-divider>
+                        <mat-card-content>
+                            <p>Country: <span class="fw-bold">{{ data.contact.address.country }}</span></p>
+                            <p>Country code: <span class="fw-bold">{{ data.contact.address.county_code }}</span></p>
+                            <p>Latitude: <span class="fw-bold">{{ data.contact.address.latitude }}</span></p>
+                            <p>Longitude: <span class="fw-bold">{{ data.contact.address.longitude }}</span></p>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </mat-tab>
+
+    <mat-tab label="Addresses">
+        <div class="pt-4 mt-2 pb-1 px-5 d-flex flex-column justify-content-evenly" mat-dialog-content>
+            <p class="fs-4 mb-4 h1 text-dark">Secondary addresses:</p>
+            <mat-accordion matRipple class="mb-3" *ngFor="let address of data.addresses">
+                <mat-expansion-panel class="shadow-none">
+                    <mat-expansion-panel-header class="p-0 pe-4">
+                        <p class="fw-bold fs-6 m-0 ms-3 my-2">{{ address.country }} [{{
+                            address.county_code }}]
+                            <span class="fw-normal text-muted d-block">{{address.street }} {{address.buildingNumber}},
+                                {{address.streetName}}
+                                {{address.city}}
+                                ({{address.zipcode}})</span>
+                        </p>
+
+                    </mat-expansion-panel-header>
+                    <p class="mt-2 mb-1">Latitude: <span class="fw-bold">{{ address.latitude}}</span></p>
+                    <p class="mb-0">Longitude: <span class="fw-bold">{{ address.longitude }}</span></p>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </mat-tab>
+</mat-tab-group>
