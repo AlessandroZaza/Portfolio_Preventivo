@@ -164,12 +164,9 @@
 <div class="container">
   <h1>Companies</h1>
   <mat-accordion>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
         <mat-panel-title>
           Filters Section
         </mat-panel-title>
-      </mat-expansion-panel-header>
       <form class="example-form">
         <mat-form-field>
           <mat-label>Name</mat-label>
@@ -191,18 +188,13 @@
           <mat-label>Country</mat-label>
           <input matInput [(ngModel)]="searchTermByCountry" name="searchTerm">
         </mat-form-field>
-        <mat-form-field>
-          <mat-label>Addresses</mat-label>
-          <input matInput [(ngModel)]="searchTermByAddresses" name="searchTerm">
-        </mat-form-field>
       </form>
       <button mat-raised-button color="primary" (click)="filterCompanies()">Search</button>
-      <button mat-raised-button color="warn">Reset</button>
-    </mat-expansion-panel>
+      <button mat-raised-button color="warn" (click)="resetCompaniesFilters()">Reset</button>
   </mat-accordion>
 </div>
 
-<table mat-table [dataSource]="CompaniesDisplay.data" class="mat-elevation-z8">
+<table mat-table [dataSource]="filteredData" class="mat-elevation-z8">
 
   <!-- Position Column -->
   <ng-container matColumnDef="id">
@@ -247,7 +239,7 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openDialog()"></tr> <!--qua va messo il click per aprire la dialog-->
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> <!--qua va messo il click per aprire la dialog-->
 </table>
 
 

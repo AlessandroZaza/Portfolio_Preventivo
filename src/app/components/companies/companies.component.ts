@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 
 interface CompanyResponse {
+  filter: any[];
   status: string;
   code: number;
   total: number;
@@ -17,8 +18,8 @@ interface Companies {
   id: number;
   name: string;
   email: string;
-  vat: string;
-  phone: string;
+  vat: number;
+  phone: number;
   country: string;
   addresses: addressesObj[];
   website: string;
@@ -28,7 +29,7 @@ interface Companies {
     firstname: string;
     lastname: string;
     email: string;
-    phone: string;
+    phone: number;
     birthday: number;
     gender: string;
     address: {
@@ -61,22 +62,13 @@ interface addressesObj {
   longitude: number;
 }
 
-// interface companyFilter {
-//   name: string;
-//   email: string;
-//   vat: string;
-//   phone: string;
-//   country: string;
-//   addresses: string[];
-// }
-
 @Component({
   selector: 'app-companies',
   templateUrl: './companies.component.html',
   styleUrls: ['./companies.component.css']
 })
 
-export class CompaniesComponent implements OnInit{
+export class CompaniesComponent implements OnInit {
   
   loading = false;
   searchTermByName: string = '';
@@ -85,64 +77,9 @@ export class CompaniesComponent implements OnInit{
   searchTermByPhone: string = '';
   searchTermByCountry: string = '';
   searchTermByAddresses: string = '';
-  companiesDisplayFiltered : CompanyResponse = {
-    data: [],
-    status: '',
-    code: 0,
-    total: 0
-  };
-  
-  
-  CompaniesDisplay: CompanyResponse = {
-    status: '',
-    code: 0,
-    total: 0,
-    data: [{
-      id: 0,
-      name: '',
-      email: '',
-      vat: '',
-      phone: '',
-      country: '',
-      addresses: [{
-        id: 0,
-        street: '',
-        streetName: '',
-        buildingNumber: 0,
-        city: '',
-        zipcode: 0,
-        country: '',
-        county_code: '',
-        latitude: 0,
-        longitude: 0,
-      }],
-      website: '',
-      image: '',
-      contact: {
-        id: 0,
-        firstname: '',
-        lastname: '',
-        email: '',
-        phone: '',
-        birthday: 0,
-        gender: '',
-        address: {
-          id: 0,
-          street: '',
-          streetName: '',
-          buildingNumber: 0,
-          city: '',
-          zipcode: 0,
-          country: '',
-          county_code: '',
-          latitude: 0,
-          longitude: 0,
-        },
-        website: '',
-        image: '',
-      },
-    },],
-  };
+ 
+  CompaniesDisplay: Companies[] = [];
+  filteredData: Companies[] = [];
   
   private readonly apiAddress = 'https://fakerapi.it/api/v1/companies?_quantity=';
   private readonly quantity = 100;
@@ -152,45 +89,44 @@ export class CompaniesComponent implements OnInit{
     data: [],
     status: '',
     code: 0,
-    total: 0
+    total: 0,
+    filter: [],
   };
-  filteredData = this.CompaniesDisplayDeepCopy;
-  filters: any = '';
+  
   displayedColumns: string[] = ['id','name', 'email', 'phone', 'vat', 'country', 'addresses']; // colonne che voglio visualizzare nella tabella
-  dataSource: any = this.CompaniesDisplayDeepCopy; // dichiara la proprietà dataSource come una nuova istanza di MatTableDataSource, inizializzata con un array vuoto di oggetti Company
-
+  data: any;
+  
   constructor(public http: HttpClient, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.loadCompanies();
-    console.log(this.dataSource);
+    this.filteredData = this.CompaniesDisplay;
   }
 
   loadCompanies(): any {
     this.loading = true;
     this.http.get<CompanyResponse>(`${this.apiAddress}${this.quantity}`).subscribe((response) => {
-        this.CompaniesDisplay = response;
-        this.companiesDisplayFiltered = response; //stessa cosa di CompaniesDisplay, i dati della table vengono messi qua dentro//
+        this.CompaniesDisplay = response.data;
         this.CompaniesDisplayDeepCopy = JSON.parse(JSON.stringify(this.CompaniesDisplay));
-        this.Companies = this.CompaniesDisplay;
-        //console.log('------------------------------'); adios
-        //this.CompaniesDisplay.data.forEach((Companies) => {
-          //    console.log('| Name: ' +
-            //   Companies.name +
-            //   '\n| Email: ' +
-            //   Companies.email +
-            //   '\n| Vat: ' +
-            //   Companies.vat +
-            //   '\n| Phone: ' +
-            //   Companies.phone + 
-            //   '\n| Country: ' +
-            //   Companies.country +
-            //   '\n| Addresses: ' +
-            //   Companies.addresses[0].street +
-            //   '\n| Street: ' + 
-            //   Companies.id + 
-            //   '\n| Id: ');
-        //});
+        this.filteredData = this.CompaniesDisplay;
+        console.log('------------------------------'); 
+        this.CompaniesDisplay.forEach((Companies) => {
+             console.log('| Name: ' +
+              Companies.name +
+              '\n| Email: ' +
+              Companies.email +
+              '\n| Vat: ' +
+              Companies.vat +
+              '\n| Phone: ' +
+              Companies.phone + 
+              '\n| Country: ' +
+              Companies.country +
+              '\n| Addresses: ' +
+              Companies.addresses[0].street +
+              '\n| Street: ' + 
+              Companies.id + 
+              '\n| Id: ');
+        });
     });
   }
    
@@ -204,63 +140,43 @@ export class CompaniesComponent implements OnInit{
      this.loadCompanies();
    }
 
-  filterCompanies(): any {
-    let filteredData = this.CompaniesDisplayDeepCopy.data;
-    if(this.searchTermByName || this.searchTermByEmail || this.searchTermByVat || this.searchTermByPhone || this.searchTermByCountry || this.searchTermByAddresses){
-      filteredData = filteredData.filter((company) => {
-        return(company.name.toLowerCase().includes(this.searchTermByName.toLowerCase()) &&
-        company.email.toLowerCase().includes(this.searchTermByEmail.toLowerCase()) && 
-        company.vat.toLowerCase().includes(this.searchTermByVat.toLowerCase()) &&
-        company.phone.toLowerCase().includes(this.searchTermByPhone.toLowerCase()) &&
+   filterCompanies(): any {
+    if (this.searchTermByName || this.searchTermByEmail || this.searchTermByVat || this.searchTermByPhone || this.searchTermByCountry || this.searchTermByAddresses) {
+      this.filteredData = this.CompaniesDisplay.filter((company: {
+        addresses: any; name: string; email: string; vat: { toString: () => string; }; phone: { toString: () => string; }; country: string; 
+}) =>
+        company.name.toLowerCase().includes(this.searchTermByName.toLowerCase()) &&
+        company.email.toLowerCase().includes(this.searchTermByEmail.toLowerCase()) &&
+        company.vat.toString().toLowerCase().includes(this.searchTermByVat.toString().toLowerCase()) &&
+        company.phone.toString().toLowerCase().includes(this.searchTermByPhone.toString().toLowerCase()) &&
         company.country.toLowerCase().includes(this.searchTermByCountry.toLowerCase())
-       );
-      });
-    } 
-    else {
-      this.CompaniesDisplay.data = filteredData;
-    };
-    
-    this.CompaniesDisplayDeepCopy = this.dataSource;
-    //this.dataSource = this.CompaniesDisplayDeepCopy;
-    console.log(filteredData);
-    return filteredData;
-    
-  }     
-
-  //  filterCompany(
-  //   details: companyFilter[],
-  //   searchTermByName: string,
-  //   searchTermByEmail: string,
-  //   searchTermByVat: string,
-  //   searchTermByPhone: string,
-  //   searchTermByCountry: string,
-  //   searchTermByAddresses: string
-  // ): companyFilter[] {
-  //   return details.filter((detail) => {
-  //     const nameMatch = detail.name.toLowerCase().includes(searchTermByName.toLowerCase());
-  //     const emailMatch = detail.email.toLowerCase().includes(searchTermByEmail.toLowerCase());
-  //     const vatMatch = detail.vat.toLowerCase().includes(searchTermByVat.toLowerCase());
-  //     const phoneMatch = detail.phone.toLowerCase().includes(searchTermByPhone.toLowerCase());
-  //     const countryMatch = detail.country.toLowerCase().includes(searchTermByCountry.toLowerCase());
-  //     const addressesMatch = detail.addresses.some((addresses) => addresses.toLowerCase().includes(searchTermByAddresses.toLowerCase()));
-  //     return nameMatch && emailMatch && vatMatch && phoneMatch && countryMatch && addressesMatch;
-  //   });
-  // }
-
-  openDialog() {
-    this.dialog.open(DialogDataDialog, {
-      data: {
-        details: this.CompaniesDisplay,
-      },
-    });
+        
+      );
+    } else {
+      this.filteredData = this.CompaniesDisplay;
+      console.log(this.filteredData);
+      return this.filteredData;
+    }
   }
+  
 }
 
-@Component({
-  selector: 'dialog-company-data',
-  templateUrl: 'dialog-company-data.html',
-})
+//   openDialog() {
+//     this.dialog.open(this.DialogDataDialog, {
+//       data: {
+//         details: this.CompaniesDisplay,
+//       },
+//     });
+//   }
+// }
 
-export class DialogDataDialog {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Companies) {}
-}
+// @Component({
+//   selector: 'dialog-company-data',
+//   templateUrl: 'dialog-company-data.html',
+// })
+
+// export class DialogDataDialog {
+//   constructor(@Inject(MAT_DIALOG_DATA) public data: Companies) {}
+// }
+// function openDialog() {
+//   throw new Error('Function not implemented.');
