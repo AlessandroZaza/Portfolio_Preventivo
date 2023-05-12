@@ -9,10 +9,10 @@
                     <mat-icon>search</mat-icon>
                 </button>
 
-                <button mat-fab color="accent" class="ms-2" (click)="openViewOptions()"
+                <!-- <button mat-fab color="accent" class="ms-2" (click)="openViewOptions()"
                     [ngClass]="{'shadow-none': !viewOptions, 'shadow-xxl': viewOptions}">
                     <mat-icon>more_vert</mat-icon>
-                </button>
+                </button> -->
 
                 <div [class.d-none]="!viewFilterSection"
                     class="card border p-2 col-4 col-xxl-3 col-xxl-4 lh-lg ms-auto me-5 position-absolute end-0 z-1">
@@ -120,7 +120,7 @@
 
                 </div>
 
-                <div *ngIf="viewOptions"
+                <!-- <div *ngIf="viewOptions"
                     class="card border p-2 col-3 col-xxl-2 lh-lg ms-auto me-5 position-absolute end-0 z-1">
 
                     <p class="h5 p-3 m-0">View Options</p>
@@ -245,7 +245,7 @@
                                 [ngClass]="{'fa-eye': visibleColumns[7], 'fa-eye-slash': !visibleColumns[7]}"></i></button>
                     </div>
 
-                </div>
+                </div> -->
             </div>
 
         </div>
