@@ -18,8 +18,8 @@ import { RouterModule } from '@angular/router';
 import { PersonalAreaModule } from './personal-area/personal-area.module';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { LoginModule } from './login/login.module';
-import { MatTableModule } from '@angular/material/table'; // importa il modulo MatTableModule
-
+import { MatTableModule } from '@angular/material/table'; 
+import { MatDialog } from '@angular/material/dialog';
 @NgModule({
   declarations: [
     AppComponent,

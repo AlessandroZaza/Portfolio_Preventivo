@@ -1,8 +1,39 @@
-<!-- <h1 mat-dialog-title>Additional Data</h1>
+<h1 mat-dialog-title>Additional Data</h1>
 <div mat-dialog-content>
 
-   <ng-template let-data>
-     {{data.name}}
-  </ng-template>
-
-</div> -->
+<p>The name is : {{data.name}}</p>
+<p>The email is : {{data.email}}</p>
+<p>The vat is : {{data.vat}}</p>
+<p>The phone number is : {{data.phone}}</p>
+<p>The country is : {{data.country}}</p>
+<div *ngFor="let address of data.addresses;">
+   <p>Street: {{address.street}}</p>
+   <p>StreetName: {{address.streetName}}</p>
+   <p>Building Number: {{address.buildingNumber}}</p>
+   <p>City: {{address.city}}</p>
+   <p>ZipCode: {{address.zipcode}}</p>
+   <p>Country: {{address.country}}</p>
+   <p>County_Code: {{address.county_code}}</p>
+   <p>Latitude: {{address.latitude}}</p>
+   <p>Longitude: {{address.longitude}}</p>
+</div>
+<p>The website is : {{data.website}}</p>
+<img [src]="data.image">
+<p>The firstname is : {{data.contact.firstname}}</p>
+<p>The lastname is : {{data.contact.lastname}}</p>
+<p>The email is : {{data.contact.email}}</p>
+<p>The phone is : {{data.contact.phone}}</p>
+<p>The birthday is : {{data.contact.birthday}}</p>
+<p>The gender is : {{data.contact.gender}}</p>
+<p>The street is : {{data.contact.address.street}}</p>
+<p>The streetName is : {{data.contact.address.streetName}}</p>
+<p>The building number is : {{data.contact.address.buildingNumber}}</p>
+<p>The city is : {{data.contact.address.city}}</p>
+<p>The zipcode is : {{data.contact.address.zipcode}}</p>
+<p>The country is : {{data.contact.address.country}}</p>
+<p>The county_code is : {{data.contact.address.county_code}}</p>
+<p>The latitude is : {{data.contact.address.latitude}}</p>
+<p>The longitude is : {{data.contact.address.longitude}}</p>
+<p>The website is : {{data.contact.website}}</p>
+<img [src]="data.contact.image">
+</div>

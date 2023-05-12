@@ -80,6 +80,7 @@ export class CompaniesComponent implements OnInit {
  
   CompaniesDisplay: Companies[] = [];
   filteredData: Companies[] = [];
+  DialogDataDialog: Companies[] = [];
   
   private readonly apiAddress = 'https://fakerapi.it/api/v1/companies?_quantity=';
   private readonly quantity = 100;
@@ -104,10 +105,16 @@ export class CompaniesComponent implements OnInit {
   }
 
   loadCompanies(): any {
+
+    //const url = 'https://fakerapi.it/api/v1/companies'; 
+    //let queryParams = new HttpParams(); 
+    //queryParams = queryParams.append("_quantity", 100 ); 
+    //this.http.get<ApiResponse>(url,{params:queryParams})
+
     this.loading = true;
     this.http.get<CompanyResponse>(`${this.apiAddress}${this.quantity}`).subscribe((response) => {
         this.CompaniesDisplay = response.data;
-        this.CompaniesDisplayDeepCopy = JSON.parse(JSON.stringify(this.CompaniesDisplay));
+        //this.CompaniesDisplayDeepCopy = JSON.parse(JSON.stringify(this.CompaniesDisplay));
         this.filteredData = this.CompaniesDisplay;
         console.log('------------------------------'); 
         this.CompaniesDisplay.forEach((Companies) => {
@@ -143,14 +150,12 @@ export class CompaniesComponent implements OnInit {
    filterCompanies(): any {
     if (this.searchTermByName || this.searchTermByEmail || this.searchTermByVat || this.searchTermByPhone || this.searchTermByCountry || this.searchTermByAddresses) {
       this.filteredData = this.CompaniesDisplay.filter((company: {
-        addresses: any; name: string; email: string; vat: { toString: () => string; }; phone: { toString: () => string; }; country: string; 
-}) =>
+        addresses: any; name: string; email: string; vat: { toString: () => string; }; phone: { toString: () => string; }; country: string;}) =>
         company.name.toLowerCase().includes(this.searchTermByName.toLowerCase()) &&
         company.email.toLowerCase().includes(this.searchTermByEmail.toLowerCase()) &&
         company.vat.toString().toLowerCase().includes(this.searchTermByVat.toString().toLowerCase()) &&
         company.phone.toString().toLowerCase().includes(this.searchTermByPhone.toString().toLowerCase()) &&
-        company.country.toLowerCase().includes(this.searchTermByCountry.toLowerCase())
-        
+        company.country.toLowerCase().includes(this.searchTermByCountry.toLowerCase())     
       );
     } else {
       this.filteredData = this.CompaniesDisplay;
@@ -159,24 +164,25 @@ export class CompaniesComponent implements OnInit {
     }
   }
   
+  openDialog( row: Companies) {
+    console.log(row)
+    this.dialog.open(DialogDataDialog, {
+      data: row,
+    });
+  }
+
 }
 
-//   openDialog() {
-//     this.dialog.open(this.DialogDataDialog, {
-//       data: {
-//         details: this.CompaniesDisplay,
-//       },
-//     });
-//   }
-// }
+ 
 
-// @Component({
-//   selector: 'dialog-company-data',
-//   templateUrl: 'dialog-company-data.html',
-// })
+@Component({
+  selector: 'dialog-company-data',
+  templateUrl: 'dialog-company-data.html',
+})
 
-// export class DialogDataDialog {
-//   constructor(@Inject(MAT_DIALOG_DATA) public data: Companies) {}
-// }
-// function openDialog() {
-//   throw new Error('Function not implemented.');
+export class DialogDataDialog {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Companies) {}
+}
+function openDialog() {
+  throw new Error('Function not implemented.');
+}

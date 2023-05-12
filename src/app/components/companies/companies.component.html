@@ -168,29 +168,29 @@
           Filters Section
         </mat-panel-title>
       <form class="example-form">
-        <mat-form-field>
+        <mat-form-field class="form-field-spacing">
           <mat-label>Name</mat-label>
           <input matInput  [(ngModel)]="searchTermByName" name="searchTerm">
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="form-field-spacing">
           <mat-label>Email</mat-label>
           <input matInput [(ngModel)]="searchTermByEmail" name="searchTerm">
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="form-field-spacing">
           <mat-label>Phone</mat-label>
           <input matInput [(ngModel)]="searchTermByPhone" name="searchTerm">
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="form-field-spacing">
           <mat-label>Vat</mat-label>
           <input matInput [(ngModel)]="searchTermByVat" name="searchTerm">
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field class="form-field-spacing">
           <mat-label>Country</mat-label>
           <input matInput [(ngModel)]="searchTermByCountry" name="searchTerm">
         </mat-form-field>
       </form>
-      <button mat-raised-button color="primary" (click)="filterCompanies()">Search</button>
-      <button mat-raised-button color="warn" (click)="resetCompaniesFilters()">Reset</button>
+      <button mat-raised-button color="primary" (click)="filterCompanies()" style="margin: 1rem;">Search</button>
+      <button mat-raised-button color="warn" (click)="resetCompaniesFilters()" style="margin: 1rem;">Reset</button>
   </mat-accordion>
 </div>
 
@@ -239,7 +239,7 @@
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> <!--qua va messo il click per aprire la dialog-->
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="openDialog(row)"></tr> <!--qua va messo il click per aprire la dialog-->
 </table>
 
 
