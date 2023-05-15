@@ -3,8 +3,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { FormGroup, FormsModule } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 
 interface CompanyResponse {
   filter: any[];
@@ -96,6 +97,8 @@ export class CompaniesComponent implements OnInit {
   
   displayedColumns: string[] = ['id','name', 'email', 'phone', 'vat', 'country', 'addresses']; // colonne che voglio visualizzare nella tabella
   data: any;
+  httpClient: any;
+  httpOptions: any;
   
   constructor(public http: HttpClient, public dialog: MatDialog) {}
 
@@ -137,16 +140,6 @@ export class CompaniesComponent implements OnInit {
     });
   }
    
-     resetCompaniesFilters() {
-     this.searchTermByName = '';
-     this.searchTermByEmail = '';
-     this.searchTermByVat = '';
-     this.searchTermByPhone = '';
-     this.searchTermByCountry = '';
-     this.searchTermByAddresses = '';
-     this.loadCompanies();
-   }
-
    filterCompanies(): any {
     if (this.searchTermByName || this.searchTermByEmail || this.searchTermByVat || this.searchTermByPhone || this.searchTermByCountry || this.searchTermByAddresses) {
       this.filteredData = this.CompaniesDisplay.filter((company: {
@@ -163,8 +156,29 @@ export class CompaniesComponent implements OnInit {
       return this.filteredData;
     }
   }
+
+  patchData(name: string, email: string, vat: number, phone: number, country: string): any {
+
+    const url = `${'https://fakerapi.it/api/v1/companies'}/${name}/${email}/${vat}/${phone}/${country}`;
+    return this.httpClient.patch(url, {name: name = 'Paolo Gippa'}, {email: email = 'paolo.gippa@libero.it'}, {vat: vat = 10032 }, {phone: phone = 3341234567}, {country: country = 'Italy'}, this.httpOptions).pipe(catchError(this.handleError('patchData')));
+
+  }
+
+  handleError(handleError: any): any {
+    throw new Error('Method not implemented.');
+  }
+
+  resetCompaniesFilters() {
+    this.searchTermByName = '';
+    this.searchTermByEmail = '';
+    this.searchTermByVat = '';
+    this.searchTermByPhone = '';
+    this.searchTermByCountry = '';
+    this.searchTermByAddresses = '';
+    this.loadCompanies();
+  }
   
-  openDialog( row: Companies) {
+  openDialog(row: Companies) {
     console.log(row)
     this.dialog.open(DialogDataDialog, {
       data: row,
@@ -172,8 +186,6 @@ export class CompaniesComponent implements OnInit {
   }
 
 }
-
- 
 
 @Component({
   selector: 'dialog-company-data',
@@ -183,6 +195,7 @@ export class CompaniesComponent implements OnInit {
 export class DialogDataDialog {
   constructor(@Inject(MAT_DIALOG_DATA) public data: Companies) {}
 }
+
 function openDialog() {
   throw new Error('Function not implemented.');
 }
