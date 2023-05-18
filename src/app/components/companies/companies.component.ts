@@ -4,9 +4,8 @@ import { NgFor } from '@angular/common';
 import { FormGroup, FormsModule } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { catchError, map } from 'rxjs/operators';
-import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-
 interface CompanyResponse {
   filter: any[];
   status: string;
@@ -80,8 +79,15 @@ export class CompaniesComponent implements OnInit {
   searchTermByAddresses: string = '';
  
   CompaniesDisplay: Companies[] = [];
-  filteredData: Companies[] = [];
+  filteredData: Companies[] = []; //usare questa per pagination
   DialogDataDialog: Companies[] = [];
+
+  totalCompanies: number = 0;
+  currentPage: number = 0;
+  pageSize: number = 0;
+  pages: number[] = [0];
+
+  sliceTenElements: Companies[] = [];
   
   private readonly apiAddress = 'https://fakerapi.it/api/v1/companies?_quantity=';
   private readonly quantity = 100;
@@ -103,8 +109,10 @@ export class CompaniesComponent implements OnInit {
   constructor(public http: HttpClient, public dialog: MatDialog) {}
 
   ngOnInit(): void {
+
     this.loadCompanies();
-    this.filteredData = this.CompaniesDisplay;
+    this.filterCompanies();
+    this.paginateData();
   }
 
   loadCompanies(): any {
@@ -117,8 +125,14 @@ export class CompaniesComponent implements OnInit {
     this.loading = true;
     this.http.get<CompanyResponse>(`${this.apiAddress}${this.quantity}`).subscribe((response) => {
         this.CompaniesDisplay = response.data;
-        //this.CompaniesDisplayDeepCopy = JSON.parse(JSON.stringify(this.CompaniesDisplay));
         this.filteredData = this.CompaniesDisplay;
+        this.totalCompanies = response.total;
+        this.currentPage = 0;
+        this.pageSize = 10;
+        this.calculatePages();
+        this.filterCompanies();
+        this.paginateData();
+        this.goToPage(this.currentPage + 1);
         console.log('------------------------------'); 
         this.CompaniesDisplay.forEach((Companies) => {
              console.log('| Name: ' +
@@ -140,7 +154,12 @@ export class CompaniesComponent implements OnInit {
     });
   }
    
-   filterCompanies(): any {
+  calculatePages(): void {
+    const pageCount = Math.ceil(this.totalCompanies / this.pageSize);
+    this.pages = Array.from({length: pageCount}, (_, i) => i +1);
+  }
+
+  filterCompanies(): any {
     if (this.searchTermByName || this.searchTermByEmail || this.searchTermByVat || this.searchTermByPhone || this.searchTermByCountry || this.searchTermByAddresses) {
       this.filteredData = this.CompaniesDisplay.filter((company: {
         addresses: any; name: string; email: string; vat: { toString: () => string; }; phone: { toString: () => string; }; country: string;}) =>
@@ -152,21 +171,38 @@ export class CompaniesComponent implements OnInit {
       );
     } else {
       this.filteredData = this.CompaniesDisplay;
-      console.log(this.filteredData);
       return this.filteredData;
     }
+    console.log(this.filteredData);
+    this.calculatePages();
+    this.paginateData();
   }
 
-  patchData(name: string, email: string, vat: number, phone: number, country: string): any {
-
-    const url = `${'https://fakerapi.it/api/v1/companies'}/${name}/${email}/${vat}/${phone}/${country}`;
-    return this.httpClient.patch(url, {name: name = 'Paolo Gippa'}, {email: email = 'paolo.gippa@libero.it'}, {vat: vat = 10032 }, {phone: phone = 3341234567}, {country: country = 'Italy'}, this.httpOptions).pipe(catchError(this.handleError('patchData')));
-
+  paginateData(): void {
+    const startIndex = this.currentPage * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.sliceTenElements = this.filteredData.slice(startIndex, endIndex);
   }
 
-  handleError(handleError: any): any {
-    throw new Error('Method not implemented.');
+  goToPage(page: number): void {
+    this.currentPage = page - 1;
+    this.paginateData();
   }
+  
+  previousPage(): void {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.paginateData();
+    }
+  }
+  
+  nextPage(): void {
+    if (this.currentPage < this.pages.length - 1) {
+      this.currentPage++;
+      this.paginateData();
+    }
+  }
+  
 
   resetCompaniesFilters() {
     this.searchTermByName = '';
@@ -193,9 +229,28 @@ export class CompaniesComponent implements OnInit {
 })
 
 export class DialogDataDialog {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Companies) {}
-}
 
-function openDialog() {
-  throw new Error('Function not implemented.');
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Companies, private http: HttpClient) {}
+
+  newName: string = '';
+  newEmail: string = '';
+  newVat: number = 0;
+  newPhone: number = 0;
+  newCountry: string = '';
+
+  patchCompany() {
+
+    const apiUrl = 'https://fakerapi.it/api/v1/companies/1'; //api endpoint
+    const payload = {
+      name: this.newName,
+      email: this.newEmail,
+      vat: this.newVat,
+      phone: this.newPhone,
+      country: this.newCountry,
+    };
+
+    this.http.patch(apiUrl, payload).subscribe((response) => {
+      console.log('Patch request avvenuta con successo!', response);
+    });
+  }
 }

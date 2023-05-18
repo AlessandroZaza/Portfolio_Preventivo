@@ -41,13 +41,27 @@
 
 <!--da qua div di prova per modifica dati-->
 
-<div class="container" style="border-color: solid red;">
-   
-   <p>Dati cambiati: {{data.name}}</p>
-   <p>Nome cambiato: </p>
-   <p>Email cambiata: </p>
-   <p>Vat cambiato: </p>
-   <p>Phone cambiato: </p>
-   <p>Country cambiato: </p>
-   
+<div class="container">
+   <mat-form-field class="example-full-width">
+      <mat-label>Nome: </mat-label>
+      <input matInput value="" [(ngModel)]="newName">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Email: </mat-label>
+      <input matInput value="" [(ngModel)]="newEmail">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Vat: </mat-label>
+      <input matInput value="" [(ngModel)]="newVat">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Phone: </mat-label>
+      <input matInput value="" [(ngModel)]="newPhone">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Country: </mat-label>
+      <input matInput value="" [(ngModel)]="newCountry">
+    </mat-form-field>
+    
+    <button mat-button color="primary" (click)="patchCompany()">Primary</button>   
 </div>
