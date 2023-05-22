@@ -85,6 +85,6 @@
 
 <div class="pagination">
   <button mat-button (click)="previousPage()" [disabled]="currentPage === 0">Previous</button>
-  <button mat-button *ngFor="let page of pages" (click)="goToPage(page)" [disabled]="currentPage === page - 1">{{ page }}</button>
+  <button mat-button *ngFor="let page of pages" (click)="goToPage(page)" [disabled]="currentPage === page - 1">{{page}}</button>
   <button mat-button (click)="nextPage()" [disabled]="currentPage === pages.length - 1">Next</button>
 </div>

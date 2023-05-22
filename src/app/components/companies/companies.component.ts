@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { catchError, map } from 'rxjs/operators';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+
 interface CompanyResponse {
   filter: any[];
   status: string;
@@ -79,7 +80,7 @@ export class CompaniesComponent implements OnInit {
   searchTermByAddresses: string = '';
  
   CompaniesDisplay: Companies[] = [];
-  filteredData: Companies[] = []; //usare questa per pagination
+  filteredData: Companies[] = [];
   DialogDataDialog: Companies[] = [];
 
   totalCompanies: number = 0;
@@ -109,7 +110,6 @@ export class CompaniesComponent implements OnInit {
   constructor(public http: HttpClient, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-
     this.loadCompanies();
     this.filterCompanies();
     this.paginateData();
@@ -155,8 +155,14 @@ export class CompaniesComponent implements OnInit {
   }
    
   calculatePages(): void {
-    const pageCount = Math.ceil(this.totalCompanies / this.pageSize);
-    this.pages = Array.from({length: pageCount}, (_, i) => i +1);
+    const filteredCount = this.filteredData.length;
+    const pageCount = Math.ceil(filteredCount / this.pageSize);
+    this.pages = Array.from({length: pageCount}, (_, i) => i + 1);
+
+    if(this.currentPage >= this.pages.length) {
+      this.currentPage = this.pages.length - 1;
+      this.paginateData();
+    }
   }
 
   filterCompanies(): any {
@@ -185,8 +191,11 @@ export class CompaniesComponent implements OnInit {
   }
 
   goToPage(page: number): void {
+
+    if(page <= this.pages.length){
     this.currentPage = page - 1;
     this.paginateData();
+   }
   }
   
   previousPage(): void {
@@ -203,7 +212,6 @@ export class CompaniesComponent implements OnInit {
     }
   }
   
-
   resetCompaniesFilters() {
     this.searchTermByName = '';
     this.searchTermByEmail = '';
@@ -232,6 +240,14 @@ export class DialogDataDialog {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Companies, private http: HttpClient) {}
 
+  ngOnInit(): void {
+    this.newName = this.data.name;
+    this.newEmail = this.data.email;
+    this.newVat = this.data.vat;
+    this.newPhone = this.data.phone;
+    this.newCountry = this.data.country;
+  }
+
   newName: string = '';
   newEmail: string = '';
   newVat: number = 0;
@@ -239,6 +255,10 @@ export class DialogDataDialog {
   newCountry: string = '';
 
   patchCompany() {
+
+    if(this.newName === '' && this.newEmail === '' && this.newVat === 0 && this.newPhone === 0 && this.newCountry === '') {
+      return;
+    }
 
     const apiUrl = 'https://fakerapi.it/api/v1/companies/1'; //api endpoint
     const payload = {

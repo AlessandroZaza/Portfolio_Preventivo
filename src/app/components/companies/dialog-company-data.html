@@ -39,28 +39,28 @@
 </div>
 
 
-<!--da qua div di prova per modifica dati-->
+<!--div modale dialog modifica dati-->
 
 <div class="container">
-   <mat-form-field class="example-full-width">
+   <mat-form-field>
       <mat-label>Nome: </mat-label>
-      <input matInput value="" [(ngModel)]="newName">
+      <input matInput placeholder="Name" [(ngModel)]="newName">
     </mat-form-field>
-    <mat-form-field class="example-full-width">
+    <mat-form-field>
       <mat-label>Email: </mat-label>
-      <input matInput value="" [(ngModel)]="newEmail">
+      <input matInput placeholder="Email" [(ngModel)]="newEmail">
     </mat-form-field>
-    <mat-form-field class="example-full-width">
+    <mat-form-field>
       <mat-label>Vat: </mat-label>
-      <input matInput value="" [(ngModel)]="newVat">
+      <input matInput type="number" placeholder="VAT" [(ngModel)]="newVat">
     </mat-form-field>
-    <mat-form-field class="example-full-width">
+    <mat-form-field>
       <mat-label>Phone: </mat-label>
-      <input matInput value="" [(ngModel)]="newPhone">
+      <input matInput placeholder="Phone" pattern="+[0-9] {10,}" [(ngModel)]="newPhone">
     </mat-form-field>
-    <mat-form-field class="example-full-width">
+    <mat-form-field>
       <mat-label>Country: </mat-label>
-      <input matInput value="" [(ngModel)]="newCountry">
+      <input matInput placeholder="Country" [(ngModel)]="newCountry">
     </mat-form-field>
     
     <button mat-button color="primary" (click)="patchCompany()">Primary</button>   
