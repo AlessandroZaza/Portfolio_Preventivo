@@ -155,9 +155,9 @@ export class CompaniesComponent implements OnInit {
   }
    
   calculatePages(): void {
-    const filteredCount = this.filteredData.length;
-    const pageCount = Math.ceil(filteredCount / this.pageSize);
-    this.pages = Array.from({length: pageCount}, (_, i) => i + 1);
+    const filteredCount = this.filteredData.length; //filteredCount var locale che contiene la length dell'array
+    const pageCount = Math.ceil(filteredCount / this.pageSize); //pageCount var locale che calcola il num di pagine per i dati filtrati, divide filteredCount per pageSize
+    this.pages = Array.from({length: pageCount}, (_, i) => i + 1); //this.pages è una proprietà dell'oggetto (o della classe) che viene popolata con un array contenente il numero di pagine calcolato in precedenza. Viene utilizzata la funzione Array.from() per creare un nuovo array di lunghezza pageCount. Ogni elemento dell'array rappresenta il numero di pagina corrispondente, che va da 1 a pageCount.
 
     if(this.currentPage >= this.pages.length) {
       this.currentPage = this.pages.length - 1;
@@ -256,7 +256,7 @@ export class DialogDataDialog {
 
   patchCompany() {
 
-    if(this.newName === '' && this.newEmail === '' && this.newVat === 0 && this.newPhone === 0 && this.newCountry === '') {
+    if(this.newName === this.data.name && this.newEmail === this.data.email && this.newVat === this.data.vat && this.newPhone === this.data.phone && this.newCountry === this.data.country) {
       return;
     }
 
