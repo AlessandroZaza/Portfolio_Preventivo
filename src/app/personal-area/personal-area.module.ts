@@ -15,7 +15,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgModel } from '@angular/forms';
-
+import {MatTabsModule} from '@angular/material/tabs';
 
 const routes: Routes = [ 
   { path: '', component: PersonalAreaComponent },
@@ -26,7 +26,7 @@ const routes: Routes = [
 
  @NgModule({
   declarations: [PersonalAreaComponent, PreventivoComponent, PaymentMethodsComponent, CompaniesComponent, DialogDataDialog],
-  imports: [CommonModule, RouterModule.forChild(routes), FormsModule, ReactiveFormsModule, MatTableModule, MatExpansionModule, MatInputModule, MatButtonModule, MatFormFieldModule, MatDialogModule],
+  imports: [CommonModule, RouterModule.forChild(routes), FormsModule, ReactiveFormsModule, MatTableModule, MatExpansionModule, MatInputModule, MatButtonModule, MatFormFieldModule, MatDialogModule, MatTabsModule,],
   schemas: [NO_ERRORS_SCHEMA],
 })
 
