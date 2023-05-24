@@ -4,6 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UserService {
+  getUsers() {
+    throw new Error('Method not implemented.');
+  }
   private user = {
     name: 'Mario',
     lastName: 'Rossi',

@@ -1,0 +1,36 @@
+<h1 mat-dialog-title class="fs-4 my-2">Edit infos</h1>
+<mat-divider></mat-divider>
+<div mat-dialog-content class="d-flex justify-content-center align-items-center pb-0 mt-3">
+  <div class="d-flex flex-column align-items-center me-3">
+    <mat-form-field>
+      <p class="mb-1">Name: </p>
+      <input matInput (keydown.enter)="confirmChangeByEnter()" [(ngModel)]="newName">
+    </mat-form-field>
+    <mat-form-field>
+      <p class="mb-1">E-mail: </p>
+      <input matInput (keydown.enter)="confirmChangeByEnter()" [(ngModel)]="newEmail">
+    </mat-form-field>
+    <mat-form-field>
+      <p class="mb-1">VAT: </p>
+      <input matInput (keydown.enter)="confirmChangeByEnter()" [(ngModel)]="newVat">
+    </mat-form-field>
+  </div>
+  <div class="d-flex flex-column align-items-center ms-3">
+    <mat-form-field>
+      <p class="mb-1">Phone number: </p>
+      <input matInput (keydown.enter)="confirmChangeByEnter()" [(ngModel)]="newPhone">
+    </mat-form-field>
+    <mat-form-field>
+      <p class="mb-1">Website: </p>
+      <input matInput (keydown.enter)="confirmChangeByEnter()" [(ngModel)]="newWebsite">
+    </mat-form-field>
+    <mat-form-field>
+      <p class="mb-1">Country: </p>
+      <input matInput (keydown.enter)="confirmChangeByEnter()" [(ngModel)]="newCountry">
+    </mat-form-field>
+  </div>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close cdkFocusInitial>Cancel</button>
+  <button mat-button mat-dialog-close (click)="confirmChangeByEnter()" class="disabled" >Confirm</button>
+</div>

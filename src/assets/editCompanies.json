@@ -1,0 +1,47 @@
+{
+  "id": 0,
+  "name": "",
+  "email": "",
+  "vat": "",
+  "phone": "",
+  "country": "",
+  "addresses": [
+    {
+      "id": 0,
+      "street": "",
+      "streetName": "",
+      "buildingNumber": 0,
+      "city": "",
+      "zipcode": 0,
+      "country": "",
+      "county_code": "",
+      "latitude": 0,
+      "longitude": 0
+    }
+  ],
+  "website": "",
+  "image": "",
+  "contact": {
+    "id": 0,
+    "firstname": "",
+    "lastname": "",
+    "email": "",
+    "phone": 0,
+    "birthday": 0,
+    "gender": "",
+    "address": {
+      "id": 0,
+      "street": "",
+      "streetName": "",
+      "buildingNumber": 0,
+      "city": "",
+      "zipcode": 0,
+      "country": "",
+      "county_code": "",
+      "latitude": 0,
+      "longitude": 0
+    },
+    "website": "",
+    "image": ""
+  }
+}

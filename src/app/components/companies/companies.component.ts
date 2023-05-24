@@ -1,11 +1,17 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Inject,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
 import {
   MatDialog,
   MAT_DIALOG_DATA,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { Observable } from 'rxjs/internal/Observable';
+import { CompaniesService } from 'src/app/service/companies.service';
 
 interface ApiResponse {
   data: companies[];
@@ -150,7 +156,26 @@ export class CompaniesComponent implements OnInit {
     'Street',
   ];
 
+  // Numero di elementi per pagina
+  companiesPerPage: number = 5;
+  // Numero di pagine totali
+  totalPages: number = 0;
+
+  // // Array di elementi da visualizzare sulla pagina corrente
+  // currentPageItems!: companies[];
+  paginatedTable: companies[] = [];
+
+  // Numero della pagina corrente
+  currentPage: number = 1;
+
+  startIndexForPaginatorDetails!: number;
+  endIndexForPaginatorDetails!: number;
   constructor(public http: HttpClient, public dialog: MatDialog) {}
+
+  @ViewChild('selectCurrentPage') selectCurrentPage: ElementRef | undefined;
+  @ViewChild('selectCompaniesPerPage') selectCompaniesPerPage:
+    | ElementRef
+    | undefined;
 
   ngOnInit(): void {
     this.loadTable();
@@ -191,7 +216,64 @@ export class CompaniesComponent implements OnInit {
         this.uniqueCountries = Array.from(new Set(this.countries));
 
         this.loading = false;
+
+        this.getPaginatedTable();
       });
+  }
+
+  // in ingresso sono i dati filtrati
+  // in uscita sono i dati per ognuna delle pagine
+  getPaginatedTable() {
+    if (this.companiesPerPage <= 0) {
+      this.companiesPerPage = 1;
+    }
+    if (this.companiesPerPage > this.filteredCompanies.data.length) {
+      // this.companiesPerPage = this.filteredCompanies.data.length;
+    }
+
+    // Calcola il numero totale di pagine
+    this.totalPages = Math.ceil(
+      this.filteredCompanies.data.length / this.companiesPerPage
+    );
+
+    // Estra solo gli elementi da visualizzare sulla pagina corrente
+    const startIndex = (this.currentPage - 1) * this.companiesPerPage;
+    const endIndex = startIndex + this.companiesPerPage;
+
+    this.paginatedTable = this.filteredCompanies.data.slice(
+      startIndex,
+      endIndex
+    );
+
+    this.startIndexForPaginatorDetails = startIndex + 1;
+    this.endIndexForPaginatorDetails = endIndex;
+
+    if (this.endIndexForPaginatorDetails > this.filteredCompanies.data.length) {
+      this.endIndexForPaginatorDetails = this.filteredCompanies.data.length;
+    }
+    if (
+      this.startIndexForPaginatorDetails > this.filteredCompanies.data.length
+    ) {
+      this.startIndexForPaginatorDetails = 0;
+    }
+    if (this.currentPage > this.totalPages) {
+      this.currentPage = 1;
+    }
+  }
+
+  // Passa alla pagina precedente
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.getPaginatedTable();
+    }
+  }
+  // Passa alla pagina successiva
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.getPaginatedTable();
+    }
   }
 
   // funzione per aprire la modale con i dettagli della company selezionata
@@ -216,11 +298,9 @@ export class CompaniesComponent implements OnInit {
     this.filterBoxWithResults = true;
     this.filterBoxName = true;
     this.filterChipsForName = filterName;
-    this.filteredCompanies.data = this.filteredCompanies.data.filter(
-      (company) => {
-        return company.name.toLowerCase().includes(filterName.toLowerCase());
-      }
-    );
+    this.filteredCompanies.data = this.tableDisplay.data.filter((company) => {
+      return company.name.toLowerCase().includes(filterName.toLowerCase());
+    });
   }
   filterTableByEmail(filterEmail: string) {
     this.filterBoxWithResults = true;
@@ -266,60 +346,63 @@ export class CompaniesComponent implements OnInit {
   // funzione per gestire il campo name vuoto
   nameFilterEmpty() {
     this.filterBoxName = false;
-    this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
-    if (
-      this.filterBoxName == false &&
-      this.filterBoxEmail == false &&
-      this.filterBoxVat == false &&
-      this.filterBoxPhone == false &&
-      this.filterBoxCountry == false
-    ) {
-      this.filterBoxWithResults = false;
-    }
+    //   this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
+    //   if (
+    //     this.filterBoxName == false &&
+    //     this.filterBoxEmail == false &&
+    //     this.filterBoxVat == false &&
+    //     this.filterBoxPhone == false &&
+    //     this.filterBoxCountry == false
+    //   ) {
+    //     this.filterBoxWithResults = false;
+    //   }
+    //   this.getPaginatedTable();
   }
   emailFilterEmpty() {
     this.filterBoxEmail = false;
-    this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
-    if (
-      this.filterBoxName == false &&
-      this.filterBoxEmail == false &&
-      this.filterBoxVat == false &&
-      this.filterBoxPhone == false &&
-      this.filterBoxCountry == false
-    ) {
-      this.filterBoxWithResults = false;
-    }
+    //   this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
+    //   if (
+    //     this.filterBoxName == false &&
+    //     this.filterBoxEmail == false &&
+    //     this.filterBoxVat == false &&
+    //     this.filterBoxPhone == false &&
+    //     this.filterBoxCountry == false
+    //   ) {
+    //     this.filterBoxWithResults = false;
+    //   }
+    //   this.getPaginatedTable();
   }
   vatFilterEmpty() {
     this.filterBoxVat = false;
-    this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
-    if (
-      this.filterBoxName == false &&
-      this.filterBoxEmail == false &&
-      this.filterBoxVat == false &&
-      this.filterBoxPhone == false &&
-      this.filterBoxCountry == false
-    ) {
-      this.filterBoxWithResults = false;
-    }
+    //   this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
+    //   if (
+    //     this.filterBoxName == false &&
+    //     this.filterBoxEmail == false &&
+    //     this.filterBoxVat == false &&
+    //     this.filterBoxPhone == false &&
+    //     this.filterBoxCountry == false
+    //   ) {
+    //     this.filterBoxWithResults = false;
+    //   }
+    //   this.getPaginatedTable();
   }
   phoneFilterEmpty() {
     this.filterBoxPhone = false;
-    this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
-    if (
-      this.filterBoxName == false &&
-      this.filterBoxEmail == false &&
-      this.filterBoxVat == false &&
-      this.filterBoxPhone == false &&
-      this.filterBoxCountry == false
-    ) {
-      this.filterBoxWithResults = false;
-    }
+    //   this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
+    //   if (
+    //     this.filterBoxName == false &&
+    //     this.filterBoxEmail == false &&
+    //     this.filterBoxVat == false &&
+    //     this.filterBoxPhone == false &&
+    //     this.filterBoxCountry == false
+    //   ) {
+    //     this.filterBoxWithResults = false;
+    //   }
+    //   this.getPaginatedTable();
   }
 
   //funzione per resettare tutti i filtri con il button reset
   resetAllFilter() {
-    this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
     this.filterBoxWithResults = false;
     this.filterBoxName = false;
     this.filterName = '';
@@ -331,6 +414,9 @@ export class CompaniesComponent implements OnInit {
     this.filterPhone = '';
     this.filterBoxCountry = false;
     this.selectedCountry = 'All state';
+    this.currentPage = 1;
+    this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
+    this.getPaginatedTable();
   }
 
   // funzione per rimuovere il filtro cliccando la chip
@@ -346,6 +432,7 @@ export class CompaniesComponent implements OnInit {
       this.filterBoxCountry == false
     ) {
       this.filterBoxWithResults = false;
+      this.currentPage = 1;
     }
     this.searchButton();
   }
@@ -361,6 +448,7 @@ export class CompaniesComponent implements OnInit {
       this.filterBoxCountry == false
     ) {
       this.filterBoxWithResults = false;
+      this.currentPage = 1;
     }
     this.searchButton();
   }
@@ -376,6 +464,7 @@ export class CompaniesComponent implements OnInit {
       this.filterBoxCountry == false
     ) {
       this.filterBoxWithResults = false;
+      this.currentPage = 1;
     }
     this.searchButton();
   }
@@ -391,6 +480,7 @@ export class CompaniesComponent implements OnInit {
       this.filterBoxCountry == false
     ) {
       this.filterBoxWithResults = false;
+      this.currentPage = 1;
     }
     this.searchButton();
   }
@@ -406,6 +496,7 @@ export class CompaniesComponent implements OnInit {
       this.filterBoxCountry == false
     ) {
       this.filterBoxWithResults = false;
+      this.currentPage = 1;
     }
     this.searchButton();
   }
@@ -450,6 +541,16 @@ export class CompaniesComponent implements OnInit {
 
   //funzione per il bottone ricerca dei filtri
   searchButton() {
+    this.currentPage = 1;
+    if (this.currentPage < 1) {
+      this.currentPage = 1;
+    }
+    if (this.currentPage > this.totalPages) {
+      this.currentPage = this.totalPages;
+      if (this.currentPage == 0) {
+        this.currentPage = 1;
+      }
+    }
     if (this.filterName == '') {
       this.nameFilterEmpty();
     }
@@ -465,7 +566,8 @@ export class CompaniesComponent implements OnInit {
     if (this.selectedCountry == '' || 'All state') {
       this.filterBoxCountry = false;
       this.filterBoxWithResults = false;
-      this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
+      // this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
+      this.getPaginatedTable();
     }
     if (this.filterName) {
       this.filterTableByName(this.filterName);
@@ -483,6 +585,21 @@ export class CompaniesComponent implements OnInit {
       this.filterTableByCountry();
     }
     this.viewFilterSection = false;
+    this.getPaginatedTable();
+  }
+
+  setCompaniesPerPageAndLoseFocus() {
+    // il codice da eseguire quando l'utente preme il tasto Enter
+    this.currentPage = 1;
+    this.getPaginatedTable();
+    this.selectCompaniesPerPage!.nativeElement.blur(); // per perdere il focus
+    this.getPaginatedTable();
+    this.selectCompaniesPerPage!.nativeElement.blur(); // per perdere il focus
+  }
+  searchButtonAndLoseFocus() {
+    // il codice da eseguire quando l'utente preme il tasto Enter
+    this.searchButton();
+    this.selectCurrentPage!.nativeElement.blur(); // per perdere il focus
   }
 }
 
@@ -491,10 +608,128 @@ export class CompaniesComponent implements OnInit {
   templateUrl: 'dialogDetailsCompany.html',
   styleUrls: ['./companies.component.css'],
 })
-export class DialogDetailsCompanyComponent {
+export class DialogDetailsCompanyComponent implements OnInit {
+
   constructor(
     public dialogRef: MatDialogRef<DialogDetailsCompanyComponent>,
     @Inject(MAT_DIALOG_DATA)
-    public data: companies
+    public data: companies,
+    public http: HttpClient,
+    public companiesService: CompaniesService,
+    public dialog: MatDialog
   ) {}
+
+  @ViewChild('companyNameInput') companyNameInput: ElementRef | undefined;
+
+  ngOnInit(): void {
+    const singleCompanyJson = JSON.stringify(this.data);
+    const companiesObject: companies = JSON.parse(singleCompanyJson);
+    console.log('--------------------------------------------');
+    console.log('| current name: ' + companiesObject.name + ' |');
+    console.log('--------------------------------------------');
+  }
+
+  openDialog(
+    data: companies,
+    enterAnimationDuration: string,
+    exitAnimationDuration: string
+  ): void {
+    console.log(data);
+    this.dialog.open(DialogForModifyData, {
+      width: '90vh',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: data,
+      autoFocus: true,
+      restoreFocus: false,
+    });
+  }
+}
+
+@Component({
+  selector: 'DialogForModifyData',
+  templateUrl: 'DialogForModifyData.html',
+  styleUrls: ['./companies.component.css'],
+})
+export class DialogForModifyData implements OnInit {
+
+  isConfirmButtonActive = false
+  
+  constructor(
+    public dialogRef: MatDialogRef<DialogForModifyData>,
+    @Inject(MAT_DIALOG_DATA)
+    public data: companies,
+    public http: HttpClient,
+    public companiesService: CompaniesService
+  ) {}
+
+  ngOnInit(): void {
+    if (
+      this.newName == this.data.name &&
+      this.newEmail == this.data.email &&
+      this.newVat == this.data.vat &&
+      this.newPhone == this.data.phone &&
+      this.newWebsite == this.data.website &&
+      this.newCountry == this.data.country
+    ) {
+      this.isConfirmButtonActive = false;
+    }
+  }
+
+  // new details for company 
+  newName: string = this.data.name;
+  newEmail: string = this.data.email;
+  newVat: string = this.data.vat;
+  newPhone: string = this.data.phone;
+  newWebsite: string = this.data.website;
+  newCountry: string = this.data.country;
+
+  editCompanyData() {
+    this.companiesService
+      .patchCompany(
+        this.data.name,
+        this.data.email,
+        this.data.vat,
+        this.data.phone,
+        this.data.country,
+        this.data.website
+      )
+      .subscribe(
+        (response: any) => {
+          console.log(
+            'Nome della compagnia modificato con successo:',
+            response
+          );
+        },
+        (error: any) => {
+          console.error(
+            'Errore durante la modifica del nome della compagnia:',
+            error
+          );
+        }
+      );
+  }
+
+  confirmChangeByEnter() {
+    if (
+      this.newName == this.data.name &&
+      this.newEmail == this.data.email &&
+      this.newVat == this.data.vat &&
+      this.newPhone == this.data.phone &&
+      this.newWebsite == this.data.website &&
+      this.newCountry == this.data.country
+    ) {
+      console.log('dati non cambiati richiesta http non partita');
+    } else {
+      this.data.name = this.newName;
+      this.data.email = this.newEmail;
+      this.data.vat = this.newVat;
+      this.data.phone = this.newPhone;
+      this.data.website = this.newWebsite;
+      this.data.country = this.newCountry;
+      this.editCompanyData();
+      console.log('dati cambiati richiesta http partita');
+    }
+    this.dialogRef.close();
+  }
 }

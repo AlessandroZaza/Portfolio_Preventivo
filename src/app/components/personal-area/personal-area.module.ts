@@ -5,7 +5,7 @@ import { PersonalAreaComponent } from './personal-area.component';
 import { PaymentMethodsComponent } from '../payment-methods/payment-methods.component';
 import { PreventivoComponent } from '../preventivo/preventivo.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CompaniesComponent, DialogDetailsCompanyComponent } from '../companies/companies.component';
+import { CompaniesComponent, DialogDetailsCompanyComponent, DialogForModifyData } from '../companies/companies.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgPipesModule } from 'ngx-pipes';
 
@@ -24,6 +24,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 import { MatRippleModule } from '@angular/material/core';
 import { MatListModule } from '@angular/material/list';
+import { CompaniesService } from 'src/app/service/companies.service';
 
 const routes: Routes = [
   { path: '', component: PersonalAreaComponent },
@@ -38,7 +39,8 @@ const routes: Routes = [
     PreventivoComponent,
     PaymentMethodsComponent,
     CompaniesComponent,
-    DialogDetailsCompanyComponent
+    DialogDetailsCompanyComponent,
+    DialogForModifyData
   ],
   imports: [
     CommonModule,
@@ -65,5 +67,8 @@ const routes: Routes = [
     NgPipesModule,
   ],
   exports: [PersonalAreaComponent],
+  providers: [
+    CompaniesService, // Aggiungi il tuo servizio qui
+  ],
 })
 export class PersonalAreaModule {}
