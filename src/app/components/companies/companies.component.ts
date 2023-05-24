@@ -566,7 +566,7 @@ export class CompaniesComponent implements OnInit {
     if (this.selectedCountry == '' || 'All state') {
       this.filterBoxCountry = false;
       this.filterBoxWithResults = false;
-      // this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
+      this.filteredCompanies = JSON.parse(JSON.stringify(this.tableDisplay));
       this.getPaginatedTable();
     }
     if (this.filterName) {
