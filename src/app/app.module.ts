@@ -20,6 +20,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { LoginModule } from './login/login.module';
 import { MatTableModule } from '@angular/material/table'; 
 import { MatDialog } from '@angular/material/dialog';
+import { DialogDataDialog } from './components/companies/companies.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +31,7 @@ import { MatDialog } from '@angular/material/dialog';
     PortfolioPaoloComponent,
     PortfolioAlessandroComponent,
     PortfolioprovapaoloComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,6 @@ import { MatDialog } from '@angular/material/dialog';
     NgFor,
     RouterModule.forChild([]),
     CarouselModule,
-    PersonalAreaModule,
     LoginModule,
     FormsModule,
     CommonModule,

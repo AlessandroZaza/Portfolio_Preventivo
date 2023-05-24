@@ -6,7 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PreventivoComponent } from '../components/preventivo/preventivo.component';
 import { PaymentMethodsComponent } from '../components/payment-methods/payment-methods.component';
 import { LoginComponent } from '../login/login.component';
-import { CompaniesComponent, DialogDataDialog} from '../components/companies/companies.component';
+import { CompaniesComponent} from '../components/companies/companies.component';
+import { DialogDataDialog } from '../components/companies/companies.component';
 import { MatHeaderCellDef, MatTableModule } from '@angular/material/table';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatInputModule} from '@angular/material/input';
@@ -14,6 +15,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgModel } from '@angular/forms';
+
 
 const routes: Routes = [ 
   { path: '', component: PersonalAreaComponent },

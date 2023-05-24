@@ -7,6 +7,7 @@ import { catchError, map } from 'rxjs/operators';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
+
 interface CompanyResponse {
   filter: any[];
   status: string;
@@ -240,6 +241,8 @@ export class DialogDataDialog {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Companies, private http: HttpClient) {}
 
+  panelOpenState: boolean = false;
+
   ngOnInit(): void {
     this.newName = this.data.name;
     this.newEmail = this.data.email;
@@ -257,7 +260,7 @@ export class DialogDataDialog {
   patchCompany() {
 
     if(this.newName === this.data.name && this.newEmail === this.data.email && this.newVat === this.data.vat && this.newPhone === this.data.phone && this.newCountry === this.data.country) {
-      return;
+      return; //Se il dato non è modificato la chiamata API non partirà
     }
 
     const apiUrl = 'https://fakerapi.it/api/v1/companies/1'; //api endpoint
