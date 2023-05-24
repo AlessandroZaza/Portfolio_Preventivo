@@ -64,7 +64,23 @@
     <button mat-button color="primary" (click)="patchCompany()">Save Changes</button>   
 </div> -->
 
+<!-- <style>
+  .container {
+    max-width: 50%;
+  }
+  
+  img {
+    max-width: 20%;
+    height: auto;
+  }
+</style> -->
 
+<style>
+  .responsive-image {
+    max-width: 10%;
+    height: block;
+  }
+</style>
 
 <mat-accordion>
   <mat-expansion-panel hideToggle>
@@ -100,7 +116,7 @@
         <p>Longitude: {{address.longitude}}</p>
       </div>
       <p>The website is: {{data.website}}</p>
-      <img [src]="data.image">
+      <img [src]="data.image" class="responsive-image">
     </div>
   </mat-expansion-panel>
 </mat-accordion>
@@ -139,7 +155,7 @@
       <p>The latitude is: {{data.contact.address.latitude}}</p>
       <p>The longitude is: {{data.contact.address.longitude}}</p>
       <p>The website is: {{data.contact.website}}</p>
-      <img [src]="data.contact.image">
+      <img [src]="data.contact.image" class="responsive-image">
     </div>
   </mat-expansion-panel>
 </mat-accordion>

@@ -235,6 +235,7 @@ export class CompaniesComponent implements OnInit {
 @Component({
   selector: 'dialog-company-data',
   templateUrl: 'dialog-company-data.html',
+  styleUrls: ['dialog-company-data.css'],
 })
 
 export class DialogDataDialog {
