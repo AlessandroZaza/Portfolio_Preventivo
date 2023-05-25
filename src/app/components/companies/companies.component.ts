@@ -155,7 +155,7 @@ export class CompaniesComponent implements OnInit {
     'Country',
     'Street',
   ];
-
+isFiltered = false;
   // Numero di elementi per pagina
   companiesPerPage: number = 5;
   // Numero di pagine totali
@@ -541,7 +541,11 @@ export class CompaniesComponent implements OnInit {
 
   //funzione per il bottone ricerca dei filtri
   searchButton() {
-    this.currentPage = 1;
+    if(this.isFiltered){
+      this.currentPage = 1;
+      console.log('ciao');
+      this.isFiltered = false;
+    }
     if (this.currentPage < 1) {
       this.currentPage = 1;
     }
@@ -590,6 +594,7 @@ export class CompaniesComponent implements OnInit {
 
   setCompaniesPerPageAndLoseFocus() {
     // il codice da eseguire quando l'utente preme il tasto Enter
+    this.isFiltered = true;
     this.currentPage = 1;
     this.getPaginatedTable();
     this.selectCompaniesPerPage!.nativeElement.blur(); // per perdere il focus
